@@ -1,0 +1,100 @@
+.addressFormUI-base-addressTypeIcon.addressFormUI-base-selectedAddressType {
+    border: 1px solid #ff3f6c;
+    color: #ff3f6c;
+    font-weight: 700;
+}
+
+.addressFormUI-base-addressTypeIcon {
+    padding: 4px 16px;
+    border: 1px solid #282c3f;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-right: 16px;
+}
+
+.addressBlocks-base-finalAddress {
+    text-align: start;
+    background: #fff;
+    padding: 16px;
+    margin-top: 8px;
+}
+.addressDetails-base-addressTitle {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+.addressDetails-base-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: #282c3f;
+    text-transform: capitalize;
+    word-break: break-all;
+}
+.addressDetails-base-addressType {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    color: #03a685;
+    font-weight: 700;
+    border: 1px solid #03a685;
+    margin-left: 8px;
+    line-height: 12px;
+}
+
+.addressDetails-base-address {
+    margin-top: 4px;
+    text-transform: capitalize;
+    font-size: 14px;
+    line-height: 18px;
+    display: flex;
+    flex-direction: column;
+    word-break: break-all;
+}
+.addressDetails-base-addressField {
+    word-break: break-all;
+}
+.addressDetails-base-mobile {
+    margin: 12px 0 16px;
+}
+.addressDetails-base-mobile :nth-child(2) {
+    font-weight: 700;
+}
+.addressBlocks-base-changeOrAddBtn {
+    border: 1px solid #282c3f;
+    background: #fff;
+    font-weight: 700;
+    text-align: center;
+    display: block;
+    padding: 9px 16px;
+    font-size: 14px;
+    border-radius: 3px;
+    color: #282c3f;
+    text-transform: uppercase;
+    margin-top: 8px;
+}
+.serviceability-base-list {
+    background-color: #fff;
+    padding: 16px;
+}
+
+.serviceability-base-imgStyle {
+    height: 48px;
+    width: 36px;
+    display: inline-block;
+}
+
+.serviceability-base-deliveryInfo {
+    margin-left: 12px;
+    color: #282c3f;
+    font-size: 14px;
+    max-width: calc(100% - 48px);
+}
+
+.serviceability-base-estimatedDate {
+    font-weight: 700;
+}
+#Layer_1 .st0{fill-rule:evenodd;clip-rule:evenodd;fill:#0E8635;}
+#Layer_1 .st1{fill-rule:evenodd;clip-rule:evenodd;fill:#E97208;}
+#Layer_1 .st2{fill:#F07A25;}
+#Layer_1 .st3{fill-rule:evenodd;clip-rule:evenodd;fill:#66686C;}
+#Layer_1 .st4{fill:#0C8D48;}

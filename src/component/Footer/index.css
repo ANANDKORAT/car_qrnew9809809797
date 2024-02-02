@@ -1,0 +1,15 @@
+.accordion-item:first-of-type .accordion-button {
+
+}
+
+.accordion-button {
+    background-color: unset !important;
+    box-shadow: unset !important;
+    justify-content: center;
+}
+.accordion-button:after {
+    margin-left: 10px;
+}
+.contact-us-btn .accordion-button:after {
+    width: 0;
+}

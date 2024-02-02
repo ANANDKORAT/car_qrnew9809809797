@@ -1,0 +1,94 @@
+body {
+  font-family: "Assistant", sans-serif !important;
+}
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+.bounceIn {
+  animation-name: bounceIn;
+}
+
+.bounceNotification {
+  animation-name: bounceIn;
+  animation-iteration-count: infinite;
+  animation-duration: 2s;
+}
+
+@keyframes bounceIn {
+  0%,
+  30%,
+  60%,
+  80%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  0% {
+    opacity: 0;
+    transform: scale3d(0.8, 0.8, 0.8);
+  }
+
+  30% {
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale3d(0.8, 0.8, 0.8);
+  }
+
+  80% {
+    transform: scale3d(1, 1, 1);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.step-number {
+  margin-left: auto;
+  width: 56px;
+  text-align: right;
+  color: #424553;
+  font-size: 13px;
+}
+
+.product-delete-box {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  background: #ffffff;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 15px;
+  display: flex;
+}
+
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple:before {
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.58);
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.ripple:focus:before {
+  transition: all 0.3s ease-out;
+  opacity: 0;
+  width: 160px;
+  height: 160px;
+  margin-top: -80px;
+  margin-left: -80px;
+}

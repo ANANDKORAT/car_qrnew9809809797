@@ -1,0 +1,36 @@
+/* .payment-options {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .payment-icons {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+  
+  .payment-icon {
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .payment-icon:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .payment-icon.selected {
+    border-color: #007bff;
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .pay-now-button {
+    margin-top: 20px;
+  } */
+  
