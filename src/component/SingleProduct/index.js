@@ -389,17 +389,18 @@ const SingleProduct = () => {
                         <p style={{ textAlign: "left" }} className="mb-0">
                           <span style={{ fontWeight: 700 }}>
                             {" "}
-                            ₹
-                            {(
-                              singleData.discount
-                            ).toFixed(0)}{" "}
+                            ₹{singleData.discount.toFixed(0)}{" "}
                           </span>
                           <span
                             style={{
                               color: "#10c873",
                               marginLeft: "5px",
                             }}
-                          >{`(${(((singleData?.price - singleData.discount) / singleData?.price) * 100).toFixed(0)})% OFF`}</span>
+                          >{`(${(
+                            ((singleData?.price - singleData.discount) /
+                              singleData?.price) *
+                            100
+                          ).toFixed(0)})% OFF`}</span>
                         </p>
                       ) : (
                         <p style={{ textAlign: "left" }} className="mb-0">

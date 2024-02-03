@@ -295,10 +295,13 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                       <span className="ms-2">{item.name}</span>
                     </span>
                     {SelectedPaymentUpi === "COD" && item.name === "COD" && (
-                      <div className="text-danger" style={{ fontSize: "13px" }}>
-                        this payment-method are not allowed for this offer
-                        products choose other products otherwise change payment
-                        method.
+                      <div
+                        className="text-danger"
+                        style={{ fontSize: "13px", textAlign: "center" }}
+                      >
+                        This Payment-Method are Not Allowed For This Offer
+                        Products Choose Other Products Otherwise Change Payment
+                        Method.
                       </div>
                     )}
                   </div>
