@@ -15,6 +15,14 @@ const SingleProduct = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [pinCode, setPinCode] = useState("");
+  const handlePinCodeChange = (event) => {
+    const { value } = event.target;
+    if (/^\d*$/.test(value) && value.length <= 6) {
+      setPinCode(value);
+    }
+  };
+  const isPinCodeValid = pinCode.length === 6;
   const {
     handleSetCartProducts,
     cartProducts,
@@ -201,13 +209,23 @@ const SingleProduct = () => {
               </h6>
               <div>
                 <div className="address-box pincode-input my-3">
-                  <input type="number" placeholder="Enter a PIN code" />
+                  <input
+                    type="number"
+                    placeholder="Enter a PIN code"
+                    value={pinCode}
+                    onChange={handlePinCodeChange}
+                  />
+
                   <button
                     type="submit"
                     className="address-button"
-                    style={{ color: "rgb(191, 192, 198)" }}
+                    style={{
+                      color: isPinCodeValid
+                        ? "rgb(0, 179, 0)"
+                        : "rgb(191, 192, 198)",
+                    }}
                   >
-                    CHECK
+                    {isPinCodeValid ? "available" : "CHECK"}
                   </button>
                 </div>
               </div>
@@ -215,6 +233,16 @@ const SingleProduct = () => {
                 className="mt-2 text-start fs-6 list-unstyled"
                 style={{ color: "#424553" }}
               >
+                {isPinCodeValid ? (
+                  <>
+                    <li style={{ color: "rgb(0, 179, 0)", fontWeight: "bold" }}>
+                      {" "}
+                      2 Day Guaranteed Open Delivery available
+                    </li>
+                  </>
+                ) : (
+                  ""
+                )}
                 <li>Pay on delivery might be available</li>
                 <li>Easy 14 days returns and exchanges</li>
                 <li>Try &amp; Buy might be available</li>
