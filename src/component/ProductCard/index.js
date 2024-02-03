@@ -27,8 +27,8 @@ const ProductCard = ({ item }) => {
             variant="top"
             src={item?.images[0] ?? ""}
             style={{
-              maxHeight: "231px",
-              minHeight: "231px",
+              maxHeight: "300px",
+              minHeight: "241px",
               borderRadius: 0,
               objectFit: "cover",
             }}
