@@ -243,6 +243,7 @@ const SingleProduct = () => {
                 ) : (
                   ""
                 )}
+                <br />
                 <li>Pay on delivery might be available</li>
                 <li>Easy 14 days returns and exchanges</li>
                 <li>Try &amp; Buy might be available</li>
