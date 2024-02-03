@@ -83,15 +83,19 @@ const SingleProduct = () => {
           </Col>
         ) : (
           <Row>
-            <div className="position-relative p-0 m-0">
+            <div className="position-relative p-0 m-0  ">
               {singleData?.images && (
                 <div ref={sliderRef} className="keen-slider mt-1">
                   {singleData?.images?.map((item) => (
-                    <div className="keen-slider__slide number-slide1">
-                      <Image
+                    <div className="keen-slider__slide number-slide1 center">
+                      <img
                         src={item}
                         rounded
-                        style={{ maxHeight: "500px", width: "100%" }}
+                        style={{
+                          maxHeight: "600px",
+                          width: "100%",
+                          objectFit: "cover",
+                        }}
                       />
                     </div>
                   ))}

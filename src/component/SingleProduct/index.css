@@ -67,3 +67,9 @@ image-banner-item:first-child {
     background-color: #f4f4f5;
     height: 10px;
 }
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }

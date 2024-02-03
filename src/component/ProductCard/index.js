@@ -26,7 +26,12 @@ const ProductCard = ({ item }) => {
           <Card.Img
             variant="top"
             src={item?.images[0] ?? ""}
-            style={{ maxHeight: "231px", minHeight: "231px", borderRadius: 0 }}
+            style={{
+              maxHeight: "231px",
+              minHeight: "231px",
+              borderRadius: 0,
+              objectFit: "cover",
+            }}
           />
           <span className="rating_box">
             {item.rating} <i className="fa-solid fa-star" color="red"></i>
@@ -103,10 +108,7 @@ const ProductCard = ({ item }) => {
             }}
             className="mb-0"
           >
-            <span>
-              {" "}
-              ₹{item.discount}{" "}
-            </span>
+            <span> ₹{item.discount} </span>
             <span
               style={{
                 color: "#8d8d8d",
@@ -117,16 +119,16 @@ const ProductCard = ({ item }) => {
               {" "}
               ₹{item.price}{" "}
             </span>{" "}
-            <span
-              style={{ color: "#ff905a", marginLeft: "5px" }}
-            >{`(${(((item?.price - item.discount) / item?.price) * 100).toFixed(0)})% OFF`}</span>
+            <span style={{ color: "#ff905a", marginLeft: "5px" }}>{`(${(
+              ((item?.price - item.discount) / item?.price) *
+              100
+            ).toFixed(0)})% OFF`}</span>
           </Card.Text>
-          
         </Card.Body>
         <Card.Footer className="px-2 bg-white border-0 pt-0">
-        <Button className="w-100" variant="dark">
-                        Add To Cart
-                      </Button>
+          <Button className="w-100" variant="dark">
+            Add To Cart
+          </Button>
         </Card.Footer>
       </Card>
     </Col>
