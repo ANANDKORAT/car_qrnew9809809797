@@ -65,6 +65,7 @@ const Header = () => {
       <Helmet>
         <title>Fashion Brand</title>
       </Helmet>
+      {/* Google g4tag live tracker */}
       <Helmet>
         <script
           async
@@ -79,6 +80,8 @@ const Header = () => {
           `}
         </script>
       </Helmet>
+
+      {/* Google GGloble live tracker */}
       <Helmet>
         <script
           async
@@ -94,6 +97,7 @@ const Header = () => {
         </script>
       </Helmet>
 
+      {/* Facebook Pixel  live tracker */}
       <Helmet>
         <script>
           {`
