@@ -62,9 +62,7 @@ const Header = () => {
   };
   return (
     <Navbar expand="lg" sticky="top" className="flex-column bg-white">
-      <Helmet>
-        <title>Fashion Brand</title>
-      </Helmet>
+      <Helmet></Helmet>
       {/* Google g4tag live tracker */}
       <Helmet>
         <script
