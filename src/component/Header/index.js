@@ -31,19 +31,19 @@ const Header = () => {
   }, [location]);
 
   useEffect(() => {
-    if(cartProducts.length > 0) {
-    let timecout = 0;
-    let notification = document.getElementById("notificationCount");
+    if (cartProducts.length > 0) {
+      let timecout = 0;
+      let notification = document.getElementById("notificationCount");
 
-    notification?.classList?.add("bounceNotification");
-    timecout = setTimeout(() => {
-      notification = document.getElementById("notificationCount");
-      if (notification?.classList?.contains("bounceNotification")) {
-        notification?.classList?.remove("bounceNotification");
-        timecout = 0;
-      }
-    }, 5000);
-  }
+      notification?.classList?.add("bounceNotification");
+      timecout = setTimeout(() => {
+        notification = document.getElementById("notificationCount");
+        if (notification?.classList?.contains("bounceNotification")) {
+          notification?.classList?.remove("bounceNotification");
+          timecout = 0;
+        }
+      }, 5000);
+    }
   }, [cartProducts]);
 
   // /api/analytic-code/get
@@ -53,38 +53,73 @@ const Header = () => {
     axios
       .get(url)
       .then(function (response) {
-        setAnalyticsDesc(response?.data?.data || []);
+        setAnalyticsDesc(response?.data?.data || null);
       })
       .catch(function (error) {
         // handle error
         console.log("---- error", error);
       });
   };
-
   return (
     <Navbar expand="lg" sticky="top" className="flex-column bg-white">
       <Helmet>
         <title>Fashion Brand</title>
       </Helmet>
-      {window && analyticsDesc.length > 0
-        ? analyticsDesc?.map((item) => {
-            console.log({ item });
-            return (
-              <>
-                {item.scriptlink && (
-                  <Helmet>
-                    <script async src={item.scriptlink} />
-                  </Helmet>
-                )}
-                {item.confing && (
-                  <Helmet>
-                    <script>{item.confing}</script>
-                  </Helmet>
-                )}
-              </>
-            );
-          })
-        : null}
+      <Helmet>
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${analyticsDesc[0]?.g4tag}`}
+        ></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments)}
+            gtag('js', new Date())
+            gtag('config', '${analyticsDesc[0]?.g4tag}');
+          `}
+        </script>
+      </Helmet>
+      <Helmet>
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${analyticsDesc[0]?.gtag}`}
+        ></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments)}
+            gtag('js', new Date())
+            gtag('config', '${analyticsDesc[0]?.gtag}');
+          `}
+        </script>
+      </Helmet>
+
+      <Helmet>
+        <script>
+          {`
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '${analyticsDesc[0]?.fbpixelcode}');
+fbq('track', 'PageView');
+
+`}
+        </script>
+      </Helmet>
+      <noscript>
+        <img
+          height="1"
+          width="1"
+          style="display:none"
+          src={`https://www.facebook.com/tr?id={analyticsDesc[0]?.fbpixelcode}&ev=PageView&noscript=1`}
+        />
+      </noscript>
+
       <Container>
         {isCart ||
         isCheckout ||
@@ -133,13 +168,8 @@ const Header = () => {
           </Nav>
         ) : (
           <Nav className={"d-flex flex-row align-items-center"}>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Brand href="/">
-              <img
-                src={logo}
-                alt="logo"
-                height={65}
-              />
+              <img src={logo} alt="logo" height={65} />
             </Navbar.Brand>
           </Nav>
         )}
@@ -194,7 +224,7 @@ const Header = () => {
                   style={{
                     position: "absolute",
                     top: "0",
-                    right: '-12px',
+                    right: "-12px",
                     opacity: cartProducts.length > 0 ? 1 : 0,
                     borderRadius: "50%",
                     background: "black",
@@ -231,7 +261,12 @@ const Header = () => {
       </Helmet>
       <Container
         className={`${
-          isCart || isCheckout || isPayment || isProductDetails || isCategory || isWhishList
+          isCart ||
+          isCheckout ||
+          isPayment ||
+          isProductDetails ||
+          isCategory ||
+          isWhishList
             ? "d-none"
             : ""
         }`}
