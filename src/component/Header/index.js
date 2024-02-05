@@ -5,7 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
-import logo from "../../logo.png";
 import { Helmet } from "react-helmet";
 
 const Header = () => {
@@ -62,7 +61,6 @@ const Header = () => {
   };
   return (
     <Navbar expand="lg" sticky="top" className="flex-column bg-white">
-      <Helmet></Helmet>
       {/* Google g4tag live tracker */}
       <Helmet>
         <script
@@ -79,7 +77,7 @@ const Header = () => {
         </script>
       </Helmet>
 
-      {/* Google GGloble live tracker */}
+      {/* Google Globle live tracker */}
       <Helmet>
         <script
           async
@@ -109,11 +107,12 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '${analyticsDesc[0]?.fbpixelcode}');
 fbq('track', 'PageView');
-fbq('track', 'InitiateCheckout',
+fbq('track', 'InitiateCheckout');
 
 `}
         </script>
       </Helmet>
+
       <noscript>
         <img
           height="1"
@@ -122,7 +121,6 @@ fbq('track', 'InitiateCheckout',
           src={`https://www.facebook.com/tr?id=${analyticsDesc[0]?.fbpixelcode}&ev=PageView&noscript=1`}
         />
       </noscript>
-
       <Container>
         {isCart ||
         isCheckout ||
