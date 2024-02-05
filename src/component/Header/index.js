@@ -61,7 +61,6 @@ const Header = () => {
   };
   return (
     <Navbar expand="lg" sticky="top" className="flex-column bg-white">
-      <title>{window.location.hostname}</title>
       {/* Google g4tag live tracker */}
       {analyticsDesc[0]?.g4tag.length > 0 && (
         <Helmet>
