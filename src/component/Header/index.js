@@ -62,41 +62,45 @@ const Header = () => {
   return (
     <Navbar expand="lg" sticky="top" className="flex-column bg-white">
       {/* Google g4tag live tracker */}
-      <Helmet>
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${analyticsDesc[0]?.g4tag}`}
-        ></script>
-        <script>
-          {`
+      {analyticsDesc[0]?.g4tag.length > 0 && (
+        <Helmet>
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${analyticsDesc[0]?.g4tag}`}
+          ></script>
+          <script>
+            {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments)}
             gtag('js', new Date())
             gtag('config', '${analyticsDesc[0]?.g4tag}');
           `}
-        </script>
-      </Helmet>
-
+          </script>
+        </Helmet>
+      )}
       {/* Google Globle live tracker */}
-      <Helmet>
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${analyticsDesc[0]?.gtag}`}
-        ></script>
-        <script>
-          {`
+
+      {analyticsDesc[0]?.gtag.length > 0 && (
+        <Helmet>
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${analyticsDesc[0]?.gtag}`}
+          ></script>
+          <script>
+            {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments)}
             gtag('js', new Date())
             gtag('config', '${analyticsDesc[0]?.gtag}');
           `}
-        </script>
-      </Helmet>
-
+          </script>
+        </Helmet>
+      )}
       {/* Facebook Pixel  live tracker */}
-      <Helmet>
-        <script>
-          {`
+      {analyticsDesc[0]?.fbpixelcode.length > 0 && (
+        <Helmet>
+          <script>
+            {`
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -110,9 +114,9 @@ fbq('track', 'PageView');
 fbq('track', 'InitiateCheckout');
 
 `}
-        </script>
-      </Helmet>
-
+          </script>
+        </Helmet>
+      )}
       <noscript>
         <img
           height="1"
@@ -121,6 +125,7 @@ fbq('track', 'InitiateCheckout');
           src={`https://www.facebook.com/tr?id=${analyticsDesc[0]?.fbpixelcode}&ev=PageView&noscript=1`}
         />
       </noscript>
+
       <Container>
         {isCart ||
         isCheckout ||
