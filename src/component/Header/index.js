@@ -111,7 +111,11 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '${analyticsDesc[0]?.fbpixelcode}');
 fbq('track', 'PageView');
-fbq('track', 'InitiateCheckout');
+${
+  window.location.href.includes("/payment")
+    ? 'fbq("track", "InitiateCheckout");'
+    : ""
+};
 
 `}
           </script>
