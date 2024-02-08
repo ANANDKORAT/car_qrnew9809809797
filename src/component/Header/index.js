@@ -97,7 +97,7 @@ const Header = () => {
         </Helmet>
       )}
       {/* Facebook Pixel  live tracker */}
-      {analyticsDesc[0]?.fbpixelcode.length > 0 && (
+      {analyticsDesc[0]?.fbpixelcode > 0 && (
         <Helmet>
           <script>
             {`
