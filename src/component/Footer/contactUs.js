@@ -147,16 +147,21 @@ const ContactUs = () => {
                       >
                         Submit
                       </Button>
+                      <Col>
+                        <div className="Footer__Content Rte">
+                          <b>
+                            address:- Matrusakti soc , Near matavadi - Marin
+                            Road Varachha , Surat -395010<br></br> Mobile:-
+                            +91-9629636236
+                          </b>
+                        </div>
+                      </Col>
                     </Form>
                   </Row>
                 );
               }}
             </Formik>
           </div>
-          <b>
-            address:- Matrusakti soc , Near matavadi - Marin Road Varachha ,
-            Surat -395010<br></br> Mobile:- +91-9629636236
-          </b>
         </Col>
       </Row>
     </Container>
