@@ -147,7 +147,7 @@ const ContactUs = () => {
                       >
                         Submit
                       </Button>
-                      <Col>
+                      {/* <Col>
                         <div className="Footer__Content Rte">
                           <b>
                             address:- Matrusakti soc , Near matavadi - Marin
@@ -155,7 +155,7 @@ const ContactUs = () => {
                             +91-9629636236
                           </b>
                         </div>
-                      </Col>
+                      </Col> */}
                     </Form>
                   </Row>
                 );
