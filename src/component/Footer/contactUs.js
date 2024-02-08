@@ -42,24 +42,28 @@ const ContactUs = () => {
               We're here to help nd answer any question you might have. we look
               forward to hearing from you
             </div>
-            {show && <div className="text-success mt-3">
-              Your request submitted successfully! Our team will contact you
-              shortly.
-            </div>}
+            {show && (
+              <div className="text-success mt-3">
+                Your request submitted successfully! Our team will contact you
+                shortly.
+              </div>
+            )}
             <Formik
               validationSchema={validationSchema}
               initialValues={{ name: "", email: "", mobile: "", message: "" }}
               enableReinitialize
               onSubmit={(e, helpers) => {
                 setShow(true);
-                
-                helpers.resetForm({ name: "", email: "", mobile: "", message: "" });
+
+                helpers.resetForm({
+                  name: "",
+                  email: "",
+                  mobile: "",
+                  message: "",
+                });
               }}
             >
-              {({
-                getFieldProps,
-                handleSubmit
-              }) => {
+              {({ getFieldProps, handleSubmit }) => {
                 return (
                   <Row>
                     <Form
@@ -149,6 +153,10 @@ const ContactUs = () => {
               }}
             </Formik>
           </div>
+          <b>
+            address:- Matrusakti soc , Near matavadi - Marin Road Varachha ,
+            Surat -395010<br></br> Mobile:- +91-9629636236
+          </b>
         </Col>
       </Row>
     </Container>
