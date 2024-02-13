@@ -92,9 +92,9 @@ const SingleProduct = () => {
                         src={item}
                         rounded
                         style={{
-                          maxHeight: "600px",
+                          maxHeight: "300px",
                           width: "100%",
-                          objectFit: "cover",
+                          objectFit: "contain",
                         }}
                       />
                     </div>

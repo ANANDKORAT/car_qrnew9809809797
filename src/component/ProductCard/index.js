@@ -27,12 +27,14 @@ const ProductCard = ({ item }) => {
             variant="top"
             src={item?.images[0] ?? ""}
             style={{
-              maxHeight: "300px",
+              maxHeight: "200px",
               minHeight: "300px",
               borderRadius: 0,
+              paddingBlock: "20px",
               objectFit: "cover",
             }}
           />
+
           <span className="rating_box">
             {item.rating} <i className="fa-solid fa-star" color="red"></i>
           </span>

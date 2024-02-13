@@ -151,7 +151,8 @@ const Home = () => {
                   right: "12px",
                 }}
               >
-                {sliderImages?.length > 1 && (
+                {/* ....................slider dot code Start................ */}
+                {/* {sliderImages?.length > 1 && (
                   <div className="dots">
                     {[...Array(sliderImages?.length).keys()].map((idx) => {
                       return (
@@ -167,7 +168,8 @@ const Home = () => {
                       );
                     })}
                   </div>
-                )}
+                )} */}
+                {/* ....................slider dot code Close................ */}
               </div>
             </Col>
           )}
