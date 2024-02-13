@@ -30,7 +30,7 @@ const ProductCard = ({ item }) => {
               maxHeight: "200px",
               minHeight: "300px",
               borderRadius: 0,
-              paddingBlock: "20px",
+              paddingBlock: "30px",
               objectFit: "cover",
             }}
           />
