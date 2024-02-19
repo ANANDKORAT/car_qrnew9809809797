@@ -37,7 +37,8 @@ const ReturnPolicy=()=>{
                     <input type="hidden" name="utf8" value="✓" />
                     <input type="hidden" name="contact[tags]" value="newsletter" />
                     <Form.Control size="lg" type="email" placeholder="Enter email" />
-                    <Button type="button" variant="dark" className="mt-3">Subscribe</Button>
+                    <Button type="button" variant="dark" className="mt-3" style={{background: "var(--them-color)",
+                        borderColor: "var(--them-color)",}}>Subscribe</Button>
                 </Form>
              </div>
             </div>

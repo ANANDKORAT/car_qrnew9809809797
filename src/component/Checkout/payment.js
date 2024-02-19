@@ -6,7 +6,7 @@ import axios from "axios";
 import payment_video_loop from "../../assets/cod_lat.gif";
 
 const Payment = () => {
-  const { selectedProduct, totalPrice, totalDiscount, totalMRP } = useAuth();
+  const { selectedProduct, totalPrice, totalDiscount, totalMRP, address } = useAuth();
   // const [selectPaymentMethod, setPaymentMethod] = useState("");
   const [time, setTime] = useState(300);
   const [SelectedPaymentUpi, setSelectedPayment] = useState("Phone Pay");
@@ -388,6 +388,8 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
           style={{
             width: "60%",
             padding: "10px",
+            background: "var(--them-color)",
+            borderColor: "var(--them-color)",
           }}
           onClick={() => paynoeLogic()}
         >

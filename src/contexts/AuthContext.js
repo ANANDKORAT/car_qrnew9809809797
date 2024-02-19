@@ -22,6 +22,7 @@ const AuthContext = ({ children }) => {
   const [hideAddress, setHideAddress] = useState(false);
   const [category, setCategory] = useState({});
   const [storedTime, setStoredTime] = useState(null);
+  const [themColor, setThemColor] = useState(process.env.REACT_APP_THEAM_COLOR);
 
   const handleAddNewItem = (add) => {
     setAddNewItem(add);
@@ -151,7 +152,11 @@ const AuthContext = ({ children }) => {
     }
     checkAndClearLocalStorage();
   }, [storedTime]);
-  console.log(window.matchMedia("(max-width: 599px)").matches);
+
+    useEffect(() => {
+        setThemColor(process.env.REACT_APP_THEAM_COLOR)
+    }, [process.env.REACT_APP_THEAM_COLOR]);
+
   return (
     <AuthContextProvide.Provider
       value={{
@@ -179,6 +184,7 @@ const AuthContext = ({ children }) => {
         logo,
         category,
         setCategory,
+        themColor
       }}
     >
       <Container
@@ -187,10 +193,11 @@ const AuthContext = ({ children }) => {
           {
             margin: "auto",
             maxWidth: "500px",
+            "--them-color":themColor
           }
           // window.matchMedia("(max-width: 768px)").matches
-          //   ? { maxWidth: "500px" }
-          //   : { maxWidth: "500px", margin: "0px auto" }
+          //   ? { maxWidth: "500px", "--them-color":themColor }
+          //   : { maxWidth: "500px", margin: "0px auto", "--them-color":themColor }
         }
       >
         {children}

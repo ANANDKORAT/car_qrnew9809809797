@@ -159,7 +159,10 @@ const ProductCard = ({ item }) => {
           </Card.Text>
         </Card.Body>
         <Card.Footer className="px-2 bg-white border-0 pt-0">
-          <Button className="w-100" variant="dark">
+          <Button className="w-100" variant="dark" style={{
+              background: "var(--them-color)",
+              borderColor: "var(--them-color)",
+          }}>
             Add To Cart
           </Button>
         </Card.Footer>

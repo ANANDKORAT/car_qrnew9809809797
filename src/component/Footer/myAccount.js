@@ -55,6 +55,10 @@ const MyAccount = () => {
                 }}
                 variant="dark"
                 className="mt-3"
+                style={{
+                    background: "var(--them-color)",
+                    borderColor: "var(--them-color)",
+                }}
               >
                 Login
               </Button>

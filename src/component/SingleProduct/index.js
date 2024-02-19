@@ -401,6 +401,8 @@ const SingleProduct = () => {
                   style={{
                     padding: "10px 22px",
                     borderRadius: "15px",
+                    background: "var(--them-color)",
+                    borderColor: "var(--them-color)"
                   }}
                   variant="dark"
                   onClick={(e) => {
