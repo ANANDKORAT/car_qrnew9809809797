@@ -33,7 +33,7 @@
     -->
 
     <script>
-      document.getElementById("titleName").innerHTML = window.location.hostname;
+      document.getElementById("titleName").innerHTML =  window.location.hostname || "store";
 
       document.addEventListener("contextmenu", function (e) {
         e.preventDefault();

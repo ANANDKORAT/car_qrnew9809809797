@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 const AuthContextProvide = createContext();
 
@@ -187,15 +187,21 @@ const AuthContext = ({ children }) => {
         themColor
       }}
     >
-      <Row
+      <Container
+        className="p-0"
         style={
-          window.matchMedia("(max-width: 768px)").matches
-            ? { maxWidth: "500px", "--them-color":themColor }
-            : { maxWidth: "500px", margin: "0px auto", "--them-color":themColor }
+          {
+            margin: "auto",
+            maxWidth: "500px",
+            "--them-color":themColor
+          }
+          // window.matchMedia("(max-width: 768px)").matches
+          //   ? { maxWidth: "500px", "--them-color":themColor }
+          //   : { maxWidth: "500px", margin: "0px auto", "--them-color":themColor }
         }
       >
         {children}
-      </Row>
+      </Container>
     </AuthContextProvide.Provider>
   );
 };

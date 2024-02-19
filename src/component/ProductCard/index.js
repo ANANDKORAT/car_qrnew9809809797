@@ -12,9 +12,16 @@ const ProductCard = ({ item }) => {
   const handleRedirect = (id) => {
     navigate(`/single-product/${id}`);
   };
-
   return (
-    <Col key={item._id}>
+    <Col
+      key={item._id}
+      style={
+        process.env.REACT_APP_themssizetype ===
+        "Portrait"
+          ? {}
+          : { maxHeight: "350px" }
+      }
+    >
       <Card
         style={{ height: "100%", borderRadius: 2 }}
         onClick={() => {
@@ -22,17 +29,42 @@ const ProductCard = ({ item }) => {
           handleRedirect(item._id);
         }}
       >
-        <div className="position-relative">
-          <Card.Img
-            variant="top"
-            src={item?.images[0] ?? ""}
-            style={{
-              minHeight: "300px",
-              borderRadius: 0,
-              paddingBlock: "50px",
-              objectFit: "cover",
-            }}
-          />
+        <div
+          className="position-relative"
+          style={
+            process.env.REACT_APP_themssizetype===
+            "Portrait"
+              ? {}
+              : { maxHeight: "calc(350px - 150px)" }
+          }
+        >
+          {process.env.REACT_APP_themssizetype ===
+          "Portrait" ? (
+            <Card.Img
+              variant="top"
+              src={item?.images[0] ?? ""}
+              style={{
+                maxHeight: "300px",
+                minHeight: "300px",
+                borderRadius: 0,
+                objectFit: "cover",
+              }}
+            />
+          ) : process.env.REACT_APP_themssizetype ===
+            "square" ? (
+            <Card.Img
+              variant="top"
+              src={item?.images[0] ?? ""}
+              style={{
+                minHeight: "calc(100% - 150px)",
+                borderRadius: 0,
+                paddingBlock: "50px",
+                objectFit: "cover",
+              }}
+            />
+          ) : (
+            ""
+          )}
 
           <span className="rating_box">
             {item.rating} <i className="fa-solid fa-star" color="red"></i>
