@@ -167,7 +167,7 @@ const SingleProduct = () => {
               )}
               </div>
               <div>
-                {/* <div className="dots" style={{ background: "unset" }}>
+                <div className="dots" style={{ background: "unset" }}>
                   {[...Array(singleData?.images?.length).keys()].map((idx) => {
                     return (
                       <button
@@ -181,8 +181,8 @@ const SingleProduct = () => {
                       ></button>
                     );
                   })}
-                </div> */}
-              <div ref={thumbnailRef} className="keen-slider thumbnail">
+                </div>
+              <div ref={thumbnailRef} className="keen-slider thumbnail pb-2">
               {singleData?.images?.map((img, index)=>(
                 <div className={`keen-slider__slide number-slide${index+1}`}>
                   <img src={img} alt={img} style={{height: '100%', width: '100%', objectFit: 'contain', background: '#ffffff'}} />
@@ -480,7 +480,7 @@ const SingleProduct = () => {
                     <span
                       style={{
                         fontSize: "12px",
-                        color: "#94969f",
+                        color: "#f7f7ff",
                       }}
                     >
                       Inclusive of all Taxes
