@@ -13,6 +13,12 @@
   }
 }
 
+@media (min-width: 768px) { 
+ .desktopRowCss{
+  margin:0px auto;
+ }
+ }
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

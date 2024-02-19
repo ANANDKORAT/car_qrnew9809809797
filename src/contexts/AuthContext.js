@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 
 const AuthContextProvide = createContext();
 
@@ -151,7 +151,7 @@ const AuthContext = ({ children }) => {
     }
     checkAndClearLocalStorage();
   }, [storedTime]);
-
+  console.log(window.matchMedia("(max-width: 599px)").matches);
   return (
     <AuthContextProvide.Provider
       value={{
@@ -181,7 +181,15 @@ const AuthContext = ({ children }) => {
         setCategory,
       }}
     >
-      <Container style={{ maxWidth: "500px" }}>{children}</Container>
+      <Row
+        style={
+          window.matchMedia("(max-width: 768px)").matches
+            ? { maxWidth: "500px" }
+            : { maxWidth: "500px", margin: "0px auto" }
+        }
+      >
+        {children}
+      </Row>
     </AuthContextProvide.Provider>
   );
 };

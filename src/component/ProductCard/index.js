@@ -16,7 +16,7 @@ const ProductCard = ({ item }) => {
   return (
     <Col key={item._id}>
       <Card
-        style={{ height: "100%", borderRadius: 0 }}
+        style={{ height: "100%", borderRadius: 2 }}
         onClick={() => {
           setSingleProduct(item);
           handleRedirect(item._id);
@@ -27,10 +27,9 @@ const ProductCard = ({ item }) => {
             variant="top"
             src={item?.images[0] ?? ""}
             style={{
-              maxHeight: "200px",
               minHeight: "300px",
               borderRadius: 0,
-              paddingBlock: "30px",
+              paddingBlock: "50px",
               objectFit: "cover",
             }}
           />
