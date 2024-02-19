@@ -88,15 +88,27 @@ const SingleProduct = () => {
                 <div ref={sliderRef} className="keen-slider mt-1">
                   {singleData?.images?.map((item) => (
                     <div className="keen-slider__slide number-slide1 center">
-                      <img
-                        src={item}
-                        rounded
-                        style={{
-                          maxHeight: "300px",
-                          width: "100%",
-                          objectFit: "contain",
-                        }}
-                      />
+                      {process.env.REACT_APP_themssizetype === "Portrait" ? (
+                        <img
+                          src={item}
+                          rounded
+                          style={{
+                            maxHeight: "600px",
+                            width: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+                      ) : (
+                        <img
+                          src={item}
+                          rounded
+                          style={{
+                            maxHeight: "300px",
+                            width: "100%",
+                            objectFit: "contain",
+                          }}
+                        />
+                      )}
                     </div>
                   ))}
                 </div>
