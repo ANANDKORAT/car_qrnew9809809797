@@ -24,6 +24,7 @@ const Cart = () => {
     handleSelectProduct,
     setSelectedProduct,
     setStep,
+    themColor
   } = useAuth();
   const [showOffCanvas, setShowOffCanvas] = useState({
     show: false,
@@ -85,6 +86,8 @@ const Cart = () => {
                   className="btn my-3 primary d-flex justify-content-center align-items-center ripple animated"
                   style={{
                     padding: "10px 20px",
+                    background: "var(--them-color)",
+                    borderColor: "var(--them-color)"
                   }}
                   onClick={(e) => {
                     e?.target?.classList?.add("bounceIn");
@@ -457,7 +460,7 @@ const Cart = () => {
                           padding: "25px",
                           background:
                             showOffCanvas?.product?.selectSize == item
-                              ? "#252525"
+                              ? themColor
                               : "#fff",
                           color:
                             showOffCanvas?.product?.selectSize == item
@@ -486,7 +489,7 @@ const Cart = () => {
                           padding: "25px",
                           background:
                             showOffCanvas?.product?.quantity == item
-                              ? "#252525"
+                              ? themColor
                               : "#fff",
                           color:
                             showOffCanvas?.product?.quantity == item
@@ -561,8 +564,8 @@ const Cart = () => {
                 }}
                 variant="dark"
                 style={{
-                  background: "#ed143d",
-                  borderColor: "#ed143d",
+                  background: themColor,
+                  borderColor: themColor,
                   width: "100%",
                   padding: "10px",
                 }}
@@ -600,6 +603,8 @@ const Cart = () => {
             style={{
               width: "100%",
               padding: "10px",
+                background: "var(--them-color)",
+                borderColor: "var(--them-color)",
             }}
             disabled={selectedProduct?.length === 0}
             onClick={(e) => {

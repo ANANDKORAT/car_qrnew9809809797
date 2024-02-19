@@ -144,6 +144,10 @@ const ContactUs = () => {
                         variant="dark"
                         className="mt-3"
                         onClick={handleSubmit}
+                        style={{
+                            background: "var(--them-color)",
+                            borderColor: "var(--them-color)",
+                        }}
                       >
                         Submit
                       </Button>

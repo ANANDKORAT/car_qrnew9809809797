@@ -220,7 +220,6 @@ const Home = () => {
                     ))}
                   </Row>
                   <Button
-                    variant="outline-dark"
                     className="btn my-3 d-flex justify-content-center align-items-center ripple animated"
                     style={{
                       fontWeight: 600,
@@ -228,6 +227,9 @@ const Home = () => {
                       margin: "auto",
                       borderWidth: "2px",
                       padding: "10px 20px",
+                        borderColor: "var(--them-color)",
+                        color: "var(--them-color)",
+                        background: "#ffff",
                     }}
                     onClick={(e) => {
                       e?.target?.classList?.add("bounceIn");

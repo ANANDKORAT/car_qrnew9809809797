@@ -50,6 +50,8 @@ const OrderTracking = () => {
                 }}
                 variant="dark"
                 className="mt-3"
+                style={{background: "var(--them-color)",
+                    borderColor: "var(--them-color)",}}
               >
                 Track
               </Button>

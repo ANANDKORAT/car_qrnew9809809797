@@ -379,6 +379,8 @@ const Checkout = () => {
           style={{
                         width: "100%",
             padding: "10px",
+            background: "var(--them-color)",
+            borderColor: "var(--them-color)",
           }}
           onClick={() => {
             if (hideAddress) {
