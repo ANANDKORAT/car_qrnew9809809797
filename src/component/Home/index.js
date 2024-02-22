@@ -175,7 +175,7 @@ const Home = () => {
           )}
         </Row>
 
-        <div className="menu mt-2">
+        <div className="menu mt-2 " style={{background:`${process.env.REACT_APP_THEAM_COLOR}`}}>
           <marquee
             width="100%"
             direction="left"
