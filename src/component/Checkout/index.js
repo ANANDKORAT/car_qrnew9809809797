@@ -65,14 +65,10 @@ const Checkout = () => {
     // pincode: Yup.string().required("Pincode is required"),
     pincode: Yup.number()
       .required("Pincode is required")
-      .integer("Pincode must be a whole number")
-      .min(100000, "Pincode must be at least 6 digits")
-      .max(999999, "Pincode must be at most 6 digits"),
+      .integer("Pincode must be a whole number"),
     address1: Yup.string().required("Address is required"),
     town: Yup.string().required("Locality/Town is required"),
-    city: Yup.string().required("City is required"),
-    state: Yup.string().required("State is required"),
-    saveAs: Yup.string().required("SAVE ADDRESS AS is required"),
+    city: Yup.string().required("City is required")
   });
 
   const state = [
