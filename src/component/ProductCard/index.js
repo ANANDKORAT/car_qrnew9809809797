@@ -58,9 +58,9 @@ const ProductCard = ({ item }) => {
               style={{
                 minHeight: "calc(100% - 150px)",
                 borderRadius: 0,
-                 paddingBlock: "50px",     // if use dryfrut only squre image
+                //  paddingBlock: "50px",     // if use dryfrut only squre image
                 objectFit: "cover",
-                //  height:"100%",              // if use squre image only in not fit in box  
+                 height:"100%",              // if use squre image only in not fit in box  
               }}
             />
           ) : (

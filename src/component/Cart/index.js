@@ -211,6 +211,7 @@ const Cart = () => {
                       height: "100%",
                       minWidth: "100%",
                       borderRadius: "6px",
+                      objectFit:"contain"
                     }}
                   />
                 </div>
