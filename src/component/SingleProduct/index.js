@@ -319,13 +319,12 @@ const SingleProduct = () => {
                 <li>Try &amp; Buy might be available</li>
               </ul>
             </div>
-            <div className="cardification" />
             {singleData.productDetails && (
               <div className="mt-4 pb-4">
                 <h6 className="card-title text-start fw-bold mb-3">
                   Product Details
                 </h6>
-                <div
+                <div className="disImage"
                   dangerouslySetInnerHTML={{
                     __html: singleData.productDetails,
                   }}

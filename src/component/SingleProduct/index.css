@@ -1,21 +1,21 @@
 .signle_rating_box {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    border: 1px solid #ddd;
-    width: max-content;
-    padding: 2px 8px;
-    border-radius: 16px;
-    background: #fff;
-    position: absolute;
-    bottom: 15px;
-    right: 10px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  width: max-content;
+  padding: 2px 8px;
+  border-radius: 16px;
+  background: #fff;
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
 }
 
 .signle_rating_box i {
-    font-size: 11px;
-    margin-left: 5px;
-    color: #228b22;
+  font-size: 11px;
+  margin-left: 5px;
+  color: #228b22;
 }
 
 [class^="number-slide"],
@@ -28,75 +28,78 @@
 }
 
 .thumbnail .keen-slider__slide {
-    font-size: 30px;
-    margin-top: 10px;
-    height: 100px;
-    border-radius: 5px;
-  }
+  font-size: 30px;
+  margin-top: 10px;
+  height: 100px;
+  border-radius: 5px;
+}
 
 .thumbnail {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
-  .thumbnail .keen-slider__slide {
-    cursor: pointer;
-    border: 2px solid #ffffff;
-  }
-  .thumbnail .keen-slider__slide.active {
-    border: 2px dashed black;
-  }
+.thumbnail .keen-slider__slide {
+  cursor: pointer;
+  border: 2px solid #ffffff;
+}
+.thumbnail .keen-slider__slide.active {
+  border: 2px dashed black;
+}
 
 .address-box {
-    font-family: inherit;
-    position: relative;
-    padding: 10px;
-    width: 100%;
-    height: 44px;
-    font-size: 14px;
-    border: 1px solid #bfc0c6;
+  font-family: inherit;
+  position: relative;
+  padding: 10px;
+  width: 100%;
+  height: 44px;
+  font-size: 14px;
+  border: 1px solid #bfc0c6;
 }
-.pincode-input>input {
-    border: none;
-    width: 100%;
-    outline: none;
+.pincode-input > input {
+  border: none;
+  width: 100%;
+  outline: none;
 }
 
 .address-button {
-    background-color: #fff;
-    border: none;
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    font-size: 13px;
-    font-weight: 700;
+  background-color: #fff;
+  border: none;
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .image-banner-table {
-    display: table;
-    width: 100%;
-    padding: 16px 8px;
-    table-layout: fixed;
+  display: table;
+  width: 100%;
+  padding: 16px 8px;
+  table-layout: fixed;
 }
 image-banner-item:first-child {
-    padding-left: 0;
-    margin-left: 0;
+  padding-left: 0;
+  margin-left: 0;
 }
 
 .image-banner-item {
-    display: table-cell;
-    text-align: center;
-    font-size: 14px;
-    color: #282c3f;
+  display: table-cell;
+  text-align: center;
+  font-size: 14px;
+  color: #282c3f;
 }
 .image-banner-image {
-    width: 40px;
+  width: 40px;
 }
 .cardification {
-    background-color: #f4f4f5;
-    height: 10px;
+  background-color: #f4f4f5;
+  height: 10px;
 }
 .center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-  }
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+.disImage img {
+  width: 100%;
+}
