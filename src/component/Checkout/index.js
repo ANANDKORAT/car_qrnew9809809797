@@ -67,7 +67,6 @@ const Checkout = () => {
       .required("Pincode is required")
       .integer("Pincode must be a whole number"),
     address1: Yup.string().required("Address is required"),
-    town: Yup.string().required("Locality/Town is required"),
     city: Yup.string().required("City is required")
   });
 
@@ -205,21 +204,7 @@ const Checkout = () => {
                         />
                       </FloatingLabel>
                     </Col>
-                    <Col md className="mb-3">
-                      <FloatingLabel controlId="town" label="Locality/Town">
-                        <Form.Control
-                          type="text"
-                          name="town"
-                          placeholder="Please enter locality/town"
-                          {...getFieldProps("town")}
-                        />
-                      </FloatingLabel>
-                      <ErrorMessage
-                        component="span"
-                        name={"town"}
-                        className={`text-danger`}
-                      />
-                    </Col>
+                   
                     <div className="d-flex align-items-center pe-3">
                       <Col md={6} xs={6} className="me-3">
                         <FloatingLabel controlId="city" label="City">
@@ -300,9 +285,7 @@ const Checkout = () => {
             <div>
               <div className="addressDetails-base-addressTitle">
                 <div className="addressDetails-base-name">{address?.name}</div>
-                <div className="addressDetails-base-addressType ">
-                  {address?.saveAs}
-                </div>
+               
               </div>
               <div className="addressDetails-base-address">
                 <div className="addressDetails-base-addressField">
@@ -310,11 +293,15 @@ const Checkout = () => {
                 </div>
                 <div>{address?.town}</div>
                 <div>
-                  {address?.city}, {address?.state} {address?.pincode}
+                 Address:-  {address?.city}, {address?.state} {address?.pincode}
                 </div>
+                
                 <div className="addressDetails-base-mobile">
                   <span>Mobile: </span>
                   <span>{address.mobile}</span>
+                </div>
+                <div className="addressDetails-base-mobile ">
+                  Address As :- {address?.saveAs}
                 </div>
               </div>
             </div>
