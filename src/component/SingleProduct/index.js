@@ -194,9 +194,9 @@ const SingleProduct = () => {
             <div className="pb-4">
               <p
                 style={{
-                  color: "#282c3f",
+                  color: process.env.REACT_APP_THEAM_COLOR,
                   textAlign: "start",
-                  fontWeight: 400,
+                  fontWeight: 700,
                 }}
                 className="mb-0"
               >

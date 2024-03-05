@@ -175,11 +175,12 @@ const Home = () => {
           )}
         </Row>
 
-        <div className="menu mt-2 ">
+        <div className="menu mt-2 " style={{backgroundColor:process.env.REACT_APP_THEAM_COLOR}}>
           <marquee
             width="100%"
             direction="left"
             height="30px"
+            fontWeight="700"
             style={{ color: "white" }}
           >
             <span>Buy 2 Get 1 Free (Add 3 item to cart)</span>
@@ -193,6 +194,8 @@ const Home = () => {
             <span>Buy 2 Get 1 Free (Add 3 item to cart)</span>
           </marquee>
         </div>
+        <Image src="https://images.meesho.com/images/widgets/OY6J5/xwgyl_800.webp" style={{width:"100%"}}/>
+      
         {isLoader ? (
           <Row xs={2} md={2} className="g-0 mt-2">
             <Col>

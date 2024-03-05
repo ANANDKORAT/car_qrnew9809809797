@@ -16,8 +16,7 @@ const ProductCard = ({ item }) => {
     <Col
       key={item._id}
       style={
-        process.env.REACT_APP_themssizetype ===
-        "Portrait"
+        process.env.REACT_APP_themssizetype === "Portrait"
           ? {}
           : { maxHeight: "350px" }
       }
@@ -32,35 +31,32 @@ const ProductCard = ({ item }) => {
         <div
           className="position-relative"
           style={
-            process.env.REACT_APP_themssizetype===
-            "Portrait"
+            process.env.REACT_APP_themssizetype === "Portrait"
               ? {}
               : { maxHeight: "calc(350px - 150px)" }
           }
         >
-          {process.env.REACT_APP_themssizetype ===
-          "Portrait" ? (
+          {process.env.REACT_APP_themssizetype === "Portrait" ? (
             <Card.Img
               variant="top"
               src={item?.images[0] ?? ""}
               style={{
-                maxHeight: "300px",
-                minHeight: "300px",
+                maxHeight: "200px",
+                minHeight: "200px",
                 borderRadius: 0,
-                objectFit: "cover",
+                objectFit: "contain",
               }}
             />
-          ) : process.env.REACT_APP_themssizetype ===
-            "square" ? (
+          ) : process.env.REACT_APP_themssizetype === "square" ? (
             <Card.Img
               variant="top"
               src={item?.images[0] ?? ""}
               style={{
                 minHeight: "calc(100% - 150px)",
                 borderRadius: 0,
-                 paddingBlock: "50px",     // if use dryfrut only squre image
+                //  paddingBlock: "50px",     // if use dryfrut only squre image
                 objectFit: "cover",
-                //  height:"100%",              // if use squre image only in not fit in box  
+                //  height:"100%",              // if use squre image only in not fit in box
               }}
             />
           ) : (
@@ -160,10 +156,14 @@ const ProductCard = ({ item }) => {
           </Card.Text>
         </Card.Body>
         <Card.Footer className="px-2 bg-white border-0 pt-0">
-          <Button className="w-100" variant="dark" style={{
+          <Button
+            className="w-100"
+            variant="dark"
+            style={{
               background: "var(--them-color)",
               borderColor: "var(--them-color)",
-          }}>
+            }}
+          >
             Add To Cart
           </Button>
         </Card.Footer>
