@@ -159,7 +159,7 @@ ${
                   whiteSpace: "nowrap",
                   overflow: "hidden",
                   textOverflow: "ellipsis",
-                  width: isProductDetails ? "100%" : "195px",
+                  width: isProductDetails ? "100%" : "130px",
                   fontWeight: 700,
                 }}
               >
@@ -178,7 +178,7 @@ ${
             </div>
             <Nav className={"d-flex flex-row align-items-center"}>
             <Navbar.Brand href="/"> {/* dynamic logo use this code */}
-             <img src={logo} alt="logo" height={65}  style={{marginLeft:"5px"}} /></Navbar.Brand>
+             <img src={logo} alt="logo" height={65}  style={{display:"flex",justifyContent:"center"}} /></Navbar.Brand>
             </Nav>
           </Nav>
         ) : (
