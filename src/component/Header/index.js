@@ -150,6 +150,7 @@ ${
                 ></path>
               </svg>
             </div>
+            
             <div style={{ width: isProductDetails ? "100%" : "" }}>
               <h6
                 className="ms-2 mb-0"
@@ -175,6 +176,10 @@ ${
                   : "SHOPPING BAG"}
               </h6>
             </div>
+            <Nav className={"d-flex flex-row align-items-center"}>
+            <Navbar.Brand href="/"> {/* dynamic logo use this code */}
+             <img src={logo} alt="logo" height={65}  style={{marginLeft:"5px"}} /></Navbar.Brand>
+            </Nav>
           </Nav>
         ) : (
           <Nav className={"d-flex flex-row align-items-center"}>
