@@ -302,7 +302,7 @@ ${
             : ""
         }`}
       >
-        <InputGroup className="mb-3" style={{ margin: "0px 8px 0px 8px" }}>
+        <InputGroup className="mb-3" >
           <InputGroup.Text id="basic-addon1" style={{ background: "unset" }}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
