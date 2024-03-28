@@ -178,7 +178,7 @@ ${
             </div>
             <Nav className={"d-flex flex-row align-items-center"}>
             <Navbar.Brand href="/"> {/* dynamic logo use this code */}
-             <img src={logo} alt="logo" height={65}  style={{display:"flex",justifyContent:"center"}} /></Navbar.Brand>
+             <img src={logo} alt="logo" height={50} width={90}  style={{display:"flex",justifyContent:"center",marginLeft:"5px",marginRight:"20px"}} /></Navbar.Brand>
             </Nav>
           </Nav>
         ) : (
