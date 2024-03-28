@@ -44,6 +44,8 @@ const Checkout = () => {
   const handleAddress = (values) => {
     setAddress(values);
     setHideAddress(true);
+    setStep(3);
+    navigate("/checkout/payment");
   };
   const [initialValues, setInitialValues] = useState({
     ...defaultLensSettingValue,

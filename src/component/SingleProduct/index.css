@@ -26,23 +26,23 @@
   justify-content: center;
   max-height: 200px;
 }
-
+.thumbnail.keen-slider {
+  padding: 6px 10px;
+}
 .thumbnail .keen-slider__slide {
   font-size: 30px;
   margin-top: 10px;
   height: 100px;
-  border-radius: 5px;
-}
-
-.thumbnail {
-  background-color: #ffffff;
+  padding: 6px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid #ececec;
 }
 .thumbnail .keen-slider__slide {
   cursor: pointer;
-  border: 2px solid #ffffff;
 }
 .thumbnail .keen-slider__slide.active {
-  border: 2px dashed black;
+  border: 2.21348px solid var(--borderColor);
 }
 
 .address-box {

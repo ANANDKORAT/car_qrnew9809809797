@@ -182,10 +182,10 @@ const SingleProduct = () => {
                     );
                   })}
                 </div>
-              <div ref={thumbnailRef} className="keen-slider thumbnail pb-3" style={{paddingLeft:''}}>
+                <div ref={thumbnailRef} className="keen-slider thumbnail">
               {singleData?.images?.map((img, index)=>(
-                <div className={`keen-slider__slide number-slide${index+1}`}>
-                  <img src={img} alt={img} style={{height: '100%', width: '100%', objectFit: 'contain', background: '#ffffff'}} />
+                <div className={`keen-slider__slide number-slide${index+1}`} style={{'--borderColor': "var(--them-color)"}}>
+                  <img src={img} alt={img} style={{height: '100%', width: '100%', objectFit: 'cover'}} />
                 </div>
               ))}
               </div>
