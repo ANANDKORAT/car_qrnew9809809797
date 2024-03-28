@@ -121,6 +121,10 @@ ${
           </script>
         </Helmet>
       )}
+   
+      <Helmet>
+  <link rel="icon" type="image/x-icon" href={logo} sizes="16x16" />
+</Helmet>
       <noscript>
         <img
           height="1"
