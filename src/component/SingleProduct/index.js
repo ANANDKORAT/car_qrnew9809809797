@@ -324,6 +324,11 @@ const SingleProduct = () => {
                 <h6 className="card-title text-start fw-bold mb-3">
                   Product Details
                 </h6>
+                {singleData.product_video && (
+                 <video width="100%" autoplay="autoplay" loop muted playsinline className="video-background ">
+                  <source src={singleData.product_video} type="video/mp4"/>
+                  </video>  
+                )}
                 <div className="disImage"
                   dangerouslySetInnerHTML={{
                     __html: singleData.productDetails,
