@@ -9,38 +9,37 @@ import axios from "axios";
 import SkeletonLoader from "../SkeletonLoader";
 import ProductCard from "../ProductCard";
 
-
 function ThumbnailPlugin(mainRef) {
   return (slider) => {
     function removeActive() {
       slider.slides.forEach((slide) => {
-        slide.classList.remove("active")
-      })
+        slide.classList.remove("active");
+      });
     }
     function addActive(idx) {
-      slider.slides[idx].classList.add("active")
+      slider.slides[idx].classList.add("active");
     }
 
     function addClickEvents() {
       slider.slides.forEach((slide, idx) => {
         slide.addEventListener("click", () => {
-          if (mainRef.current) mainRef.current.moveToIdx(idx)
-        })
-      })
+          if (mainRef.current) mainRef.current.moveToIdx(idx);
+        });
+      });
     }
 
     slider.on("created", () => {
-      if (!mainRef.current) return
-      addActive(slider.track.details.rel)
-      addClickEvents()
+      if (!mainRef.current) return;
+      addActive(slider.track.details.rel);
+      addClickEvents();
       mainRef.current.on("animationStarted", (main) => {
-        removeActive()
-        const next = main.animator.targetIdx || 0
-        addActive(main.track.absToRel(next))
-        slider.moveToIdx(Math.min(slider.track.details.maxIdx, next))
-      })
-    })
-  }
+        removeActive();
+        const next = main.animator.targetIdx || 0;
+        addActive(main.track.absToRel(next));
+        slider.moveToIdx(Math.min(slider.track.details.maxIdx, next));
+      });
+    });
+  };
 }
 
 const SingleProduct = () => {
@@ -78,17 +77,20 @@ const SingleProduct = () => {
     navigate(`/single-product/${id}`);
   };
 
-  const [sliderRef, instanceRef] = useKeenSlider({
-    loop: true,
-    mode: "snap",
-    origin: "center",
-    slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel);
+  const [sliderRef, instanceRef] = useKeenSlider(
+    {
+      loop: true,
+      mode: "snap",
+      origin: "center",
+      slideChanged(slider) {
+        setCurrentSlide(slider.track.details.rel);
+      },
+      slides: {
+        perView: 1,
+      },
     },
-    slides: {
-      perView: 1,
-    },
-  },[]);
+    []
+  );
 
   const [thumbnailRef] = useKeenSlider(
     {
@@ -99,7 +101,7 @@ const SingleProduct = () => {
       },
     },
     [ThumbnailPlugin(instanceRef)]
-  )
+  );
 
   useEffect(() => {
     if (singleProduct._id !== id) {
@@ -129,42 +131,42 @@ const SingleProduct = () => {
         ) : (
           <Row>
             <div className="p-0 m-0  ">
-                <div className="position-relative">
-              {singleData?.images && (
-                <div ref={sliderRef} className="keen-slider mt-1">
-                  {singleData?.images?.map((item) => (
-                    <div className="keen-slider__slide">
-                      {process.env.REACT_APP_themssizetype === "Portrait" ? (
-                        <img
-                          src={item}
-                          rounded
-                          style={{
-                            maxHeight: "600px",
-                            width: "100%",
-                            objectFit: "contain",
-                          }}
-                        />
-                      ) : (
-                        <img
-                          src={item}
-                          rounded
-                          style={{
-                            maxHeight: "300px",
-                            width: "100%",
-                            objectFit: "contain",
-                          }}
-                        />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-              {singleData?.rating && (
-                <span className="signle_rating_box">
-                  {singleData?.rating}{" "}
-                  <i className="fa-solid fa-star" color="green"></i>
-                </span>
-              )}
+              <div className="position-relative">
+                {singleData?.images && (
+                  <div ref={sliderRef} className="keen-slider mt-1">
+                    {singleData?.images?.map((item) => (
+                      <div className="keen-slider__slide">
+                        {process.env.REACT_APP_themssizetype === "Portrait" ? (
+                          <img
+                            src={item}
+                            rounded
+                            style={{
+                              maxHeight: "600px",
+                              width: "100%",
+                              objectFit: "contain",
+                            }}
+                          />
+                        ) : (
+                          <img
+                            src={item}
+                            rounded
+                            style={{
+                              maxHeight: "300px",
+                              width: "100%",
+                              objectFit: "contain",
+                            }}
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {singleData?.rating && (
+                  <span className="signle_rating_box">
+                    {singleData?.rating}{" "}
+                    <i className="fa-solid fa-star" color="green"></i>
+                  </span>
+                )}
               </div>
               <div>
                 <div className="dots" style={{ background: "unset" }}>
@@ -183,12 +185,23 @@ const SingleProduct = () => {
                   })}
                 </div>
                 <div ref={thumbnailRef} className="keen-slider thumbnail">
-              {singleData?.images?.map((img, index)=>(
-                <div className={`keen-slider__slide number-slide${index+1}`} style={{'--borderColor': "var(--them-color)"}}>
-                  <img src={img} alt={img} style={{height: '100%', width: '100%', objectFit: 'cover'}} />
+                  {singleData?.images?.map((img, index) => (
+                    <div
+                      className={`keen-slider__slide number-slide${index + 1}`}
+                      style={{ "--borderColor": "var(--them-color)" }}
+                    >
+                      <img
+                        src={img}
+                        alt={img}
+                        style={{
+                          height: "100%",
+                          width: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
-              </div>
               </div>
             </div>
             <div className="pb-4">
@@ -324,12 +337,27 @@ const SingleProduct = () => {
                 <h6 className="card-title text-start fw-bold mb-3">
                   Product Details
                 </h6>
+
                 {singleData.product_video && (
-                 <video width="100%" autoplay="autoplay" loop muted playsinline className="video-background ">
-                  <source src={singleData.product_video} type="video/mp4"/>
-                  </video>  
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: `
+        <video
+         width="100%"
+          loop
+          muted
+          autoplay
+          playsinline
+          src="${singleData.product_video}"
+          class="video-background"
+        />,
+      `,
+                    }}
+                  ></div>
                 )}
-                <div className="disImage"
+
+                <div
+                  className="disImage"
                   dangerouslySetInnerHTML={{
                     __html: singleData.productDetails,
                   }}
@@ -460,7 +488,7 @@ const SingleProduct = () => {
                     padding: "10px 22px",
                     borderRadius: "15px",
                     background: "var(--them-color)",
-                    borderColor: "var(--them-color)"
+                    borderColor: "var(--them-color)",
                   }}
                   variant="dark"
                   onClick={(e) => {
