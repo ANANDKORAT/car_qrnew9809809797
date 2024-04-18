@@ -4,13 +4,16 @@ import { Button, Container, Image, Row, Col } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
 import payment_video_loop from "../../assets/cod_lat.gif";
+import { useNavigate } from "react-router-dom";
 
 const Payment = () => {
-  const { selectedProduct, totalPrice, totalDiscount, totalMRP, address } = useAuth();
+  const { selectedProduct, totalPrice, totalDiscount, totalMRP, address, totalExtraDiscount,handleSetCartProducts } = useAuth();
   // const [selectPaymentMethod, setPaymentMethod] = useState("");
   const [time, setTime] = useState(300);
   const [SelectedPaymentUpi, setSelectedPayment] = useState("Phone Pay");
   const [upi_id, Set_upi_id] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/api/upis/get`).then((res) => {
@@ -80,10 +83,18 @@ const Payment = () => {
           site_name;
         break;
     }
-    window.location.href = redirect_url;
-    localStorage.removeItem("cartProducts");
-    localStorage.removeItem("slectedData");
-    localStorage.removeItem("address");
+    if (SelectedPaymentUpi != "COD") {
+      window.location.href = redirect_url;
+      localStorage.removeItem("cartProducts");
+      localStorage.removeItem("slectedData");
+      localStorage.removeItem("address");
+    } else if(process.env.REACT_APP_COD != 'no'){
+      localStorage.removeItem("cartProducts");
+      localStorage.removeItem("slectedData");
+      localStorage.removeItem("address");
+      handleSetCartProducts([]);
+      navigate("/ThankYou");
+    }
   }
 
   const handleMyPayment = (item) => {
@@ -294,7 +305,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                       <span>{item.icon}</span>
                       <span className="ms-2">{item.name}</span>
                     </span>
-                    {SelectedPaymentUpi === "COD" && item.name === "COD" && (
+                    {process.env.REACT_APP_COD == 'no' && SelectedPaymentUpi === "COD" && item.name === "COD" && (
                       <div
                         className="text-danger"
                         style={{ fontSize: "13px", textAlign: "center" }}
@@ -344,6 +355,29 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                 ) : (
                   ""
                 )}
+                {(totalExtraDiscount && process.env.REACT_APP_COUPON_APPLY == 'true') ? (
+                    <>
+                    <div className="d-flex flex-row justify-content-between align-items-center mt-2 border-top pt-2">
+                    <span>Total Price</span>
+                    <span className="ms-2">
+                      <span>
+                        <span className="">₹</span>
+                        {totalMRP - totalDiscount}
+                      </span>
+                    </span>
+                  </div>
+                  <div className="d-flex flex-row justify-content-between align-items-center mt-2 ">
+                    <span>Coupon Applied</span>
+                    <span className="ms-2 text-success">
+                      <span>
+                        -<span className="">₹</span>
+                        {totalExtraDiscount}
+                      </span>
+                    </span>
+                  </div>
+                  </>
+                  ) : ("")
+                }
                 <div className="d-flex flex-row justify-content-between align-items-center mt-2 fw-bold border-top pt-3">
                   <span>Total Amount</span>
                   <span className="ms-2">

@@ -14,6 +14,7 @@ const AuthContext = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalMRP, setTotalMRP] = useState(0);
   const [totalDiscount, setTotalDiscount] = useState(0);
+  const [totalExtraDiscount, setTotalExtraDiscount] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState([]);
   const [sliderImages, setSliderImages] = useState([]);
   const [logo, setLogo] = useState("");
@@ -102,6 +103,30 @@ const AuthContext = ({ children }) => {
   };
 
   const handlePriceData = (products) => {
+    let totalPrice = 0;
+    let totalMRP = 0;
+    let totalDiscount = 0;
+    let totalExtraDiscount= 0;
+
+    if(process.env.REACT_APP_COUPON_APPLY == 'true') {
+
+    products.forEach(product => {
+        const { price, discount, quantity } = product;
+
+        // Apply buy 2 get 1 free logic
+        const totalPriceWithoutDiscount = price * quantity;
+        const discountedPrice = (price - discount) * quantity;
+
+        const freeItems = Math.floor(quantity / 3);
+        const totalPriceWithDiscount = (quantity - freeItems) * discount;
+        const addExtraDicount = discount * freeItems;
+        // Update totals
+        totalMRP += totalPriceWithoutDiscount;
+        totalDiscount += discountedPrice;
+        totalPrice += totalPriceWithDiscount;
+        totalExtraDiscount += addExtraDicount;
+    });
+  } else {
     let total = 0;
     let mrp = 0;
     let discount = 0;
@@ -120,10 +145,16 @@ const AuthContext = ({ children }) => {
           : 0)
       ).toFixed(2);
     }
-    setTotalPrice(Math.round(total));
-    setTotalMRP(Math.round(mrp));
-    setTotalDiscount(Math.round(discount));
-  };
+    totalPrice = Math.round(total);
+    totalMRP = Math.round(mrp);
+    totalDiscount = Math.round(discount);
+  }
+
+    setTotalPrice(totalPrice);
+    setTotalMRP(totalMRP);
+    setTotalDiscount(totalDiscount);
+    setTotalExtraDiscount(totalExtraDiscount);
+};
 
   useEffect(() => {
     handlePriceData(selectedProduct);
@@ -184,7 +215,8 @@ const AuthContext = ({ children }) => {
         logo,
         category,
         setCategory,
-        themColor
+        themColor,
+        totalExtraDiscount
       }}
     >
       <Container

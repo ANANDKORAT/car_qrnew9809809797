@@ -16,6 +16,7 @@ import CategoryPage from "../component/Category";
 import OrderTracking from "../component/Footer/orderTracking";
 import ContactUs from "../component/Footer/contactUs";
 import MyAccount from "../component/Footer/myAccount";
+import ThankYou from "../component/Thank-You/ThankYou";
 
 const AppRouters = () => (
     <Router>
@@ -35,6 +36,7 @@ const AppRouters = () => (
                 <Route path="/order-tracking" exact element={<OrderTracking />}/>
                 <Route path="/contact-us" exact element={<ContactUs />}/>
                 <Route path="/profile" exact element={<MyAccount />}/>
+                <Route path="/ThankYou" exact element={<ThankYou />}/>
             </Routes>
             <Footer />
         </AuthContext>

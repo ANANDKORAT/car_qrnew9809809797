@@ -24,7 +24,8 @@ const Cart = () => {
     handleSelectProduct,
     setSelectedProduct,
     setStep,
-    themColor
+    themColor,
+    totalExtraDiscount
   } = useAuth();
   const [showOffCanvas, setShowOffCanvas] = useState({
     show: false,
@@ -38,6 +39,8 @@ const Cart = () => {
       setSelectedProduct(cartProducts);
     }
   }, [cartProducts]);
+
+  console.log('------ cartProducts:->', cartProducts);
 
   return (
     <Container className="h-100 d-flex flex-column justify-content-between">
@@ -410,6 +413,29 @@ const Cart = () => {
                 ) : (
                   ""
                 )}
+                {(totalExtraDiscount && process.env.REACT_APP_COUPON_APPLY == 'true') ? (
+                    <>
+                    <div className="d-flex flex-row justify-content-between align-items-center mt-2 border-top pt-2">
+                    <span>Total Price</span>
+                    <span className="ms-2">
+                      <span>
+                        <span className="">₹</span>
+                        {totalMRP - totalDiscount}
+                      </span>
+                    </span>
+                  </div>
+                  <div className="d-flex flex-row justify-content-between align-items-center mt-2 ">
+                    <span>Coupon Applied</span>
+                    <span className="ms-2 text-success">
+                      <span>
+                        -<span className="">₹</span>
+                        {totalExtraDiscount}
+                      </span>
+                    </span>
+                  </div>
+                  </>
+                  ) : ("")
+                }
                 <div className="d-flex flex-row justify-content-between align-items-center mt-2 fw-bold border-top pt-3">
                   <span>Total Amount</span>
                   <span className="ms-2">
