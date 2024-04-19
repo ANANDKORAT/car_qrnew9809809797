@@ -52,7 +52,7 @@ break;
       case "Paytm":
         redirect_url =
           "phonepe://pay?pa=" +
-          upi_id +git
+          upi_id +
           "&pn=" +
           site_name +
           "&am=" +
