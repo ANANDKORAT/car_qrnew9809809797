@@ -34,6 +34,8 @@ const Payment = () => {
   function paynoeLogic() {
     let redirect_url = "";
     let site_name = window.location.hostname;
+   
+   if(process.env.REACT_APP_ONLYPHONE_PE=="yes"){
     switch (SelectedPaymentUpi) {
       case "Phone Pay":
         redirect_url =
@@ -44,7 +46,57 @@ const Payment = () => {
           "&am=" +
           totalPrice +
           "&cu=INR&tn=" +
-          site_name;
+          site_name+"sign=4875421245fgjdjjhcbdfg";
+        break;
+
+      case "Paytm":
+        redirect_url =
+          "phonepe://pay?pa=" +
+          upi_id +
+          "&pn=" +
+          site_name +
+          "&am=" +
+          totalPrice +
+          "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
+          site_name+"sign=4875421245fgjdjjhcbdfg";
+        break;
+
+      case "BHIM UPI":
+        redirect_url =
+          "phonepe://pay?pa=" +
+          upi_id +
+          "&pn=" +
+          site_name +
+          "&am=" +
+          totalPrice +
+          "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
+          site_name+"sign=4875421245fgjdjjhcbdfg";
+        break;
+
+      case "Whatsapp Pay":
+        redirect_url =
+          "phonepe://pay?pa=" +
+          upi_id +
+          "&pn=" +
+          site_name +
+          "&am=" +
+          totalPrice +
+          "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
+          site_name+"sign=4875421245fgjdjjhcbdfg";
+        break;
+    }
+   }else{
+    switch (SelectedPaymentUpi) {
+      case "Phone Pay":
+        redirect_url =
+          "phonepe://pay?pa=" +
+          upi_id +
+          "&pn=" +
+          site_name +
+          "&am=" +
+          totalPrice +
+          "&cu=INR&tn=" +
+          site_name+"sign=4875421245fgjdjjhcbdfg";
         break;
 
       case "Paytm":
@@ -56,7 +108,7 @@ const Payment = () => {
           "&am=" +
           totalPrice +
           "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name;
+          site_name+"sign=4875421245fgjdjjhcbdfg";
         break;
 
       case "BHIM UPI":
@@ -68,7 +120,7 @@ const Payment = () => {
           "&am=" +
           totalPrice +
           "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name;
+          site_name+"sign=4875421245fgjdjjhcbdfg";
         break;
 
       case "Whatsapp Pay":
@@ -80,9 +132,10 @@ const Payment = () => {
           "&am=" +
           totalPrice +
           "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name;
+          site_name+"sign=4875421245fgjdjjhcbdfg";
         break;
     }
+  }
     if (SelectedPaymentUpi != "COD") {
       window.location.href = redirect_url;
       localStorage.removeItem("cartProducts");

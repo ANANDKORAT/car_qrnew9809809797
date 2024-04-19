@@ -1,25 +1,56 @@
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Col, Card, Button } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 
 const ProductCard = ({ item }) => {
   const navigate = useNavigate();
+    const containerRef = useRef(null);
+  const { whiteListProducts, handleSetWhiteListProducts, setSingleProduct } = useAuth();
+    const [imageWidth, setImageWidth] = useState(null);
+    const [imageHeight, setImageHeight] = useState(null);
 
-  const { whiteListProducts, handleSetWhiteListProducts, setSingleProduct } =
-    useAuth();
+    useEffect(() => {
+        const img = new Image();
+        img.onload = () => {
+            setImageWidth(img.width);
+            setImageHeight(img.height);
+        };
+        img.src = item?.images[0] ?? ""; // Update with your image URL
+    }, [item?.images[0]]);
 
-  const handleRedirect = (id) => {
+    const handleRedirect = (id) => {
     navigate(`/single-product/${id}`);
   };
+
+    const imageStyle = {
+        width: "100%",
+    };
+
+    if (imageWidth && imageHeight) {
+        const aspectRatio = imageWidth / imageHeight;
+        let splitValue=aspectRatio.toString().split('.');
+        if(splitValue && splitValue.length > 0) {
+          if(splitValue.length > 1) {
+            splitValue = `${splitValue[0]}.${splitValue[1].charAt(0)}`
+          } else {
+            splitValue =  splitValue[0] 
+          }
+        }
+        splitValue = +splitValue;
+        
+        if (splitValue > 1) { // Landscape image
+            imageStyle.height = "auto"; // Maintain aspect ratio
+        } else { // Portrait or square image
+            imageStyle.height = '100%';
+            imageStyle.width = 'auto';
+        }
+    }
+
   return (
     <Col
       key={item._id}
-      style={
-        process.env.REACT_APP_themssizetype === "Portrait"
-          ? {}
-          : { maxHeight: "350px" }
-      }
+      style={{ maxHeight: "350px" }}
     >
       <Card
         style={{ height: "100%", borderRadius: 2 }}
@@ -28,44 +59,12 @@ const ProductCard = ({ item }) => {
           handleRedirect(item._id);
         }}
       >
-        <div
-          className="position-relative"
-          style={
-            process.env.REACT_APP_themssizetype === "Portrait"
-              ? {}
-              : { maxHeight: "calc(350px - 150px)" }
-          }
-        >
-          {process.env.REACT_APP_themssizetype === "Portrait" ? (
-            <Card.Img
-              variant="top"
-              src={item?.images[0] ?? ""}
-              style={{
-                maxHeight: "200px",
-                minHeight: "200px",
-                borderRadius: 0,
-                objectFit: "contain",
-              }}
-            />
-          ) : process.env.REACT_APP_themssizetype === "square" ? (
-            <Card.Img
-              variant="top"
-              src={item?.images[0] ?? ""}
-              style={{
-                minHeight: "calc(100% - 150px)",
-                borderRadius: 0,
-                //  paddingBlock: "50px",     // if use dryfrut only squre image
-                objectFit: "cover",
-                //  height:"100%",              // if use squre image only in not fit in box
-              }}
-            />
-          ) : (
-            ""
-          )}
-
-          <span className="rating_box">
-            {item.rating} <i className="fa-solid fa-star" color="red"></i>
-          </span>
+        <div className="position-relative" style={{height: 'calc(100% - 140px)', textAlign: 'center'}} ref={containerRef}>
+            <Card.Img variant="top" src={item?.images[0] ?? ""} style={imageStyle} />
+            <span className="rating_box">
+                {item.rating}
+                <i className="fa-solid fa-star" color="red"></i>
+            </span>
         </div>
         <Card.Body className="p-2">
           <div className="d-flex justify-content-between align-items-center">

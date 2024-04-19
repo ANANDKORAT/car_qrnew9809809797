@@ -92,3 +92,20 @@ body {
   margin-top: -80px;
   margin-left: -80px;
 }
+
+
+.zoom-animation {
+  animation: zoomInOut 2s ease-in-out infinite alternate; /* Animation properties */
+}
+
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1); /* Start at normal scale */
+  }
+  50% {
+    transform: scale(1.1); /* Zoom in to 110% */
+  }
+  100% {
+    transform: scale(1); /* Zoom back out to normal scale */
+  }
+}
