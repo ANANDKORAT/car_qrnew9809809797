@@ -47,12 +47,12 @@ const Payment = () => {
           totalPrice +
           "&cu=INR&tn=" +
           site_name+"&sign=4875421245fgjdjjhcbdfg";
-        break;
+break;
 
       case "Paytm":
         redirect_url =
           "phonepe://pay?pa=" +
-          upi_id +
+          upi_id +git
           "&pn=" +
           site_name +
           "&am=" +
