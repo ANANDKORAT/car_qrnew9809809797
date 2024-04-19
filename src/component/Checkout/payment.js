@@ -46,7 +46,7 @@ const Payment = () => {
           "&am=" +
           totalPrice +
           "&cu=INR&tn=" +
-          site_name+"sign=4875421245fgjdjjhcbdfg";
+          site_name+"&sign=4875421245fgjdjjhcbdfg";
         break;
 
       case "Paytm":
@@ -58,7 +58,7 @@ const Payment = () => {
           "&am=" +
           totalPrice +
           "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name+"sign=4875421245fgjdjjhcbdfg";
+          site_name+"&sign=4875421245fgjdjjhcbdfg";
         break;
 
       case "BHIM UPI":
@@ -70,7 +70,7 @@ const Payment = () => {
           "&am=" +
           totalPrice +
           "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name+"sign=4875421245fgjdjjhcbdfg";
+          site_name+"&sign=4875421245fgjdjjhcbdfg";
         break;
 
       case "Whatsapp Pay":
@@ -82,7 +82,7 @@ const Payment = () => {
           "&am=" +
           totalPrice +
           "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name+"sign=4875421245fgjdjjhcbdfg";
+          site_name+"&sign=4875421245fgjdjjhcbdfg";
         break;
     }
    }else{
@@ -96,7 +96,7 @@ const Payment = () => {
           "&am=" +
           totalPrice +
           "&cu=INR&tn=" +
-          site_name+"sign=4875421245fgjdjjhcbdfg";
+          site_name+"&sign=4875421245fgjdjjhcbdfg";
         break;
 
       case "Paytm":
@@ -108,7 +108,7 @@ const Payment = () => {
           "&am=" +
           totalPrice +
           "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name+"sign=4875421245fgjdjjhcbdfg";
+          site_name+"&sign=4875421245fgjdjjhcbdfg";
         break;
 
       case "BHIM UPI":
@@ -120,7 +120,7 @@ const Payment = () => {
           "&am=" +
           totalPrice +
           "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name+"sign=4875421245fgjdjjhcbdfg";
+          site_name+"&sign=4875421245fgjdjjhcbdfg";
         break;
 
       case "Whatsapp Pay":
@@ -132,7 +132,7 @@ const Payment = () => {
           "&am=" +
           totalPrice +
           "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name+"sign=4875421245fgjdjjhcbdfg";
+          site_name+"&sign=4875421245fgjdjjhcbdfg";
         break;
     }
   }
