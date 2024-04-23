@@ -102,6 +102,24 @@ const AuthContext = ({ children }) => {
     }
   };
 
+  const calcExtraDiscount=(arr, pickIndex, remainingQuantity,totalExtraDiscount)=>{
+      const bb = arr[pickIndex];
+      console.log('---- totalExtraDiscount', totalExtraDiscount);
+      if(bb?.quantity > remainingQuantity) {
+          totalExtraDiscount += (bb?.discount || 0) *  remainingQuantity;
+          console.log('----- totalExtraDiscount', totalExtraDiscount, bb?.discount, remainingQuantity);
+          return totalExtraDiscount;
+      } else {
+          totalExtraDiscount += bb?.discount *  bb?.quantity;
+          remainingQuantity = remainingQuantity - bb?.quantity;
+          if(remainingQuantity > 0) {
+              return calcExtraDiscount(arr, pickIndex-1, remainingQuantity, totalExtraDiscount);
+          } else {
+              return totalExtraDiscount;
+          }
+      }
+  }
+
   const handlePriceData = (products) => {
     let totalPrice = 0;
     let totalMRP = 0;
@@ -110,22 +128,36 @@ const AuthContext = ({ children }) => {
 
     if(process.env.REACT_APP_COUPON_APPLY == 'true') {
 
-    products.forEach(product => {
-        const { price, discount, quantity } = product;
+        let Allquantity = products.reduce((acc, cur) => acc + cur.quantity, 0);
+        const qua =Array.from({ length: Allquantity }, (value, index) => index);
+        const originalArray = qua;
+        const groupSize = 3;
+        const subArrays = [];
 
-        // Apply buy 2 get 1 free logic
-        const totalPriceWithoutDiscount = price * quantity;
-        const discountedPrice = (price - discount) * quantity;
+        for (let i = 0; i < originalArray.length; i += groupSize) {
+            const group = originalArray.slice(i, i + groupSize);
+            if (group.length === groupSize) {
+                subArrays.push(group);
+            }
+        }
+        const countSubArraysLength3 = subArrays.length;
 
-        const freeItems = Math.floor(quantity / 3);
-        const totalPriceWithDiscount = (quantity - freeItems) * discount;
-        const addExtraDicount = discount * freeItems;
-        // Update totals
-        totalMRP += totalPriceWithoutDiscount;
-        totalDiscount += discountedPrice;
-        totalPrice += totalPriceWithDiscount;
-        totalExtraDiscount += addExtraDicount;
-    });
+        const sortArry = cartProducts.sort((a, b) => b.discount - a.discount);
+
+        totalExtraDiscount = calcExtraDiscount(sortArry, sortArry.length - 1, countSubArraysLength3, totalExtraDiscount);
+        products.forEach(product => {
+            const { price, discount, quantity } = product;
+
+            // Apply buy 2 get 1 free logic
+            const totalMrpWithoutDiscount = price * quantity;
+            const totalPriceDiscount = discount * quantity;
+
+            // Update totals
+            totalMRP += totalMrpWithoutDiscount;
+            totalDiscount += totalMrpWithoutDiscount - totalPriceDiscount;
+            totalPrice += totalPriceDiscount;
+        });
+        totalPrice = totalPrice - totalExtraDiscount
   } else {
     let total = 0;
     let mrp = 0;

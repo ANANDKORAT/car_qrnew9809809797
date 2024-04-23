@@ -34,7 +34,7 @@ const Payment = () => {
   function paynoeLogic() {
     let redirect_url = "";
     let site_name = window.location.hostname;
-   
+
    if(process.env.REACT_APP_ONLYPHONE_PE=="yes"){
     switch (SelectedPaymentUpi) {
       case "Phone Pay":
@@ -420,7 +420,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                     </span>
                   </div>
                   <div className="d-flex flex-row justify-content-between align-items-center mt-2 ">
-                    <span>Coupon Applied</span>
+                    <span>Coupon Applied (Buy 2 Get 1 free)</span>
                     <span className="ms-2 text-success">
                       <span>
                         -<span className="">₹</span>

@@ -425,7 +425,7 @@ const Cart = () => {
                     </span>
                   </div>
                   <div className="d-flex flex-row justify-content-between align-items-center mt-2 ">
-                    <span>Coupon Applied</span>
+                    <span>Coupon Applied (Buy 2 Get 1 free)</span>
                     <span className="ms-2 text-success">
                       <span>
                         -<span className="">₹</span>
