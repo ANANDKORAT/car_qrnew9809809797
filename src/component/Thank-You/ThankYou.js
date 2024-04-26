@@ -17,23 +17,23 @@ const ThankYou = () => {
     <div>
       <div
         style={{
-          margin: "20px 140px",
           display: "flex",
           flexDirection: "column",
           gap: "10px",
+            padding: '10px 20px'
         }}
       >
         <h4>YOUR ORDER HAS BEEN RECEIVED</h4>
-        <h5>Thank You For Your Payment, it's Processing</h5>
+        <h5>Confirmation of Order Receipt and Payment Processing</h5>
         <p style={{ color: "red" }}>
-          Note: If your payment is not successful by you, then your order will
-          be canclled automatically! Please make sure do not close any upi app
-          untill payment is done!
+            Please note that if your payment is unsuccessful, your order will be automatically canceled. Kindly ensure that you do not close any UPI app until the payment process is completed.
         </p>
         <h6>
-          You Will receive an order confirmation email with details of your
-          order and a link to track your process.
+            Upon successful processing, you will receive an order confirmation email containing detailed information about your order and a link to track its progress.
         </h6>
+          <h6>
+              {`Thank you for choosing ${window.location.hostname || ''}. If you have any questions or concerns, feel free to reach out to us.`}
+          </h6>
         <p>
           <strong>Your Order id is:</strong>
           &nbsp;{orderId}

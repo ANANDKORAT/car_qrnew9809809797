@@ -52,16 +52,16 @@ body {
 }
 
 .step-number {
-  margin-left: auto;
   width: 14px;
-  height: 65px;
-  text-align: right;
-  color: #424553;
-  font-size: 65px;
+  height: 14px;
   border-radius: 50%;
-  display: flex;
-  align-items: flex-end;
+  margin: 0 4px;
 }
+
+.cls-1{fill:#00a912;}
+.cls-1,
+.cls-2{fillRule:evenodd;}
+.cls-2{fill:#fff;}
 
 .active {
   color: #9f2089;

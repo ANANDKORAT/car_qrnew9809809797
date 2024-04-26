@@ -267,22 +267,16 @@ ${
               <>
                 <div
                   className="step-number"
-                  style={step === 1 ? { color: "#9f2089" } : {}}
-                >
-                  .
-                </div>
+                  style={step > 1 ? { background: "green" } : { background: "yellow" }}
+                />
                 <div
                   className="step-number"
-                  style={step === 2 ? { color: "#9f2089" } : {}}
-                >
-                  .
-                </div>
+                  style={step > 2 ? { background: "green" } : { background: "yellow" }}
+                />
                 <div
                   className="step-number"
-                  style={step === 3 ? { color: "#9f2089" } : {}}
-                >
-                  .
-                </div>
+                  style={step > 3 ? { background: "green" } : { background: "yellow" }}
+                />
               </>
             ) : (
               <>
