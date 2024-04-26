@@ -39,6 +39,12 @@ const ContactUs = () => {
               Contact Us
             </h3>
             <div class="Footer__Content Rte">
+              <strong>Email us :- </strong>   care@{window.location.hostname}
+              <br></br><br></br>
+              <strong>Address  :- </strong>  {process.env.REACT_APP_ADDRESS}
+              <br></br><br></br>
+            </div>
+            <div class="Footer__Content Rte">
               We're here to help nd answer any question you might have. we look
               forward to hearing from you
             </div>

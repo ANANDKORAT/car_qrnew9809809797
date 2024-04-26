@@ -17,6 +17,9 @@ import OrderTracking from "../component/Footer/orderTracking";
 import ContactUs from "../component/Footer/contactUs";
 import MyAccount from "../component/Footer/myAccount";
 import ThankYou from "../component/Thank-You/ThankYou";
+import PrivacyPolicy from "../component/Footer/privacyPolicy";
+import Termsofservice from "../component/Footer/Termsofservice";
+import Shippingpolicy from "../component/Footer/Shippingpolicy";
 
 const AppRouters = () => (
     <Router>
@@ -35,6 +38,10 @@ const AppRouters = () => (
                 <Route path="/faqs" exact element={<FAQ />}/>
                 <Route path="/order-tracking" exact element={<OrderTracking />}/>
                 <Route path="/contact-us" exact element={<ContactUs />}/>
+                <Route path="/privacypolicy" exact element={<PrivacyPolicy />}/>
+                <Route path="/termsofservice" exact element={<Termsofservice />}/>
+
+                <Route path="/shippingpolicy" exact element={<Shippingpolicy />}/>
                 <Route path="/profile" exact element={<MyAccount />}/>
                 <Route path="/ThankYou" exact element={<ThankYou />}/>
                 <Route path="/order-comfirmation" exact element={<OrderTracking isAfterPayment />}/>

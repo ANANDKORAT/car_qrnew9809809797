@@ -114,16 +114,13 @@ const Footer = () => {
               >
                 <span>Contact Us</span>
               </Accordion.Header>
+              
             </Accordion.Item>
+           
             <Accordion.Item eventKey="1">
-              <Accordion.Header>Return/Exchange</Accordion.Header>
+              <Accordion.Header>Our Policy</Accordion.Header>
               <Accordion.Body className="text-center">
-                <div
-                  style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
-                  onClick={() => navigate("/order-tracking")}
-                >
-                  Track Order
-                </div>
+                
                 <div
                   style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
                   className="my-3"
@@ -133,18 +130,52 @@ const Footer = () => {
                 </div>
                 <div
                   style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
+                  className="my-3"
+                  onClick={() => navigate("/privacypolicy")}
+                >
+                  Privacy policy
+                </div>
+                <div
+                  style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
+                  className="my-3"
+                  onClick={() => navigate("/shippingpolicy")}
+                >
+                 Shipping policy
+                </div>
+                <div
+                  style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
+                  className="my-3"
+                  onClick={() => navigate("/termsofservice")}
+                >
+                  Terms of service
+                </div>
+                
+               
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item eventKey="2">
+              <Accordion.Header>Infromations</Accordion.Header>
+              <Accordion.Body className="text-center">
+              <div
+                  style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
+                  onClick={() => navigate("/order-tracking")}
+                >
+                  About Us
+                </div>
+              <div
+                  style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
+                  onClick={() => navigate("/order-tracking")}
+                >
+                  Track Order
+                </div>
+              <div
+                  style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
                   onClick={() => navigate("/faqs")}
                 >
                   FAQ
                 </div>
-              </Accordion.Body>
-            </Accordion.Item>
-            <Accordion.Item eventKey="2">
-              <Accordion.Header>About Us</Accordion.Header>
-              <Accordion.Body className="text-center">
-                <div style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}>
-                  Work With Us
-                </div>
+                
+                
               </Accordion.Body>
             </Accordion.Item>
             <div className="accordion-item pb-3">
@@ -239,6 +270,7 @@ const Footer = () => {
           </Accordion>
         </Col>
       </Row>
+      
     </Container>
   );
 };
