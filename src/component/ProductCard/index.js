@@ -34,16 +34,21 @@ const ProductCard = ({ item }) => {
           if(splitValue.length > 1) {
             splitValue = `${splitValue[0]}.${splitValue[1].charAt(0)}`
           } else {
-            splitValue =  splitValue[0] 
+            splitValue =  splitValue[0]
           }
         }
         splitValue = +splitValue;
-        
+
         if (splitValue > 1) { // Landscape image
             imageStyle.height = "auto"; // Maintain aspect ratio
-        } else { // Portrait or square image
-            imageStyle.height = '100%';
-            imageStyle.width = 'auto';
+        }  else { // Portrait or square image
+            if(splitValue <=1 && splitValue >= 0.8 && window.innerWidth < 455) {
+                imageStyle.height = 'auto';
+                imageStyle.width = '100%';
+            } else {
+                imageStyle.height = '100%';
+                imageStyle.width = 'auto';
+            }
         }
     }
 
