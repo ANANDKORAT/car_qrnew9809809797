@@ -37,6 +37,7 @@ const AppRouters = () => (
                 <Route path="/contact-us" exact element={<ContactUs />}/>
                 <Route path="/profile" exact element={<MyAccount />}/>
                 <Route path="/ThankYou" exact element={<ThankYou />}/>
+                <Route path="/order-comfirmation" exact element={<OrderTracking isAfterPayment />}/>
             </Routes>
             <Footer />
         </AuthContext>

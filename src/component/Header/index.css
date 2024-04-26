@@ -6,6 +6,7 @@ body {
   animation-duration: 1s;
   animation-fill-mode: both;
 }
+
 .bounceIn {
   animation-name: bounceIn;
 }
@@ -17,6 +18,7 @@ body {
 }
 
 @keyframes bounceIn {
+
   0%,
   30%,
   60%,
@@ -51,10 +53,18 @@ body {
 
 .step-number {
   margin-left: auto;
-  width: 56px;
+  width: 14px;
+  height: 65px;
   text-align: right;
   color: #424553;
-  font-size: 13px;
+  font-size: 65px;
+  border-radius: 50%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.active {
+  color: #9f2089;
 }
 
 .product-delete-box {
@@ -95,17 +105,23 @@ body {
 
 
 .zoom-animation {
-  animation: zoomInOut 2s ease-in-out infinite alternate; /* Animation properties */
+  animation: zoomInOut 2s ease-in-out infinite alternate;
+  /* Animation properties */
 }
 
 @keyframes zoomInOut {
   0% {
-    transform: scale(1); /* Start at normal scale */
+    transform: scale(1);
+    /* Start at normal scale */
   }
+
   50% {
-    transform: scale(1.1); /* Zoom in to 110% */
+    transform: scale(1.1);
+    /* Zoom in to 110% */
   }
+
   100% {
-    transform: scale(1); /* Zoom back out to normal scale */
+    transform: scale(1);
+    /* Zoom back out to normal scale */
   }
 }

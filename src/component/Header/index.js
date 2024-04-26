@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
 import { Helmet } from "react-helmet";
-import OfferCountdown from './OfferCountdown';
+import OfferCountdown from "./OfferCountdown";
 
 const Header = () => {
   const [isCart, setIsCart] = useState(false);
@@ -16,6 +16,7 @@ const Header = () => {
   const [isPayment, setIsPayment] = useState(false);
   const [isWhishList, setIsWhishList] = useState(false);
   const [thankYou, setThankYou] = useState(false);
+  const [orderComfirm, setOrderComfirm] = useState(false);
 
   const [analyticsDesc, setAnalyticsDesc] = useState([]);
   let location = useLocation();
@@ -30,6 +31,7 @@ const Header = () => {
     setIsCategory(location.pathname.indexOf("/category") > -1);
     setIsWhishList(location.pathname.indexOf("/wishlist") > -1);
     setThankYou(location.pathname.indexOf("/ThankYou") > -1);
+      setOrderComfirm(location.pathname.indexOf("/order-comfirmation") > -1);
 
     handleProductData();
   }, [location]);
@@ -202,6 +204,7 @@ ${
           isPayment ||
           isProductDetails ||
           isCategory ||
+          orderComfirm ||
           isWhishList ? (
             <Nav
               className={"d-flex flex-row align-items-center"}
@@ -261,7 +264,26 @@ ${
             className={"d-flex flex-row align-items-center position-relative"}
           >
             {step && (isCart || isCheckout || isPayment) ? (
-              <div className="step-number">STEP {step}/3</div>
+              <>
+                <div
+                  className="step-number"
+                  style={step === 1 ? { color: "#9f2089" } : {}}
+                >
+                  .
+                </div>
+                <div
+                  className="step-number"
+                  style={step === 2 ? { color: "#9f2089" } : {}}
+                >
+                  .
+                </div>
+                <div
+                  className="step-number"
+                  style={step === 3 ? { color: "#9f2089" } : {}}
+                >
+                  .
+                </div>
+              </>
             ) : (
               <>
                 {isProductDetails || isWhishList ? (
@@ -283,65 +305,67 @@ ${
                 ) : (
                   ""
                 )}
-                <Nav.Link
-                  onClick={() => navigate("/wishlist")}
-                  className="nav-menu"
-                  style={{ marginRight: "18px" }}
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24">
-                    <g
-                      stroke="none"
-                      strokeWidth="1"
-                      fill="none"
-                      fillRule="evenodd"
-                    >
-                      <g fill="#3E4152">
-                        <path d="M8.1703,4.473425 C6.9537,4.473425 5.8134,4.946625 4.95975,5.805525 C4.10435,6.666175 3.63325,7.815575 3.63325,9.042675 C3.63325,10.269775 4.10435,11.419525 4.95975,12.280175 L12,19.362425 L19.0406,12.279825 C19.89565,11.419525 20.36675,10.270125 20.36675,9.042675 C20.36675,7.815575 19.89565,6.665825 19.0406,5.805875 C19.0406,5.805875 19.0406,5.805525 19.04025,5.805525 C18.1866,4.946625 17.0463,4.473425 15.8297,4.473425 C14.6138,4.473425 13.4742,4.946275 12.62055,5.804475 C12.29225,6.134525 11.70845,6.134875 11.3798,5.804475 C10.5258,4.946275 9.3862,4.473425 8.1703,4.473425 L8.1703,4.473425 Z M12.02835,21.276575 L11.972,21.276575 C11.6304,21.276575 11.2965,21.137625 11.05605,20.895075 L3.71865,13.513925 C2.53495,12.323225 1.88325,10.735275 1.88325,9.042675 C1.88325,7.350075 2.53495,5.762475 3.71865,4.571775 C4.9034,3.379675 6.48435,2.723425 8.1703,2.723425 C9.5759,2.723425 10.90905,3.179825 12,4.022625 C13.0913,3.179825 14.4241,2.723425 15.8297,2.723425 C17.516,2.723425 19.09695,3.379675 20.2817,4.572125 C21.46505,5.762475 22.11675,7.350075 22.11675,9.042675 C22.11675,10.735625 21.46505,12.323225 20.2817,13.513925 L12.94325,20.895775 C12.6993,21.141475 12.3745,21.276575 12.02835,21.276575 L12.02835,21.276575 Z"></path>
-                      </g>
-                    </g>
-                  </svg>
-                </Nav.Link>
-                <Nav.Link
-                  onClick={() => navigate("/cart")}
-                  className="nav-menu postion-relative"
-                >
-                  {/* {cartProducts?.length > 0 ? ( */}
-                  <div
-                    id="notificationCount"
-                    className="animated"
-                    style={{
-                      position: "absolute",
-                      top: "0",
-                      right: "-2px",
-                      marginRight: "4px",
-                      opacity: cartProducts.length > 0 ? 1 : 0,
-                      borderRadius: "50%",
-                      background: "black",
-                      color: "#fff",
-                      fontWeight: "bold",
-                      width: "20px",
-                      height: "20px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
+                  {!orderComfirm && <Nav.Link
+                      onClick={() => navigate("/wishlist")}
+                      className="nav-menu"
+                      style={{marginRight: "18px"}}
                   >
-                    {cartProducts.length}
-                  </div>
-                  {/* ) : (
+                      <svg width="24" height="24" viewBox="0 0 24 24">
+                          <g
+                              stroke="none"
+                              strokeWidth="1"
+                              fill="none"
+                              fillRule="evenodd"
+                          >
+                              <g fill="#3E4152">
+                                  <path
+                                      d="M8.1703,4.473425 C6.9537,4.473425 5.8134,4.946625 4.95975,5.805525 C4.10435,6.666175 3.63325,7.815575 3.63325,9.042675 C3.63325,10.269775 4.10435,11.419525 4.95975,12.280175 L12,19.362425 L19.0406,12.279825 C19.89565,11.419525 20.36675,10.270125 20.36675,9.042675 C20.36675,7.815575 19.89565,6.665825 19.0406,5.805875 C19.0406,5.805875 19.0406,5.805525 19.04025,5.805525 C18.1866,4.946625 17.0463,4.473425 15.8297,4.473425 C14.6138,4.473425 13.4742,4.946275 12.62055,5.804475 C12.29225,6.134525 11.70845,6.134875 11.3798,5.804475 C10.5258,4.946275 9.3862,4.473425 8.1703,4.473425 L8.1703,4.473425 Z M12.02835,21.276575 L11.972,21.276575 C11.6304,21.276575 11.2965,21.137625 11.05605,20.895075 L3.71865,13.513925 C2.53495,12.323225 1.88325,10.735275 1.88325,9.042675 C1.88325,7.350075 2.53495,5.762475 3.71865,4.571775 C4.9034,3.379675 6.48435,2.723425 8.1703,2.723425 C9.5759,2.723425 10.90905,3.179825 12,4.022625 C13.0913,3.179825 14.4241,2.723425 15.8297,2.723425 C17.516,2.723425 19.09695,3.379675 20.2817,4.572125 C21.46505,5.762475 22.11675,7.350075 22.11675,9.042675 C22.11675,10.735625 21.46505,12.323225 20.2817,13.513925 L12.94325,20.895775 C12.6993,21.141475 12.3745,21.276575 12.02835,21.276575 L12.02835,21.276575 Z"></path>
+                              </g>
+                          </g>
+                      </svg>
+                  </Nav.Link>}
+                  {!orderComfirm && <Nav.Link
+                      onClick={() => navigate("/cart")}
+                      className="nav-menu postion-relative"
+                  >
+                      {/* {cartProducts?.length > 0 ? ( */}
+                      <div
+                          id="notificationCount"
+                          className="animated"
+                          style={{
+                              position: "absolute",
+                              top: "0",
+                              right: "-2px",
+                              marginRight: "4px",
+                              opacity: cartProducts.length > 0 ? 1 : 0,
+                              borderRadius: "50%",
+                              background: "black",
+                              color: "#fff",
+                              fontWeight: "bold",
+                              width: "20px",
+                              height: "20px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                          }}
+                      >
+                          {cartProducts.length}
+                      </div>
+                      {/* ) : (
                   ""
                 )} */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    id="Outline"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                    style={{ marginRight: "8px" }}
-                  >
-                    <path d="M21,6H18A6,6,0,0,0,6,6H3A3,3,0,0,0,0,9V19a5.006,5.006,0,0,0,5,5H19a5.006,5.006,0,0,0,5-5V9A3,3,0,0,0,21,6ZM12,2a4,4,0,0,1,4,4H8A4,4,0,0,1,12,2ZM22,19a3,3,0,0,1-3,3H5a3,3,0,0,1-3-3V9A1,1,0,0,1,3,8H6v2a1,1,0,0,0,2,0V8h8v2a1,1,0,0,0,2,0V8h3a1,1,0,0,1,1,1Z" />
-                  </svg>
-                </Nav.Link>
+                      <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          id="Outline"
+                          viewBox="0 0 24 24"
+                          width="24"
+                          height="24"
+                          style={{marginRight: "8px"}}
+                      >
+                          <path
+                              d="M21,6H18A6,6,0,0,0,6,6H3A3,3,0,0,0,0,9V19a5.006,5.006,0,0,0,5,5H19a5.006,5.006,0,0,0,5-5V9A3,3,0,0,0,21,6ZM12,2a4,4,0,0,1,4,4H8A4,4,0,0,1,12,2ZM22,19a3,3,0,0,1-3,3H5a3,3,0,0,1-3-3V9A1,1,0,0,1,3,8H6v2a1,1,0,0,0,2,0V8h8v2a1,1,0,0,0,2,0V8h3a1,1,0,0,1,1,1Z"/>
+                      </svg>
+                  </Nav.Link>}
               </>
             )}
           </Nav>
@@ -357,6 +381,7 @@ ${
           isCheckout ||
           isPayment ||
           isProductDetails ||
+          orderComfirm ||
           isCategory ||
           thankYou ||
           isWhishList
@@ -388,23 +413,25 @@ ${
           />
         </InputGroup>
       </Container>
-      {isProductDetails && process.env.REACT_APP_SHOW_OFFER_BANNER == 'true' && singleProduct?._id && (
-        <Container
-          style={{
-            background: "var(--them-color)",
-            borderColor: "var(--them-color)",
-            fontSize: 20,
-            color: "#fff",
-            padding: "8px 16px",
-            textAlign: 'center',
-            fontWeight: '600'
-          }}
-        >
-          <div className="zoom-animation m-auto">
-            <OfferCountdown />
-          </div>
-        </Container>
-      )}
+      {isProductDetails &&
+        process.env.REACT_APP_SHOW_OFFER_BANNER == "true" &&
+        singleProduct?._id && (
+          <Container
+            style={{
+              background: "var(--them-color)",
+              borderColor: "var(--them-color)",
+              fontSize: 20,
+              color: "#fff",
+              padding: "8px 16px",
+              textAlign: "center",
+              fontWeight: "600",
+            }}
+          >
+            <div className="zoom-animation m-auto">
+              <OfferCountdown />
+            </div>
+          </Container>
+        )}
     </Navbar>
   );
 };

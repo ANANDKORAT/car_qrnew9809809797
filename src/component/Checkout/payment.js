@@ -7,7 +7,15 @@ import payment_video_loop from "../../assets/cod_lat.gif";
 import { useNavigate } from "react-router-dom";
 
 const Payment = () => {
-  const { selectedProduct, totalPrice, totalDiscount, totalMRP, address, totalExtraDiscount,handleSetCartProducts } = useAuth();
+  const {
+    selectedProduct,
+    totalPrice,
+    totalDiscount,
+    totalMRP,
+    address,
+    totalExtraDiscount,
+    handleSetCartProducts,
+  } = useAuth();
   // const [selectPaymentMethod, setPaymentMethod] = useState("");
   const [time, setTime] = useState(300);
   const [SelectedPaymentUpi, setSelectedPayment] = useState("Phone Pay");
@@ -20,6 +28,7 @@ const Payment = () => {
       Set_upi_id(res?.data?.data[0].url);
     });
   }, []);
+
   useEffect(() => {
     let timer = setInterval(() => {
       setTime((time) => {
@@ -35,113 +44,123 @@ const Payment = () => {
     let redirect_url = "";
     let site_name = window.location.hostname;
 
-   if(process.env.REACT_APP_ONLYPHONE_PE=="yes"){
-    switch (SelectedPaymentUpi) {
-      case "Phone Pay":
-        redirect_url =
-          "phonepe://pay?pa=" +
-          upi_id +
-          "&pn=" +
-          site_name +
-          "&am=" +
-          totalPrice +
-          "&cu=INR&tn=" +
-          site_name+"&sign=4875421245fgjdjjhcbdfg";
-break;
+    if (process.env.REACT_APP_ONLYPHONE_PE == "yes") {
+      switch (SelectedPaymentUpi) {
+        case "Phone Pay":
+          redirect_url =
+            "phonepe://pay?pa=" +
+            upi_id +
+            "&pn=" +
+            site_name +
+            "&am=" +
+            totalPrice +
+            "&cu=INR&tn=" +
+            site_name +
+            "&sign=4875421245fgjdjjhcbdfg";
+          break;
 
-      case "Paytm":
-        redirect_url =
-          "phonepe://pay?pa=" +
-          upi_id +
-          "&pn=" +
-          site_name +
-          "&am=" +
-          totalPrice +
-          "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name+"&sign=4875421245fgjdjjhcbdfg";
-        break;
+        case "Paytm":
+          redirect_url =
+            "phonepe://pay?pa=" +
+            upi_id +
+            "&pn=" +
+            site_name +
+            "&am=" +
+            totalPrice +
+            "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
+            site_name +
+            "&sign=4875421245fgjdjjhcbdfg";
+          break;
 
-      case "BHIM UPI":
-        redirect_url =
-          "phonepe://pay?pa=" +
-          upi_id +
-          "&pn=" +
-          site_name +
-          "&am=" +
-          totalPrice +
-          "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name+"&sign=4875421245fgjdjjhcbdfg";
-        break;
+        case "BHIM UPI":
+          redirect_url =
+            "phonepe://pay?pa=" +
+            upi_id +
+            "&pn=" +
+            site_name +
+            "&am=" +
+            totalPrice +
+            "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
+            site_name +
+            "&sign=4875421245fgjdjjhcbdfg";
+          break;
 
-      case "Whatsapp Pay":
-        redirect_url =
-          "phonepe://pay?pa=" +
-          upi_id +
-          "&pn=" +
-          site_name +
-          "&am=" +
-          totalPrice +
-          "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name+"&sign=4875421245fgjdjjhcbdfg";
-        break;
+        case "Whatsapp Pay":
+          redirect_url =
+            "phonepe://pay?pa=" +
+            upi_id +
+            "&pn=" +
+            site_name +
+            "&am=" +
+            totalPrice +
+            "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
+            site_name +
+            "&sign=4875421245fgjdjjhcbdfg";
+          break;
+      }
+    } else {
+      switch (SelectedPaymentUpi) {
+        case "Phone Pay":
+          redirect_url =
+            "phonepe://pay?pa=" +
+            upi_id +
+            "&pn=" +
+            site_name +
+            "&am=" +
+            totalPrice +
+            "&cu=INR&tn=" +
+            site_name +
+            "&sign=4875421245fgjdjjhcbdfg";
+          break;
+
+        case "Paytm":
+          redirect_url =
+            "paytmmp://pay?pa=" +
+            upi_id +
+            "&pn=" +
+            site_name +
+            "&am=" +
+            totalPrice +
+            "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
+            site_name +
+            "&sign=4875421245fgjdjjhcbdfg";
+          break;
+
+        case "BHIM UPI":
+          redirect_url =
+            "bhim://pay?pa=" +
+            upi_id +
+            "&pn=" +
+            site_name +
+            "&am=" +
+            totalPrice +
+            "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
+            site_name +
+            "&sign=4875421245fgjdjjhcbdfg";
+          break;
+
+        case "Whatsapp Pay":
+          redirect_url =
+            "whatsapp://pay?pa=" +
+            upi_id +
+            "&pn=" +
+            site_name +
+            "&am=" +
+            totalPrice +
+            "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
+            site_name +
+            "&sign=4875421245fgjdjjhcbdfg";
+          break;
+      }
     }
-   }else{
-    switch (SelectedPaymentUpi) {
-      case "Phone Pay":
-        redirect_url =
-          "phonepe://pay?pa=" +
-          upi_id +
-          "&pn=" +
-          site_name +
-          "&am=" +
-          totalPrice +
-          "&cu=INR&tn=" +
-          site_name+"&sign=4875421245fgjdjjhcbdfg";
-        break;
-
-      case "Paytm":
-        redirect_url =
-          "paytmmp://pay?pa=" +
-          upi_id +
-          "&pn=" +
-          site_name +
-          "&am=" +
-          totalPrice +
-          "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name+"&sign=4875421245fgjdjjhcbdfg";
-        break;
-
-      case "BHIM UPI":
-        redirect_url =
-          "bhim://pay?pa=" +
-          upi_id +
-          "&pn=" +
-          site_name +
-          "&am=" +
-          totalPrice +
-          "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name+"&sign=4875421245fgjdjjhcbdfg";
-        break;
-
-      case "Whatsapp Pay":
-        redirect_url =
-          "whatsapp://pay?pa=" +
-          upi_id +
-          "&pn=" +
-          site_name +
-          "&am=" +
-          totalPrice +
-          "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-          site_name+"&sign=4875421245fgjdjjhcbdfg";
-        break;
-    }
-  }
     if (SelectedPaymentUpi != "COD") {
       window.location.href = redirect_url;
       localStorage.removeItem("cartProducts");
       localStorage.removeItem("slectedData");
       localStorage.removeItem("address");
-    } else if(process.env.REACT_APP_COD != 'no'){
+      handleSetCartProducts([]);
+      navigate("/order-comfirmation");
+    } else if (process.env.REACT_APP_COD != "no") {
       localStorage.removeItem("cartProducts");
       localStorage.removeItem("slectedData");
       localStorage.removeItem("address");
@@ -355,19 +374,21 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                     }}
                   >
                     <span className="d-flex align-items-center">
-                      <span>{item.icon}</span>
+                      <span>{item?.icon}</span>
                       <span className="ms-2">{item.name}</span>
                     </span>
-                    {process.env.REACT_APP_COD == 'no' && SelectedPaymentUpi === "COD" && item.name === "COD" && (
-                      <div
-                        className="text-danger"
-                        style={{ fontSize: "13px", textAlign: "center" }}
-                      >
-                        This Payment-Method are Not Allowed For This Offer
-                        Products Choose Other Products Otherwise Change Payment
-                        Method.
-                      </div>
-                    )}
+                    {process.env.REACT_APP_COD == "no" &&
+                      SelectedPaymentUpi === "COD" &&
+                      item.name === "COD" && (
+                        <div
+                          className="text-danger"
+                          style={{ fontSize: "13px", textAlign: "center" }}
+                        >
+                          This Payment-Method are Not Allowed For This Offer
+                          Products Choose Other Products Otherwise Change
+                          Payment Method.
+                        </div>
+                      )}
                   </div>
                 </Col>
               ))}
@@ -408,29 +429,31 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                 ) : (
                   ""
                 )}
-                {(totalExtraDiscount && process.env.REACT_APP_COUPON_APPLY == 'true') ? (
-                    <>
+                {totalExtraDiscount &&
+                process.env.REACT_APP_COUPON_APPLY == "true" ? (
+                  <>
                     <div className="d-flex flex-row justify-content-between align-items-center mt-2 border-top pt-2">
-                    <span>Total Price</span>
-                    <span className="ms-2">
-                      <span>
-                        <span className="">₹</span>
-                        {totalMRP - totalDiscount}
+                      <span>Total Price</span>
+                      <span className="ms-2">
+                        <span>
+                          <span className="">₹</span>
+                          {totalMRP - totalDiscount}
+                        </span>
                       </span>
-                    </span>
-                  </div>
-                  <div className="d-flex flex-row justify-content-between align-items-center mt-2 ">
-                    <span>Coupon Applied (Buy 2 Get 1 free)</span>
-                    <span className="ms-2 text-success">
-                      <span>
-                        -<span className="">₹</span>
-                        {totalExtraDiscount}
+                    </div>
+                    <div className="d-flex flex-row justify-content-between align-items-center mt-2 ">
+                      <span>Coupon Applied (Buy 2 Get 1 free)</span>
+                      <span className="ms-2 text-success">
+                        <span>
+                          -<span className="">₹</span>
+                          {totalExtraDiscount}
+                        </span>
                       </span>
-                    </span>
-                  </div>
+                    </div>
                   </>
-                  ) : ("")
-                }
+                ) : (
+                  ""
+                )}
                 <div className="d-flex flex-row justify-content-between align-items-center mt-2 fw-bold border-top pt-3">
                   <span>Total Amount</span>
                   <span className="ms-2">
