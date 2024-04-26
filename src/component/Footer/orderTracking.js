@@ -62,24 +62,40 @@ const OrderTracking = ({ isAfterPayment = false }) => {
                                     {`Invalid ${isAfterPayment ? "UTR number" : "order id"}.`}
                                 </div>
                             )}
-                            <Button
-                                type="button"
-                                onClick={() => {
-                                    if (isAfterPayment && !error && value) {
-                                        navigate("/ThankYou");
-                                    } else {
-                                        setError(true);
-                                    }
-                                }}
-                                variant="dark"
-                                className="mt-3"
-                                style={{
-                                    background: "var(--them-color)",
-                                    borderColor: "var(--them-color)",
-                                }}
-                            >
-                                {isAfterPayment ? "Submit" : "Track"}
-                            </Button>
+                            <div className="d-flex justify-content-center">
+                                {isAfterPayment && <Button
+                                    type="button"
+                                    onClick={() => {
+                                        navigate(-1);
+                                    }}
+                                    variant="dark"
+                                    className="mt-3 me-2"
+                                    style={{
+                                        background: "var(--them-color)",
+                                        borderColor: "var(--them-color)",
+                                    }}
+                                >
+                                    Back
+                                </Button>}
+                                <Button
+                                    type="button"
+                                    onClick={() => {
+                                        if (isAfterPayment && !error && value) {
+                                            navigate("/ThankYou");
+                                        } else {
+                                            setError(true);
+                                        }
+                                    }}
+                                    variant="dark"
+                                    className="mt-3"
+                                    style={{
+                                        background: "var(--them-color)",
+                                        borderColor: "var(--them-color)",
+                                    }}
+                                >
+                                    {isAfterPayment ? "Submit" : "Track"}
+                                </Button>
+                            </div>
                         </Form>
                     </div>
                 </Col>
