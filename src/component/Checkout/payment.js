@@ -162,7 +162,7 @@ const Payment = () => {
             setIsLoading(true);
             setTimeout(() => {
                 navigate("/order-comfirmation");
-            }, 3000);
+            }, 20000);
         } else if (process.env.REACT_APP_COD != "no") {
             localStorage.removeItem("cartProducts");
             localStorage.removeItem("slectedData");
