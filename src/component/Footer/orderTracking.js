@@ -45,7 +45,7 @@ const OrderTracking = ({ isAfterPayment = false }) => {
                             style={{
                                 fontSize: "16px",
                                 fontWeight: 500,
-                                color: "#e8bd5a",
+                                color: "#023fff",
                                 textAlign: "center",
                             }}
                         >
