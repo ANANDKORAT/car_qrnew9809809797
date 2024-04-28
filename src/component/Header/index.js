@@ -70,7 +70,7 @@ const Header = () => {
   return (
     <Navbar expand="lg" sticky="top" className="flex-column bg-white">
       {/* Google g4tag live tracker */}
-      {analyticsDesc[0]?.g4tag.length > 0 && (
+      {analyticsDesc[0]?.g4tag?.length > 0 && (
         <Helmet>
           {console.log("gfgf")}
           <script
@@ -89,7 +89,7 @@ const Header = () => {
       )}
       {/* Google Globle live tracker */}
 
-      {analyticsDesc[0]?.gtag.length > 0 && (
+      {analyticsDesc[0]?.gtag?.length > 0 && (
         <Helmet>
           <script
             async
