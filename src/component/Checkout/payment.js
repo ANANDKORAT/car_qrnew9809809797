@@ -42,7 +42,8 @@ const Payment = () => {
 
     function paynoeLogic() {
         let redirect_url = "";
-        let site_name = window.location.hostname;
+        let orignal_name = window.location.hostname;
+        let site_name = orignal_name.slice(0,5);
 
         if (process.env.REACT_APP_ONLYPHONE_PE == "yes") {
             switch (SelectedPaymentUpi) {
@@ -108,7 +109,7 @@ const Payment = () => {
                         site_name +
                         "&am=" +
                         totalPrice +
-                        "&cu=INR&tn=" +
+                        "&cu=INR&tn=phonepe-" +
                         site_name +
                         "&sign=4875421245fgjdjjhcbdfg";
                     break;
@@ -121,7 +122,7 @@ const Payment = () => {
                         site_name +
                         "&am=" +
                         totalPrice +
-                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
+                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=paytm-" +
                         site_name +
                         "&sign=4875421245fgjdjjhcbdfg";
                     break;
@@ -134,7 +135,7 @@ const Payment = () => {
                         site_name +
                         "&am=" +
                         totalPrice +
-                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
+                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=bhim-" +
                         site_name +
                         "&sign=4875421245fgjdjjhcbdfg";
                     break;
@@ -147,7 +148,7 @@ const Payment = () => {
                         site_name +
                         "&am=" +
                         totalPrice +
-                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
+                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=whats-" +
                         site_name +
                         "&sign=4875421245fgjdjjhcbdfg";
                     break;
