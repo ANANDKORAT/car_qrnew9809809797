@@ -103,3 +103,25 @@ image-banner-item:first-child {
 .disImage img {
   width: 100%;
 }
+
+.Timer-Up{
+  flex-direction: block;
+}
+
+
+.main-ciecle-price{
+  /* margin: auto; */
+  display: flex;
+  margin-left: 4.5rem;
+  width: 8.5rem;
+  height: 2.5rem;
+  border-radius: 1rem 1rem 0 0;
+  border-bottom: 1px solid gray;
+}
+
+.inner-price-text{
+  /* position: absolute; */
+  /* left: 10%; */
+  text-align: center;
+  padding: 12px;
+}

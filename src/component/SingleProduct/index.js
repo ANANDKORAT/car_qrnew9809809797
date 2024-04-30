@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./index.css";
 import { Col, Container, Row, Image, Card, Button } from "react-bootstrap";
 import { useKeenSlider } from "keen-slider/react";
@@ -8,6 +8,11 @@ import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
 import SkeletonLoader from "../SkeletonLoader";
 import ProductCard from "../ProductCard";
+import Countdown, { zeroPad } from 'react-countdown';
+import { useLocation } from "react-router-dom";
+
+
+
 
 function ThumbnailPlugin(mainRef) {
   return (slider) => {
@@ -42,6 +47,23 @@ function ThumbnailPlugin(mainRef) {
   };
 }
 
+
+
+const Renderer = ({ hours, minutes, seconds, completed }) => {
+  const [show, setShow] = useState(false);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setShow(!show);
+  //   }, 3000);
+  // }, [show]);
+
+  if (!show) {
+    // Render a completed state
+    return <span><span>{zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}</span><span className="ms-1">Hurry Up!</span></span>;
+  }
+};
+
 const SingleProduct = () => {
   const { id } = useParams();
   const [selectSize, setSelectSize] = useState("M");
@@ -49,6 +71,7 @@ const SingleProduct = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [pinCode, setPinCode] = useState("");
+  const [show, setShow] = useState(false);
   const handlePinCodeChange = (event) => {
     const { value } = event.target;
     if (/^\d*$/.test(value) && value.length <= 6) {
@@ -63,6 +86,17 @@ const SingleProduct = () => {
     setSingleProduct,
     singleProduct,
   } = useAuth();
+  const ref = useRef(null);
+  let location = useLocation();
+
+  useEffect(() => {
+    if (ref?.current) {
+      if (["STOPPED", "COMPLETED"].includes(ref?.current?.state?.status)) {
+        ref?.current?.start();
+      }
+    }
+  }, [location, ref]);
+
 
   // useEffect(() => {
   //   const selectProduct = singleData.find((o) => o._id == id);
@@ -442,7 +476,39 @@ const SingleProduct = () => {
               </div>
             </div>
             <div className="cardification" />
+            <div class="semi circle">
+              <div class="semi2">
+
+              </div>
+            </div>
             <div className="pt-4 pb-4 position-sticky bottom-0 bg-white">
+              <div className="main-ciecle-price" style={{ backgroundColor: "black" }}>
+                <div className="inner-price-text">
+                  {singleData?.price &&
+                    (singleData?.discount ? (
+                      <p style={{ textAlign: "center" }} className="mb-0">
+                        <span style={{ fontWeight: 700, color: "white" }} >
+                          {" "}
+                          ₹{singleData.discount.toFixed(0)}{" "}
+                        </span>
+                        <span
+                          style={{
+                            color: "#10c873",
+                            marginLeft: "5px",
+                          }}
+                        >{`(${(
+                          ((singleData?.price - singleData.discount) /
+                            singleData?.price) *
+                          100
+                        ).toFixed(0)})% OFF`}</span>
+                      </p>
+                    ) : (
+                      <p style={{ textAlign: "left" }} className="mb-0">
+                        {singleData.price}
+                      </p>
+                    ))}
+                </div>
+              </div>
               <div className="d-flex justify-content-center align-items-center">
                 {/* <Button
                   className="btn default d-flex justify-content-center align-items-center ripple"
@@ -508,39 +574,21 @@ const SingleProduct = () => {
                     }
                   }}
                 >
+
                   <span>
                     <span
                       style={{
-                        fontSize: "12px",
+                        fontSize: "15px",
                         color: "#f7f7ff",
                       }}
                     >
-                      Inclusive of all Taxes
+                      sales end soon
                     </span>
-                    {singleData?.price &&
-                      (singleData?.discount ? (
-                        <p style={{ textAlign: "left" }} className="mb-0">
-                          <span style={{ fontWeight: 700 }}>
-                            {" "}
-                            ₹{singleData.discount.toFixed(0)}{" "}
-                          </span>
-                          <span
-                            style={{
-                              color: "#10c873",
-                              marginLeft: "5px",
-                            }}
-                          >{`(${(
-                            ((singleData?.price - singleData.discount) /
-                              singleData?.price) *
-                            100
-                          ).toFixed(0)})% OFF`}</span>
-                        </p>
-                      ) : (
-                        <p style={{ textAlign: "left" }} className="mb-0">
-                          {singleData.price}
-                        </p>
-                      ))}
+                    <div className="Timer-Up">
+                      <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <Renderer {...e} />} intervalDelay={1000} />
+                    </div>
                   </span>
+
                   <span>
                     <svg
                       width="18"

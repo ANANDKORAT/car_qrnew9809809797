@@ -1,39 +1,29 @@
-import React, {useEffect, useRef, useState} from "react";
-import Countdown, {zeroPad} from 'react-countdown';
-import { useLocation } from "react-router-dom";
+import React from "react";
 
-const Renderer = ({ hours, minutes, seconds, completed }) => {
-    const [show, setShow]=useState(false);
-
-    useEffect(() => {
-        setTimeout(()=>{
-            setShow(!show);
-        }, 3000);
-    }, [show]);
-
-    if (completed || show) {
-        // Render a completed state
-        return <span>Buy 2 Get 1 free!</span>;
-    } else {
-        // Render a countdown
-        return <span><span>{zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}</span><span className="ms-1">Hurry Up!</span></span>;
-    }
-};
-
-const OfferCountdown=()=>{
-    const ref = useRef(null);
-    let location = useLocation();
-
-      useEffect(()=>{
-        if(ref?.current) {
-            if(["STOPPED" , "COMPLETED"].includes(ref?.current?.state?.status)) {
-                ref?.current?.start();
-            }
-        }
-      },[location, ref])
+const OfferCountdown = () => {
 
     return (
-        <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e)=><Renderer {...e}/>} intervalDelay={1000} />
+        <>
+            <div className="mt-2">
+                <marquee
+                    width="100%"
+                    direction="left"
+                    height="30px"
+                    fontWeight="700"
+                    style={{ color: "white" }}
+                >
+                    <span>Buy 2 Get 1 Free (Add 3 item to cart)</span>
+                    <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                    <span>Buy 2 Get 1 Free (Add 3 item to cart)</span>
+                    <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                    <span>Buy 2 Get 1 Free (Add 3 item to cart)</span>
+                    <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                    <span>Buy 2 Get 1 Free (Add 3 item to cart)</span>
+                    <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                    <span>Buy 2 Get 1 Free (Add 3 item to cart)</span>
+                </marquee>
+            </div>
+        </>
     )
 }
 
