@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import {useAuth} from "../../contexts/AuthContext";
 
 const ThankYou = () => {
   const navigate = useNavigate();
+  const {handleSetCartProducts}= useAuth();
 
   const generateOrderID = () => {
     const min = 1000000000;
@@ -12,6 +14,13 @@ const ThankYou = () => {
   };
 
   const orderId = generateOrderID();
+
+    useEffect(() => {
+        localStorage.removeItem("cartProducts");
+        localStorage.removeItem("slectedData");
+        localStorage.removeItem("address");
+        handleSetCartProducts([]);
+    }, []);
 
   return (
     <div>

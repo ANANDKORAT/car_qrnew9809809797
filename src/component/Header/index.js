@@ -21,7 +21,7 @@ const Header = () => {
   const [analyticsDesc, setAnalyticsDesc] = useState([]);
   let location = useLocation();
   const navigate = useNavigate();
-  const { step, cartProducts, singleProduct, logo, category } = useAuth();
+  const { step, cartProducts, singleProduct, logo, category, isPaymentPageLoading, setIsPaymentPageLoading } = useAuth();
 
   useEffect(() => {
     setIsCart(location.pathname.indexOf("/cart") > -1);
@@ -167,7 +167,13 @@ ${
               className={"d-flex flex-row align-items-center"}
               style={{ width: isProductDetails || isWhishList ? "40%" : "" }}
             >
-              <div onClick={() => navigate(-1)}>
+              <div onClick={() => {
+                  if(isPaymentPageLoading && isPayment) {
+                      setIsPaymentPageLoading(false)
+                  } else {
+                      navigate(-1)
+                  }
+              }}>
                 <svg xmlns="http://www.w3.org/2000/svg" height={24} width={24}>
                   <path
                     fill="#3E4152"
@@ -210,7 +216,13 @@ ${
               className={"d-flex flex-row align-items-center"}
               style={{ width: isProductDetails || isWhishList ? "40%" : "" }}
             >
-              <div onClick={() => navigate(-1)}>
+              <div onClick={() => {
+                  if (isPaymentPageLoading && isPayment) {
+                      setIsPaymentPageLoading(false)
+                  } else {
+                      navigate(-1)
+                  }
+              }}>
                 <svg xmlns="http://www.w3.org/2000/svg" height={24} width={24}>
                   <path
                     fill="#3E4152"

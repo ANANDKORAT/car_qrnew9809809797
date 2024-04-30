@@ -15,6 +15,8 @@ const Payment = () => {
         address,
         totalExtraDiscount,
         handleSetCartProducts,
+        isPaymentPageLoading,
+        setIsPaymentPageLoading
     } = useAuth();
     // const [selectPaymentMethod, setPaymentMethod] = useState("");
     const [time, setTime] = useState(300);
@@ -28,6 +30,41 @@ const Payment = () => {
             Set_upi_id(res?.data?.data[0].url);
         });
     }, []);
+
+    // setTimeout(() => {
+    //     navigate("/order-comfirmation");
+    // }, 20000);
+
+    useEffect(() => {
+        let loadingTimeout = null;
+        if(isLoading){
+            clearInterval(loadingTimeout);
+            loadingTimeout = setTimeout(() => {
+                setIsPaymentPageLoading(true);
+            }, 10000);
+        } else {
+            clearInterval(loadingTimeout);
+        }
+        return ()=>{
+            clearInterval(loadingTimeout);
+        }
+    }, [isLoading]);
+
+    useEffect(() => {
+        let navigateTimeout = null;
+        if(isPaymentPageLoading) {
+            clearInterval(navigateTimeout);
+            navigateTimeout = setTimeout(() => {
+                setIsPaymentPageLoading(false);
+                navigate("/order-comfirmation");
+            }, 10000);
+        } else {
+            clearInterval(navigateTimeout);
+        }
+        return ()=>{
+            clearInterval(navigateTimeout);
+        }
+    }, [isPaymentPageLoading]);
 
     useEffect(() => {
         let timer = setInterval(() => {
@@ -156,19 +193,8 @@ const Payment = () => {
         }
         if (SelectedPaymentUpi != "COD") {
             window.location.href = redirect_url;
-            localStorage.removeItem("cartProducts");
-            localStorage.removeItem("slectedData");
-            localStorage.removeItem("address");
-            handleSetCartProducts([]);
             setIsLoading(true);
-            setTimeout(() => {
-                navigate("/order-comfirmation");
-            }, 20000);
         } else if (process.env.REACT_APP_COD != "no") {
-            localStorage.removeItem("cartProducts");
-            localStorage.removeItem("slectedData");
-            localStorage.removeItem("address");
-            handleSetCartProducts([]);
             navigate("/ThankYou");
         }
     }
@@ -318,7 +344,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
     ];
 
     return (
-        isLoading ?
+        isPaymentPageLoading ?
             <Container
                 className="p-0 pt-3 pb-3 flex-column position-relative d-flex justify-content-center align-items-center"
                 style={{background: "#f2f2f3", height: '250px'}}

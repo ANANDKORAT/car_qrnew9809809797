@@ -24,6 +24,7 @@ const AuthContext = ({ children }) => {
   const [category, setCategory] = useState({});
   const [storedTime, setStoredTime] = useState(null);
   const [themColor, setThemColor] = useState(process.env.REACT_APP_THEAM_COLOR);
+  const [isPaymentPageLoading, setIsPaymentPageLoading] = useState(false);
 
   const handleAddNewItem = (add) => {
     setAddNewItem(add);
@@ -248,7 +249,9 @@ const AuthContext = ({ children }) => {
         category,
         setCategory,
         themColor,
-        totalExtraDiscount
+        totalExtraDiscount,
+          isPaymentPageLoading,
+          setIsPaymentPageLoading
       }}
     >
       <Container

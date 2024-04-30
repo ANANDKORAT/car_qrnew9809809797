@@ -88,9 +88,17 @@ const OrderTracking = ({ isAfterPayment = false }) => {
                                 type="text"
                                 onChange={(e) => setValue(e.target.value)}
                                 onBlur={() => {
-                                    isAfterPayment && value ? setError(false) : setError(true);
+                                    if(isAfterPayment && value) {
+                                        if(value.length <= 10) {
+                                            setError(true);
+                                        } else {
+                                            setError(false);
+                                        }
+                                    } else {
+                                        setError(true);
+                                    }
                                 }}
-                                placeholder={isAfterPayment ? "UTR number" : "Order Id"}
+                                placeholder={isAfterPayment ? "UTR / Transaction number" : "Order Id"}
                             />
                             {error && (
                                 <div
