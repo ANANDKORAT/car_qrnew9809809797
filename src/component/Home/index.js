@@ -19,23 +19,23 @@ const Home = () => {
   const initialTime = 300; // 5 minutes in seconds
   const [timer, setTimer] = useState(initialTime);
   const [timerString, setTimerString] = useState(formatTime(initialTime));
-  
+
   useEffect(() => {
     const countdown = setInterval(() => {
       setTimer(prevTimer => prevTimer - 1);
     }, 1000);
-    
+
     return () => clearInterval(countdown);
   }, []);
-  
+
   useEffect(() => {
     if (timer === -1) {
-      setTimer(initialTime); 
+      setTimer(initialTime);
     } else {
-      setTimerString(formatTime(timer)); 
+      setTimerString(formatTime(timer));
     }
   }, [timer, initialTime]);
-  
+
   function formatTime(time) {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
@@ -221,6 +221,23 @@ const Home = () => {
         </div>
         <Image src="https://images.meesho.com/images/widgets/OY6J5/xwgyl_800.webp" style={{ width: "100%" }} />
 
+        <div className="main-time">
+          <div className="inner-time">
+            <div className="dod-div">
+              <div className="dod-label"> Deals of the Day </div>
+              <div className="timer-logo">
+                <div className="dod-timer">
+                  <img className="img-timer" src="http://theskechhs.shop/assets/images/theme/clock.svg" />
+                  <div id="test">{timerString}</div>
+                </div>
+              </div>
+            </div>
+            <div className="sale_text">
+              <button className="btn-sale-is-live">SALE IS LIVE</button>
+            </div>
+          </div>
+        </div>
+
         {isLoader ? (
           <Row xs={2} md={2} className="g-0 mt-2">
             <Col>
@@ -240,23 +257,7 @@ const Home = () => {
           productsArray?.map((item) => {
             return (
               item.products.length > 0 && (
-                <div>    
-                  <div className="main-time">
-                    <div className="inner-time">
-                      <div className="dod-div">
-                        <div className="dod-label"> Deals of the Day </div>
-                        <div className="timer-logo">
-                          <div className="dod-timer">
-                            <img className="img-timer" src="http://theskechhs.shop/assets/images/theme/clock.svg" />
-                            <div id="test">{timerString}</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="sale_text">
-                        <button className="btn-sale-is-live">SALE IS LIVE</button>
-                      </div>
-                    </div>
-                  </div>
+                <div>
                   <h4 className="card-title text-center fw-bold my-3">{`${item.categoryName} Collection`}</h4>
                   <Row xs={2} md={2} className="g-0 mt-2">
                     {item.products.map((product, index) => (

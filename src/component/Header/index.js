@@ -193,8 +193,7 @@ ${window.location.href.includes("/payment")
                     <img
                       src={logo}
                       alt="logo"
-                      height={50}
-                      width={90}
+                      height={35}
                       style={{
                         display: "flex",
                         justifyContent: "center",
@@ -243,8 +242,7 @@ ${window.location.href.includes("/payment")
                     <img
                       src={logo}
                       alt="logo"
-                      height={50}
-                      width={90}
+                      height={35}
                       style={{
                         display: "flex",
                         justifyContent: "center",
@@ -279,7 +277,41 @@ ${window.location.href.includes("/payment")
             >
               {step && (isCart || isCheckout || isPayment) ? (
                 <>
-
+                  {!orderComfirm && <Nav.Link
+                    onClick={() => navigate("/wishlist")}
+                    className="nav-menu"
+                    style={{ marginRight: "30px" }}
+                  >
+                    <i class="fa-solid fa-square-plus" style={{ color: "#fff", }}></i>
+                  </Nav.Link>}
+                  {!orderComfirm && <Nav.Link
+                    onClick={() => navigate("/cart")}
+                    className="nav-menu postion-relative"
+                  >
+                    {/* {cartProducts?.length > 0 ? ( */}
+                    <div
+                      id="notificationCount"
+                      className="animated"
+                      style={{
+                        position: "absolute",
+                        top: "0",
+                        opacity: cartProducts.length > 0 ? 1 : 0,
+                        borderRadius: "50%",
+                        fontWeight: "bold",
+                        width: "18px",
+                        height: "18px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        background: "red",
+                        marginLeft: "10px",
+                        color : "#ffffff"
+                      }}
+                    >
+                      {cartProducts.length}
+                    </div>
+                    <i class="fa-solid fa-cart-shopping" style={{ color: "#fff", marginRight: "30px" }}></i>
+                  </Nav.Link>}
                 </>
               ) : (
                 <>
@@ -314,13 +346,15 @@ ${window.location.href.includes("/payment")
                         opacity: cartProducts.length > 0 ? 1 : 0,
                         borderRadius: "50%",
                         fontWeight: "bold",
-                        width: "20px",
-                        height: "20px",
+                        width: "18px",
+                        height: "18px",
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
                         background: "red",
-                        marginLeft: "10px"
+                        marginLeft: "10px",
+                        color : "#ffffff"
+
                       }}
                     >
                       {cartProducts.length}
@@ -442,10 +476,19 @@ ${window.location.href.includes("/payment")
         ) : (
           <>
             {/* Render other menu items */}
+
           </>
         )}
       </Nav>
-      <div style={{ borderBottom: "1px solid rgb(206, 206, 222)" }}></div>
+      {step && (isCart || isCheckout || isPayment) ? (
+        <>
+          <div style={{ borderTop: "1px solid rgb(206, 206, 222)" }}></div>
+        </>
+
+      ) : (
+        <></>
+      )}
+
     </>
 
   );

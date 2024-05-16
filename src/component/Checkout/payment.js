@@ -423,19 +423,20 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
 
     return (
         isPaymentPageLoading ?
-            <Container
-                className="p-0 pt-3 pb-3 flex-column position-relative d-flex justify-content-center align-items-center"
-                style={{ background: "#f2f2f3", height: '250px' }}
-            >
+        <Container
+        className="p-0 pt-3 pb-3 flex-column position-relative d-flex justify-content-center align-items-center"
+        style={{ background: "#f2f2f3", height: '250px' }}
+        >
                 <div>
                     Please Wait...
                 </div>
                 <Spinner />
             </Container>
             : <Container
-                className="p-0 pt-3 pb-3 position-relative d-flex flex-column justify-content-between"
-                style={{ background: "#f2f2f3" }}
+            className="p-0 pt-3 pb-3 position-relative d-flex flex-column justify-content-between"
+            style={{ background: "#f2f2f3" }}
             >
+            
                 <div>
                     {/* <div className="m-0">
                         <Image
