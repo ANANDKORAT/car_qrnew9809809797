@@ -10,7 +10,11 @@ import SkeletonLoader from "../SkeletonLoader";
 import ProductCard from "../ProductCard";
 import Countdown, { zeroPad } from 'react-countdown';
 import { useLocation } from "react-router-dom";
-
+import faAssuredPlus from "../../assets/plusassured.jpg"
+import Offer from "../../assets/offer.jpg"
+import faPlusAssured from "../../assets/plusassured.jpg";
+import replacement from "../../assets/replacement.jpg";
+import noncod from "../../assets/non-cod.jpg"; 
 
 
 
@@ -72,6 +76,32 @@ const SingleProduct = () => {
   const navigate = useNavigate();
   const [pinCode, setPinCode] = useState("");
   const [show, setShow] = useState(false);
+  const initialTime = 300; // 5 minutes in seconds
+
+  const [timer, setTimer] = useState(initialTime);
+  const [timerString, setTimerString] = useState(formatTime(initialTime));
+
+  useEffect(() => {
+    const countdown = setInterval(() => {
+      setTimer(prevTimer => prevTimer - 1);
+    }, 1000);
+
+    return () => clearInterval(countdown);
+  }, []);
+
+  useEffect(() => {
+    if (timer === -1) {
+      setTimer(initialTime);
+    } else {
+      setTimerString(formatTime(timer));
+    }
+  }, [timer, initialTime]);
+
+  function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
   const handlePinCodeChange = (event) => {
     const { value } = event.target;
     if (/^\d*$/.test(value) && value.length <= 6) {
@@ -241,7 +271,7 @@ const SingleProduct = () => {
             <div className="pb-4">
               <p
                 style={{
-                  color: process.env.REACT_APP_THEAM_COLOR,
+                  color: "rgb(87 87 87)",
                   textAlign: "start",
                   fontWeight: 700,
                 }}
@@ -249,14 +279,44 @@ const SingleProduct = () => {
               >
                 {singleData?.description}
               </p>
+              <Card.Text className="mb-0">
+                <span className="rating_box_des">
+                  {singleData?.rating}
+                  <i className="fa-solid fa-star" color="red"></i>
+                </span>
+                <span style={{ marginLeft: "50px", fontSize: "14px", color: "gray" }}>2594 Ratings & 6500 Reviews</span>
+              </Card.Text>
+              <img src={faAssuredPlus} height={"25"} style={{ marginTop: "5px" }} />
+
               {singleData?.price &&
                 (singleData?.discount ? (
                   <p style={{ textAlign: "left" }} className="mb-0">
-                    <span style={{ fontWeight: 700 }}>
+                    <span
+                      style={{
+                        color: "green",
+                        marginLeft: "5px",
+                        fontWeight: "700"
+                      }}
+                    >{`${(
+                      ((singleData?.price - singleData.discount) /
+                        singleData?.price) *
+                      100
+                    ).toFixed(0)}% OFF`}</span>
+                    <span
+                      style={{
+                        color: "#94969f",
+                        marginLeft: "10px",
+                        textDecoration: "line-through",
+                      }}
+                    >
+                      {" "}
+                      ₹{singleData?.price}{" "}
+                    </span>{" "}
+                    <span style={{ fontWeight: 700, marginLeft: "10px", fontSize: "24px" }}>
                       {" "}
                       ₹{singleData.discount}
                     </span>
-                    <span
+                    {/* <span
                       style={{
                         color: "#94969f",
                         marginLeft: "5px",
@@ -265,27 +325,8 @@ const SingleProduct = () => {
                     >
                       {" "}
                       MRP{" "}
-                    </span>
-                    <span
-                      style={{
-                        color: "#94969f",
-                        marginLeft: "5px",
-                        textDecoration: "line-through",
-                      }}
-                    >
-                      {" "}
-                      ₹{singleData?.price}{" "}
-                    </span>{" "}
-                    <span
-                      style={{
-                        color: "#ff4e4e",
-                        marginLeft: "5px",
-                      }}
-                    >{`(${(
-                      ((singleData?.price - singleData.discount) /
-                        singleData?.price) *
-                      100
-                    ).toFixed(0)})% OFF`}</span>
+                    </span> */}
+
                   </p>
                 ) : (
                   <p style={{ textAlign: "left" }} className="mb-0">
@@ -293,6 +334,29 @@ const SingleProduct = () => {
                   </p>
                 ))}
             </div>
+            <div className="container-fluid p-3 card" style={{ textAlign: "center" }}>
+              <h4 class="m-0"> Offer ends in <span style={{ color: "rgb(251, 100, 27)" }}>{timerString}</span></h4>
+            </div>
+
+            <div className="container-fluid p-3 mb-1 card" style={{ marginTop: "5px" }}>
+              <img src={Offer} />
+            </div>
+
+            <div className="container-fluid px-2 py-3 d-flex feature-container product-extra card" style={{flexDirection : "row"}}>
+              <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
+                <img className="featured-img mb-1" src={replacement} height="35"/>
+                  <span className="feature-title"> 7 days Replacement </span>
+              </div>
+              <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
+                <img className="featured-img mb-1" src={noncod} height="35"/>
+                  <span className="feature-title"> No Cash On Delivery </span>
+              </div>
+              <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
+                <img className="featured-img mb-1 mt-1" src={faPlusAssured} height="30"/>
+                  <span className="feature-title"> Plus (F-Assured) </span>
+              </div>
+            </div>
+
             <div className="cardification" />
             {singleData?.size?.length > 0 && (
               <div className="mt-4 pb-4" style={{ textAlign: "start" }}>
@@ -493,14 +557,15 @@ const SingleProduct = () => {
                         </span>
                         <span
                           style={{
-                            color: "#10c873",
+                            color: "darkgreen",
                             marginLeft: "5px",
+                            fontWeight: "bold"
                           }}
-                        >{`(${(
+                        >{`${(
                           ((singleData?.price - singleData.discount) /
                             singleData?.price) *
                           100
-                        ).toFixed(0)})% OFF`}</span>
+                        ).toFixed(0)}% OFF`}</span>
                       </p>
                     ) : (
                       <p style={{ textAlign: "left" }} className="mb-0">
@@ -551,10 +616,10 @@ const SingleProduct = () => {
                 <Button
                   className="btn primary d-flex justify-content-between align-items-center ripple animated w-100"
                   style={{
-                    padding: "10px 22px",
+                    padding: "5px 20px",
                     borderRadius: "15px",
-                    background: "var(--them-color)",
-                    borderColor: "var(--them-color)",
+                    background: process.env.REACT_APP_THEAM_COLOR,
+                    borderColor: process.env.REACT_APP_THEAM_COLOR,
                   }}
                   variant="dark"
                   onClick={(e) => {
@@ -582,7 +647,7 @@ const SingleProduct = () => {
                         color: "#f7f7ff",
                       }}
                     >
-                      sales end soon
+                      Sales End Soon
                     </span>
                     <div className="Timer-Up">
                       <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <Renderer {...e} />} intervalDelay={1000} />

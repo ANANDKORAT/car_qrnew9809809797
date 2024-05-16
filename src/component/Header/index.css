@@ -2,6 +2,16 @@ body {
   font-family: "Assistant", sans-serif !important;
 }
 
+#nav-look{
+  background: #2874f0 !important;
+  border-bottom: 1px solid rgb(206, 206, 222);
+}
+
+.form-group{
+  width: 100%;
+}
+
+
 .animated {
   animation-duration: 1s;
   animation-fill-mode: both;
@@ -52,11 +62,33 @@ body {
 }
 
 .step-number {
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  margin: 0 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #2874f0 ;
+  background-color: #ffffff;
+  margin-right: 10px 10px;
+  /* padding: 0; */
+  position: relative;
 }
+
+.step-container {
+  width: 90%;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 25px;
+  height: 2px;
+  background-color: #DBDBDB;
+}
+
+
 
 .cls-1{fill:#00a912;}
 .cls-1,
@@ -125,3 +157,5 @@ body {
     /* Zoom back out to normal scale */
   }
 }
+
+

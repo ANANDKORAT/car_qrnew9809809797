@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Col, Container, Row } from "react-bootstrap";
+import Logo from "../assets/logo.jpg"
 
 const AuthContextProvide = createContext();
 
@@ -103,91 +104,91 @@ const AuthContext = ({ children }) => {
     }
   };
 
-  const calcExtraDiscount=(arr, pickIndex, remainingQuantity,totalExtraDiscount)=>{
-      const bb = arr[pickIndex];
-      console.log('---- totalExtraDiscount', totalExtraDiscount);
-      if(bb?.quantity > remainingQuantity) {
-          totalExtraDiscount += (bb?.discount || 0) *  remainingQuantity;
-          console.log('----- totalExtraDiscount', totalExtraDiscount, bb?.discount, remainingQuantity);
-          return totalExtraDiscount;
+  const calcExtraDiscount = (arr, pickIndex, remainingQuantity, totalExtraDiscount) => {
+    const bb = arr[pickIndex];
+    console.log('---- totalExtraDiscount', totalExtraDiscount);
+    if (bb?.quantity > remainingQuantity) {
+      totalExtraDiscount += (bb?.discount || 0) * remainingQuantity;
+      console.log('----- totalExtraDiscount', totalExtraDiscount, bb?.discount, remainingQuantity);
+      return totalExtraDiscount;
+    } else {
+      totalExtraDiscount += bb?.discount * bb?.quantity;
+      remainingQuantity = remainingQuantity - bb?.quantity;
+      if (remainingQuantity > 0) {
+        return calcExtraDiscount(arr, pickIndex - 1, remainingQuantity, totalExtraDiscount);
       } else {
-          totalExtraDiscount += bb?.discount *  bb?.quantity;
-          remainingQuantity = remainingQuantity - bb?.quantity;
-          if(remainingQuantity > 0) {
-              return calcExtraDiscount(arr, pickIndex-1, remainingQuantity, totalExtraDiscount);
-          } else {
-              return totalExtraDiscount;
-          }
+        return totalExtraDiscount;
       }
+    }
   }
 
   const handlePriceData = (products) => {
     let totalPrice = 0;
     let totalMRP = 0;
     let totalDiscount = 0;
-    let totalExtraDiscount= 0;
+    let totalExtraDiscount = 0;
 
-    if(process.env.REACT_APP_COUPON_APPLY == 'true') {
+    if (process.env.REACT_APP_COUPON_APPLY == 'true') {
 
-        let Allquantity = products.reduce((acc, cur) => acc + cur.quantity, 0);
-        const qua =Array.from({ length: Allquantity }, (value, index) => index);
-        const originalArray = qua;
-        const groupSize = 3;
-        const subArrays = [];
+      let Allquantity = products.reduce((acc, cur) => acc + cur.quantity, 0);
+      const qua = Array.from({ length: Allquantity }, (value, index) => index);
+      const originalArray = qua;
+      const groupSize = 3;
+      const subArrays = [];
 
-        for (let i = 0; i < originalArray.length; i += groupSize) {
-            const group = originalArray.slice(i, i + groupSize);
-            if (group.length === groupSize) {
-                subArrays.push(group);
-            }
+      for (let i = 0; i < originalArray.length; i += groupSize) {
+        const group = originalArray.slice(i, i + groupSize);
+        if (group.length === groupSize) {
+          subArrays.push(group);
         }
-        const countSubArraysLength3 = subArrays.length;
+      }
+      const countSubArraysLength3 = subArrays.length;
 
-        const sortArry = cartProducts.sort((a, b) => b.discount - a.discount);
+      const sortArry = cartProducts.sort((a, b) => b.discount - a.discount);
 
-        totalExtraDiscount = calcExtraDiscount(sortArry, sortArry.length - 1, countSubArraysLength3, totalExtraDiscount);
-        products.forEach(product => {
-            const { price, discount, quantity } = product;
+      totalExtraDiscount = calcExtraDiscount(sortArry, sortArry.length - 1, countSubArraysLength3, totalExtraDiscount);
+      products.forEach(product => {
+        const { price, discount, quantity } = product;
 
-            // Apply buy 2 get 1 free logic
-            const totalMrpWithoutDiscount = price * quantity;
-            const totalPriceDiscount = discount * quantity;
+        // Apply buy 2 get 1 free logic
+        const totalMrpWithoutDiscount = price * quantity;
+        const totalPriceDiscount = discount * quantity;
 
-            // Update totals
-            totalMRP += totalMrpWithoutDiscount;
-            totalDiscount += totalMrpWithoutDiscount - totalPriceDiscount;
-            totalPrice += totalPriceDiscount;
-        });
-        totalPrice = totalPrice - totalExtraDiscount
-  } else {
-    let total = 0;
-    let mrp = 0;
-    let discount = 0;
-    for (let i = 0; i < products.length; i++) {
-      total = (
-        Number(total) + Number(products[i].discount * products[i].quantity)
-      ).toFixed(2);
-      mrp = (
-        Number(mrp) + Number(products[i].price * products[i].quantity)
-      ).toFixed(2);
-      discount = (
-        Number(discount) +
-        (products[i].discount
-          ? Number(products[i].price * products[i].quantity) -
+        // Update totals
+        totalMRP += totalMrpWithoutDiscount;
+        totalDiscount += totalMrpWithoutDiscount - totalPriceDiscount;
+        totalPrice += totalPriceDiscount;
+      });
+      totalPrice = totalPrice - totalExtraDiscount
+    } else {
+      let total = 0;
+      let mrp = 0;
+      let discount = 0;
+      for (let i = 0; i < products.length; i++) {
+        total = (
+          Number(total) + Number(products[i].discount * products[i].quantity)
+        ).toFixed(2);
+        mrp = (
+          Number(mrp) + Number(products[i].price * products[i].quantity)
+        ).toFixed(2);
+        discount = (
+          Number(discount) +
+          (products[i].discount
+            ? Number(products[i].price * products[i].quantity) -
             products[i].discount
-          : 0)
-      ).toFixed(2);
+            : 0)
+        ).toFixed(2);
+      }
+      totalPrice = Math.round(total);
+      totalMRP = Math.round(mrp);
+      totalDiscount = Math.round(discount);
     }
-    totalPrice = Math.round(total);
-    totalMRP = Math.round(mrp);
-    totalDiscount = Math.round(discount);
-  }
 
     setTotalPrice(totalPrice);
     setTotalMRP(totalMRP);
     setTotalDiscount(totalDiscount);
     setTotalExtraDiscount(totalExtraDiscount);
-};
+  };
 
   useEffect(() => {
     handlePriceData(selectedProduct);
@@ -217,9 +218,9 @@ const AuthContext = ({ children }) => {
     checkAndClearLocalStorage();
   }, [storedTime]);
 
-    useEffect(() => {
-        setThemColor(process.env.REACT_APP_THEAM_COLOR)
-    }, [process.env.REACT_APP_THEAM_COLOR]);
+  useEffect(() => {
+    setThemColor(process.env.REACT_APP_THEAM_COLOR)
+  }, [process.env.REACT_APP_THEAM_COLOR]);
 
   return (
     <AuthContextProvide.Provider
@@ -245,13 +246,13 @@ const AuthContext = ({ children }) => {
         hideAddress,
         setHideAddress,
         sliderImages,
-        logo,
+        logo: Logo,
         category,
         setCategory,
         themColor,
         totalExtraDiscount,
-          isPaymentPageLoading,
-          setIsPaymentPageLoading
+        isPaymentPageLoading,
+        setIsPaymentPageLoading
       }}
     >
       <Container
@@ -260,7 +261,7 @@ const AuthContext = ({ children }) => {
           {
             margin: "auto",
             maxWidth: "500px",
-            "--them-color":themColor
+            "--them-color": themColor
           }
           // window.matchMedia("(max-width: 768px)").matches
           //   ? { maxWidth: "500px", "--them-color":themColor }

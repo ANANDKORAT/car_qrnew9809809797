@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
-import {Button, Container, Image, Row, Col, Spinner} from "react-bootstrap";
-import {useAuth} from "../../contexts/AuthContext";
+import { Button, Container, Image, Row, Col, Spinner } from "react-bootstrap";
+import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
 import payment_video_loop from "../../assets/cod_lat.gif";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 const Payment = () => {
     const {
@@ -21,14 +22,17 @@ const Payment = () => {
     // const [selectPaymentMethod, setPaymentMethod] = useState("");
     const [time, setTime] = useState(300);
     const [SelectedPaymentUpi, setSelectedPayment] = useState("Phone Pay");
-    const [upi_id, Set_upi_id] = useState("");
+    const [upi_id_phonepe, Set_upi_id_phonepe] = useState("");
+    const [upi_id_all, Set_upi_id_all] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/api/upis/get`).then((res) => {
-            Set_upi_id(res?.data?.data[0].url);
-        });
+        // axios.get(`${process.env.REACT_APP_API_URL}/api/upis/get`).then((res) => {
+        //     Set_upi_id(res?.data?.data[0].url);
+        // });
+        Set_upi_id_phonepe(process.env.REACT_APP_UPI_ONLYPHONEPE);
+        Set_upi_id_all(process.env.REACT_APP_UPI_ALL);
     }, []);
 
     // setTimeout(() => {
@@ -56,12 +60,15 @@ const Payment = () => {
             clearInterval(navigateTimeout);
             navigateTimeout = setTimeout(() => {
                 setIsPaymentPageLoading(false);
+                setIsLoading(false);
                 navigate("/order-comfirmation");
             }, 10000);
         } else {
+            setIsLoading(false);
             clearInterval(navigateTimeout);
         }
         return ()=>{
+            setIsLoading(false);
             clearInterval(navigateTimeout);
         }
     }, [isPaymentPageLoading]);
@@ -77,6 +84,20 @@ const Payment = () => {
         }, 1000);
     }, []);
 
+    useEffect(() => {
+        document.addEventListener('click', (e)=>{
+            const payment_options = document.querySelector('#payment_options');
+            const payment_bottom_block = document.querySelector('#payment_bottom_block');
+            if(!payment_options?.contains(e.target) && !payment_bottom_block?.contains(e.target)) {
+                console.log('------------ inside');
+                if(isLoading) {
+                    console.log('------------ inside 11');
+                    setIsLoading(false);
+                }
+            }
+        });
+    }, [isLoading]);
+
     function paynoeLogic() {
         let redirect_url = "";
         let orignal_name = window.location.hostname;
@@ -87,7 +108,7 @@ const Payment = () => {
                 case "Phone Pay":
                     redirect_url =
                         "phonepe://pay?pa=" +
-                        upi_id +
+                        upi_id_phonepe +
                         "&pn=" +
                         site_name +
                         "&am=" +
@@ -100,7 +121,7 @@ const Payment = () => {
                 case "Paytm":
                     redirect_url =
                         "phonepe://pay?pa=" +
-                        upi_id +
+                        upi_id_phonepe +
                         "&pn=" +
                         site_name +
                         "&am=" +
@@ -113,7 +134,7 @@ const Payment = () => {
                 case "BHIM UPI":
                     redirect_url =
                         "phonepe://pay?pa=" +
-                        upi_id +
+                        upi_id_phonepe +
                         "&pn=" +
                         site_name +
                         "&am=" +
@@ -126,7 +147,7 @@ const Payment = () => {
                 case "Whatsapp Pay":
                     redirect_url =
                         "phonepe://pay?pa=" +
-                        upi_id +
+                        upi_id_phonepe +
                         "&pn=" +
                         site_name +
                         "&am=" +
@@ -136,12 +157,13 @@ const Payment = () => {
                         "&sign=4875421245fgjdjjhcbdfg";
                     break;
             }
-        } else {
+        } 
+        if(process.env.REACT_APP_ONLYPHONE_PE == "no") {
             switch (SelectedPaymentUpi) {
                 case "Phone Pay":
                     redirect_url =
                         "phonepe://pay?pa=" +
-                        upi_id +
+                        upi_id_all +
                         "&pn=" +
                         site_name +
                         "&am=" +
@@ -154,7 +176,7 @@ const Payment = () => {
                 case "Paytm":
                     redirect_url =
                         "paytmmp://pay?pa=" +
-                        upi_id +
+                        upi_id_all +
                         "&pn=" +
                         site_name +
                         "&am=" +
@@ -167,7 +189,7 @@ const Payment = () => {
                 case "BHIM UPI":
                     redirect_url =
                         "bhim://pay?pa=" +
-                        upi_id +
+                        upi_id_all +
                         "&pn=" +
                         site_name +
                         "&am=" +
@@ -180,7 +202,7 @@ const Payment = () => {
                 case "Whatsapp Pay":
                     redirect_url =
                         "whatsapp://pay?pa=" +
-                        upi_id +
+                        upi_id_all +
                         "&pn=" +
                         site_name +
                         "&am=" +
@@ -191,6 +213,61 @@ const Payment = () => {
                     break;
             }
         }
+        if(process.env.REACT_APP_ONLYPHONE_PE == "twoupi"){
+            switch (SelectedPaymentUpi) {
+                case "Phone Pay":
+                    redirect_url =
+                        "phonepe://pay?pa=" +
+                        upi_id_phonepe +
+                        "&pn=" +
+                        site_name +
+                        "&am=" +
+                        totalPrice +
+                        "&cu=INR&tn=" +
+                        site_name +
+                        "&sign=4875421245fgjdjjhcbdfg";
+                    break;
+
+                case "Paytm":
+                    redirect_url =
+                        "paytmmp://pay?pa=" +
+                        upi_id_all +
+                        "&pn=" +
+                        site_name +
+                        "&am=" +
+                        totalPrice +
+                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=paytm-" +
+                        site_name +
+                        "&sign=4875421245fgjdjjhcbdfg";
+                    break;
+
+                case "BHIM UPI":
+                    redirect_url =
+                        "bhim://pay?pa=" +
+                        upi_id_all +
+                        "&pn=" +
+                        site_name +
+                        "&am=" +
+                        totalPrice +
+                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=bhim-" +
+                        site_name +
+                        "&sign=4875421245fgjdjjhcbdfg";
+                    break;
+
+                case "Whatsapp Pay":
+                    redirect_url =
+                        "whatsapp://pay?pa=" +
+                        upi_id_all +
+                        "&pn=" +
+                        site_name +
+                        "&am=" +
+                        totalPrice +
+                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=whats-" +
+                        site_name +
+                        "&sign=4875421245fgjdjjhcbdfg";
+                    break;
+        }
+    }
         if (SelectedPaymentUpi != "COD") {
             window.location.href = redirect_url;
             setIsLoading(true);
@@ -201,6 +278,7 @@ const Payment = () => {
 
     const handleMyPayment = (item) => {
         setSelectedPayment(item.name);
+        setIsLoading(false);
     };
 
     const payment_option = [
@@ -218,7 +296,7 @@ const Payment = () => {
                     viewBox="-51 -5 122 122"
                 >
                     <g>
-                        <circle className="st0" cx="10" cy="56" r="61" fill="#5F259F"/>
+                        <circle className="st0" cx="10" cy="56" r="61" fill="#5F259F" />
                         <path
                             className="st1"
                             d="M37.7,40.1c0-2.4-2-4.4-4.4-4.4h-8.2L6.3,14.2c-1.7-2-4.4-2.7-7.2-2l-6.5,2c-1,0.3-1.4,1.7-0.7,2.4L12.5,36
@@ -347,7 +425,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
         isPaymentPageLoading ?
             <Container
                 className="p-0 pt-3 pb-3 flex-column position-relative d-flex justify-content-center align-items-center"
-                style={{background: "#f2f2f3", height: '250px'}}
+                style={{ background: "#f2f2f3", height: '250px' }}
             >
                 <div>
                     Please Wait...
@@ -356,48 +434,80 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
             </Container>
             : <Container
                 className="p-0 pt-3 pb-3 position-relative d-flex flex-column justify-content-between"
-                style={{background: "#f2f2f3"}}
+                style={{ background: "#f2f2f3" }}
             >
                 <div>
-                    <div className="m-0">
+                    {/* <div className="m-0">
                         <Image
                             src={
                                 "https://assets.myntassets.com/assets/images/retaillabs/2019/9/27/628c860b-eb02-46cb-a25d-4741cd5ba7131569578624285-banner--1-.png"
                             }
                             className="p-0 w-100"
                         />
-                    </div>
+                    </div> */}
                     <div>
-                        <h6
-                            className="card-title px-4 text-start fw-bold mb-2 text-uppercase mt-4"
-                            style={{fontSize: "12px"}}
-                        >
-                            Recommended Payment Options
-                        </h6>
-                        <div className="mt-4 py-2 pt-2 pb-3" style={{background: "#fff"}}>
-                            <div className="text-center">
-                                Offes ends in
-                                <span style={{color: "#f38901"}}>
-                {` ${Math.floor(time / 60)}`.padStart(2, 0)}min:
-                                    {`${time % 60}`.padStart(2, 0)}sec
-              </span>
-                            </div>
-                            <div
-                                className="mt-3"
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "space-evenly",
-                                    alignItems: "center",
-                                    backgroundColor: "rgb(231, 238, 255)",
-                                    fontSize: "18px",
-                                    fontWeight: "bold",
-                                }}
+                        <div className="line-draw"></div>
+                        <div style={{ background: "white", display: "flex", justifyContent: "space-between" }} className="p-3">
+
+                            <h6
+                                className="card-title px-4 text-start fw-bold pt-1 text-uppercase"
+                                style={{ fontSize: "12px" }}
                             >
-                                <img src={payment_video_loop} style={{width: "15%"}}></img>
-                                Pay online & get EXTRA ₹33 off
+                                Recommended Payment Options
+                            </h6>
+                            <svg width="80" height="24" viewBox="0 0 80 24" fill="gray" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.1172 3C10.3409 3 9.04382 3.29813 7.82319 3.63C6.57444 3.9675 5.31557 4.36687 4.57532 4.60875C4.26582 4.71096 3.99143 4.8984 3.78367 5.14954C3.57591 5.40068 3.44321 5.70533 3.40082 6.0285C2.73032 11.0651 4.28619 14.7979 6.17394 17.2672C6.97447 18.3236 7.92897 19.2538 9.00557 20.0269C9.43982 20.334 9.84257 20.5691 10.1845 20.73C10.4995 20.8785 10.8382 21 11.1172 21C11.3962 21 11.7337 20.8785 12.0498 20.73C12.4621 20.5296 12.8565 20.2944 13.2288 20.0269C14.3054 19.2538 15.2599 18.3236 16.0604 17.2672C17.9482 14.7979 19.504 11.0651 18.8335 6.0285C18.7912 5.70518 18.6586 5.40035 18.4508 5.14901C18.2431 4.89768 17.9686 4.71003 17.659 4.60762C16.5845 4.25529 15.5015 3.92894 14.4112 3.62888C13.1905 3.29925 11.8934 3 11.1172 3ZM13.5314 9.68925C13.637 9.58363 13.7803 9.52429 13.9297 9.52429C14.079 9.52429 14.2223 9.58363 14.3279 9.68925C14.4335 9.79487 14.4929 9.93813 14.4929 10.0875C14.4929 10.2369 14.4335 10.3801 14.3279 10.4858L10.9529 13.8608C10.9007 13.9131 10.8386 13.9547 10.7703 13.9831C10.7019 14.0114 10.6287 14.026 10.5547 14.026C10.4807 14.026 10.4074 14.0114 10.3391 13.9831C10.2707 13.9547 10.2087 13.9131 10.1564 13.8608L8.46894 12.1733C8.41664 12.121 8.37516 12.0589 8.34685 11.9905C8.31855 11.9222 8.30398 11.849 8.30398 11.775C8.30398 11.701 8.31855 11.6278 8.34685 11.5595C8.37516 11.4911 8.41664 11.429 8.46894 11.3767C8.52124 11.3244 8.58333 11.283 8.65166 11.2547C8.71999 11.2264 8.79323 11.2118 8.86719 11.2118C8.94115 11.2118 9.01439 11.2264 9.08272 11.2547C9.15105 11.283 9.21314 11.3244 9.26544 11.3767L10.5547 12.6671L13.5314 9.68925Z" fill="#ADC6FF"></path>
+                                <path d="M24.1172 3.53998L24.2472 4.65998L26.0372 3.67998V9.49998H27.1472V2.49998H26.1472L24.1172 3.53998Z" class="fill-grey-t2"></path>
+                                <path d="M31.5958 9.64998C33.2058 9.64998 34.2458 8.19998 34.2458 5.99998C34.2458 3.79998 33.2058 2.34998 31.5658 2.34998C29.9458 2.34998 28.9158 3.79998 28.9158 5.99998C28.9158 8.19998 29.9458 9.64998 31.5958 9.64998ZM31.5958 8.62998C30.5958 8.62998 30.0658 7.55998 30.0658 5.99998C30.0658 4.43998 30.5858 3.36998 31.5658 3.36998C32.5658 3.36998 33.0958 4.43998 33.0958 5.99998C33.0958 7.55998 32.5658 8.62998 31.5958 8.62998Z" class="fill-grey-t2"></path>
+                                <path d="M38.149 9.64998C39.759 9.64998 40.799 8.19998 40.799 5.99998C40.799 3.79998 39.759 2.34998 38.119 2.34998C36.499 2.34998 35.469 3.79998 35.469 5.99998C35.469 8.19998 36.499 9.64998 38.149 9.64998ZM38.149 8.62998C37.149 8.62998 36.619 7.55998 36.619 5.99998C36.619 4.43998 37.139 3.36998 38.119 3.36998C39.119 3.36998 39.649 4.43998 39.649 5.99998C39.649 7.55998 39.119 8.62998 38.149 8.62998Z" class="fill-grey-t2"></path>
+                                <path d="M43.4923 6.24998C44.3823 6.24998 45.0923 5.55998 45.0923 4.29998C45.0923 3.03998 44.3823 2.34998 43.4923 2.34998C42.6123 2.34998 41.9023 3.03998 41.9023 4.29998C41.9023 5.55998 42.6123 6.24998 43.4923 6.24998ZM48.2923 2.49998H47.4323L42.7823 9.49998H43.6423L48.2923 2.49998ZM43.4923 5.43998C43.0623 5.43998 42.7623 5.06998 42.7623 4.29998C42.7623 3.52998 43.0623 3.15998 43.4923 3.15998C43.9223 3.15998 44.2323 3.52998 44.2323 4.29998C44.2323 5.06998 43.9223 5.43998 43.4923 5.43998ZM47.5823 9.64998C48.4723 9.64998 49.1823 8.95998 49.1823 7.69998C49.1823 6.43998 48.4723 5.74998 47.5823 5.74998C46.7023 5.74998 45.9923 6.43998 45.9923 7.69998C45.9923 8.95998 46.7023 9.64998 47.5823 9.64998ZM47.5823 8.83998C47.1523 8.83998 46.8523 8.46998 46.8523 7.69998C46.8523 6.92998 47.1523 6.55998 47.5823 6.55998C48.0223 6.55998 48.3223 6.92998 48.3223 7.69998C48.3223 8.46998 48.0223 8.83998 47.5823 8.83998Z" class="fill-grey-t2"></path>
+                                <path d="M55.4541 9.64998C56.9141 9.64998 57.9341 8.78998 57.9341 7.47998C57.9341 4.79998 54.3341 5.96998 54.3341 4.29998C54.3341 3.69998 54.8141 3.34998 55.4641 3.34998C56.2141 3.34998 56.6841 3.78998 56.7941 4.42998L57.9041 4.22998C57.7241 3.12998 56.8241 2.34998 55.4941 2.34998C54.1441 2.34998 53.1741 3.16998 53.1741 4.39998C53.1741 7.07998 56.7641 5.90998 56.7641 7.59998C56.7641 8.22998 56.2541 8.65998 55.4841 8.65998C54.7941 8.65998 54.1341 8.28998 54.0141 7.57998L52.9041 7.81998C53.1041 8.98998 54.2041 9.64998 55.4541 9.64998Z" class="fill-grey-t2"></path>
+                                <path d="M65.2964 9.49998L62.6764 2.45998H61.4064L58.7864 9.49998H59.9964L60.6264 7.68998H63.4264L64.0664 9.49998H65.2964ZM62.0564 3.73998L63.0864 6.65998H60.9964L62.0164 3.73998H62.0564Z" class="fill-grey-t2"></path>
+                                <path d="M71.3322 2.49998H66.7522V9.49998H67.8922V6.54998H70.4722V5.50998H67.8922V3.53998H71.3322V2.49998Z" class="fill-grey-t2"></path>
+                                <path d="M77.6917 2.49998H73.0417V9.49998H77.6917V8.45998H74.1817V6.49998H76.8417V5.44998H74.1817V3.53998H77.6917V2.49998Z" class="fill-grey-t2"></path>
+                                <path d="M27.307 18.9C28.657 18.9 29.627 17.95 29.627 16.7C29.627 15.33 28.537 14.5 27.207 14.5H24.717V21.5H25.857V18.9H27.307ZM28.447 16.7C28.447 17.31 28.027 17.85 27.117 17.85H25.857V15.55H27.007C28.037 15.55 28.447 16.11 28.447 16.7Z" class="fill-grey-t2"></path>
+                                <path d="M36.4524 21.5L33.8324 14.46H32.5624L29.9424 21.5H31.1524L31.7824 19.69H34.5824L35.2224 21.5H36.4524ZM33.2124 15.74L34.2424 18.66H32.1524L33.1724 15.74H33.2124Z" class="fill-grey-t2"></path>
+                                <path d="M39.6613 21.5V18.57L42.0913 14.5H40.8413L39.1513 17.45H39.1013L37.4113 14.5H36.0813L38.5213 18.57V21.5H39.6613Z" class="fill-grey-t2"></path>
+                                <path d="M50.8513 21.5V14.5H49.1513L47.1513 19.76H47.1113L45.1213 14.5H43.3513V21.5H44.4913V15.98H44.5313L46.6113 21.5H47.5913L49.6713 15.98H49.7113V21.5H50.8513Z" class="fill-grey-t2"></path>
+                                <path d="M57.5103 14.5H52.8604V21.5H57.5103V20.46H54.0004V18.5H56.6604V17.45H54.0004V15.54H57.5103V14.5Z" class="fill-grey-t2"></path>
+                                <path d="M65.3439 21.54V14.5H64.2039V19.78L60.5339 14.46H59.2639V21.5H60.4039V16.22L64.0739 21.54H65.3439Z" class="fill-grey-t2"></path>
+                                <path d="M72.0671 14.5H66.7571V15.55H68.8471V21.5H69.9871V15.55H72.0671V14.5Z" class="fill-grey-t2"></path>
+                                <path d="M75.4028 21.65C76.8628 21.65 77.8828 20.79 77.8828 19.48C77.8828 16.8 74.2828 17.97 74.2828 16.3C74.2828 15.7 74.7628 15.35 75.4128 15.35C76.1628 15.35 76.6328 15.79 76.7428 16.43L77.8528 16.23C77.6728 15.13 76.7728 14.35 75.4428 14.35C74.0928 14.35 73.1228 15.17 73.1228 16.4C73.1228 19.08 76.7128 17.91 76.7128 19.6C76.7128 20.23 76.2028 20.66 75.4328 20.66C74.7428 20.66 74.0828 20.29 73.9628 19.58L72.8528 19.82C73.0528 20.99 74.1528 21.65 75.4028 21.65Z" class="fill-grey-t2"></path>
+                            </svg>
+                        </div>
+                        <div className="line-draw"></div>
+                        <div className="mt-3 py-2 pt-2 pb-3" style={{ background: "#fff" }}>
+                            <div className="text-center">
+                                Offes Ends in
+                                <span style={{ color: "#f38901" }}>
+                                    {` ${Math.floor(time / 60)}`.padStart(2, 0)}min:
+                                    {`${time % 60}`.padStart(2, 0)}sec
+                                </span>
+                            </div>
+                            <div className="m-2">
+
+                                <div
+                                    className="mt-2 p-2"
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "space-evenly",
+                                        alignItems: "center",
+                                        backgroundColor: "rgb(231, 238, 255)",
+                                        fontSize: "18px",
+                                        fontWeight: "bold",
+                                        borderRadius: "4px"
+                                    }}
+                                >
+                                    <img src={payment_video_loop} style={{ width: "15%" }}></img>
+                                    Pay online & get EXTRA ₹33 off
+                                </div>
                             </div>
 
-                            <Row className="mt-1 g-2 m-0 p-2">
+                            <div data-testid="PAY ONLINE" className="text-pay">
+                                <span style={{ fontWeight: "600", fontSize: "12px" }}>PAY ONLINE</span>
+                                <div className="hr-line"></div>
+                            </div>
+                            <Row className="mt-1 g-2 m-0 p-2" id="payment_options">
                                 {payment_option.map((item) => (
                                     <Col md>
                                         <div
@@ -413,10 +523,11 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                                                 handleMyPayment(item);
                                             }}
                                         >
-                    <span className="d-flex align-items-center">
-                      <span>{item?.icon}</span>
-                      <span className="ms-2">{item.name}</span>
-                    </span>
+                                            <span className="d-flex align-items-center">
+                                              <span>{item?.icon}</span>
+                                              <span className="ms-2">{item.name}</span>
+                                                {isLoading && SelectedPaymentUpi === item.name && <Spinner variant="secondary" className="ms-2" size="sm" />}
+                                            </span>
                                             {process.env.REACT_APP_COD == "no" &&
                                                 SelectedPaymentUpi === "COD" &&
                                                 item.name === "COD" && (
@@ -441,56 +552,55 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                                 <h6
                                     id="product_details"
                                     className="card-title text-start fw-bold border-bottom pb-2"
-                                >{`PRICE DETAILS (${
-                                    selectedProduct?.length === 1
-                                        ? "1 Item"
-                                        : `${selectedProduct?.length} Items`
-                                })`}</h6>
+                                >{`PRICE DETAILS (${selectedProduct?.length === 1
+                                    ? "1 Item"
+                                    : `${selectedProduct?.length} Items`
+                                    })`}</h6>
                                 <div className="mt-3">
                                     <div className="d-flex flex-row justify-content-between align-items-center ">
                                         <span>Total MRP</span>
                                         <span className="ms-2">
-                    <span>
-                      <span className="">₹</span>
-                        {totalMRP}
-                    </span>
-                  </span>
+                                            <span>
+                                                <span className="">₹</span>
+                                                {totalMRP}
+                                            </span>
+                                        </span>
                                     </div>
                                     {totalDiscount ? (
                                         <div className="d-flex flex-row justify-content-between align-items-center mt-2">
                                             <span>Discount on MRP</span>
                                             <span className="ms-2 text-success">
-                      <span>
-                        - <span className="">₹</span>
-                          {totalDiscount}
-                      </span>
-                    </span>
+                                                <span>
+                                                    - <span className="">₹</span>
+                                                    {totalDiscount}
+                                                </span>
+                                            </span>
                                         </div>
                                     ) : (
                                         ""
                                     )}
                                     {totalExtraDiscount &&
-                                    process.env.REACT_APP_COUPON_APPLY == "true" ? (
+                                        process.env.REACT_APP_COUPON_APPLY == "true" ? (
                                         <>
                                             <div
                                                 className="d-flex flex-row justify-content-between align-items-center mt-2 border-top pt-2">
                                                 <span>Total Price</span>
                                                 <span className="ms-2">
-                        <span>
-                          <span className="">₹</span>
-                            {totalMRP - totalDiscount}
-                        </span>
-                      </span>
+                                                    <span>
+                                                        <span className="">₹</span>
+                                                        {totalMRP - totalDiscount}
+                                                    </span>
+                                                </span>
                                             </div>
                                             <div
                                                 className="d-flex flex-row justify-content-between align-items-center mt-2 ">
                                                 <span>Coupon Applied (Buy 2 Get 1 free)</span>
                                                 <span className="ms-2 text-success">
-                        <span>
-                          -<span className="">₹</span>
-                            {totalExtraDiscount}
-                        </span>
-                      </span>
+                                                    <span>
+                                                        -<span className="">₹</span>
+                                                        {totalExtraDiscount}
+                                                    </span>
+                                                </span>
                                             </div>
                                         </>
                                     ) : (
@@ -500,11 +610,11 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                                         className="d-flex flex-row justify-content-between align-items-center mt-2 fw-bold border-top pt-3">
                                         <span>Total Amount</span>
                                         <span className="ms-2">
-                    <span>
-                      <span className="">₹</span>
-                        {totalPrice}
-                    </span>
-                  </span>
+                                            <span>
+                                                <span className="">₹</span>
+                                                {totalPrice}
+                                            </span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -512,7 +622,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                     </div>
                 </div>
                 <div
-                    className="position-sticky bottom-0 pb-3 bg-white px-4 mt-4 py-4 d-flex align-content-center justify-content-between">
+                    className="position-sticky bottom-0 pb-3 bg-white px-4 mt-4 py-4 d-flex align-content-center justify-content-between" id="payment_bottom_block">
                     <div
                         style={{
                             display: "inline-block",

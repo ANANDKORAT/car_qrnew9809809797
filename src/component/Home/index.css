@@ -1,3 +1,85 @@
+.main-time{
+    padding: 0px 10px 10px 10px;
+    color: #2873ee;                     
+}
+
+.inner-time {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.dod-div{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    margin-right: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.dod-label{
+    margin-top: 10px;
+    font-size: 20px;
+    line-height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.timer-logo{
+    margin-top: 7px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.dod-timer{
+    font-size: 14px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+}
+
+.img-timer{
+    margin-right: 5px;
+    height: 20px;
+    width: 16px;
+}
+
+#test{
+    font-size: 20px;
+    text-align: center;
+}
+
+.sale_text{
+    margin-left: auto;
+    font-size: 20px;
+    text-align: center;
+}
+
+.btn-sale-is-live{
+    background: #ffffff;
+    color: red;
+    padding: 10px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    text-transform: inherit;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 1px 2px 0;
+    border: 0;
+    outline: 0;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    font-weight: 600;
+    line-height: 14px;
+}
+
 .category-box::-webkit-scrollbar {
     height: 0;
 }

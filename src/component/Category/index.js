@@ -85,6 +85,7 @@ const CategoryPage = () => {
 
   return (
     <InfiniteScroll
+    scrollableTarget={document.getElementsByTagName('html')}
       dataLength={productsArray?.length || 20}
       next={() => {
         if (hasMore) {

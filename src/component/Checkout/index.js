@@ -19,6 +19,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const defaultLensSettingValue = {
+  fullname:"",
   mobile: "",
   pincode: "",
   address1: "",
@@ -62,8 +63,12 @@ const Checkout = () => {
     }
   }, [hideAddress]);
 
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
+
   const validationSchema = Yup.object().shape({
-    mobile: Yup.string().required("Mobile No is required"),
+    fullname:  Yup.string().required("Full Name is required"),
+    mobile : Yup.string().matches(phoneRegExp, 'Mobile No is not valid').required('Mobile No is required').min(10),
     // pincode: Yup.string().required("Pincode is required"),
     pincode: Yup.number()
       .required("Pincode is required")
@@ -124,7 +129,7 @@ const Checkout = () => {
           onSubmit={handleAddress}
           innerRef={formikRef}
         >
-          {({ values, getFieldProps, errors, touched, setFieldValue }) => {
+          {({ values, getFieldProps, errors, touched }) => {
             return (
               <Form>
                 <Row className="g-2 ms-0 me-0">
@@ -135,6 +140,21 @@ const Checkout = () => {
                     CONTACT DETAILS
                   </h6>
                   <div className="bg-white px-4 py-3">
+                  <Col md className="mb-3">
+                      <FloatingLabel controlId="fullname" label="Full Name">
+                        <Form.Control
+                          type="text"
+                          name="fullname"
+                          placeholder="Please enter FullName"
+                          {...getFieldProps("fullname")}
+                        />
+                      </FloatingLabel>
+                      <ErrorMessage
+                        component="span"
+                        name={"fullname"}
+                        className={`text-danger`}
+                      />
+                    </Col>
                     <Col md className="mb-3">
                       <FloatingLabel controlId="mobile" label="Mobile">
                         <Form.Control
@@ -240,42 +260,7 @@ const Checkout = () => {
                         />
                       </Col>
                     </div>
-                  </div>
-                  <h6
-                    className="card-title px-4 text-start fw-bold mb-2 mt-3"
-                    style={{ fontSize: "12px" }}
-                  >
-                    SAVE ADDRESS AS
-                  </h6>
-                  <div className="bg-white px-4 py-3">
-                  <div className="d-flex align-items-center">
-                    <div
-                      className={`addressFormUI-base-addressTypeIcon ${
-                        values.saveAs === "Home"
-                          ? "addressFormUI-base-selectedAddressType"
-                          : ""
-                      }`}
-                      onClick={() => setFieldValue("saveAs", "Home")}
-                    >
-                      Home
-                    </div>
-                    <div
-                      className={`addressFormUI-base-addressTypeIcon ${
-                        values.saveAs === "Work"
-                          ? "addressFormUI-base-selectedAddressType"
-                          : ""
-                      }`}
-                      onClick={() => setFieldValue("saveAs", "Work")}
-                    >
-                      Work
-                    </div>
-                  </div>
-                  <ErrorMessage
-                    component="span"
-                    name={"saveAs"}
-                    className={`text-danger mb-3`}
-                  />
-                  </div>                  
+                  </div>                
                 </Row>
               </Form>
             );

@@ -13,3 +13,17 @@
 .contact-us-btn .accordion-button:after {
     width: 0;
 }
+.utr-image {
+    min-height: 150px;
+    max-height: 150px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.utr-image img {
+    max-width: 130px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

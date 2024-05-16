@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Image, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import phonePayUTR from '../../assets/phonepay_utr.png'
+import utr1 from "../../assets/UTR1.jpeg";
+import utr2 from "../../assets/UTR2.jpeg";
+import utr3 from "../../assets/UTR3.jpeg";
 
 const OrderTracking = ({ isAfterPayment = false }) => {
     const [error, setError] = useState(false);
@@ -32,13 +36,13 @@ const OrderTracking = ({ isAfterPayment = false }) => {
                         </h1>}
                         {isAfterPayment && <div className="mb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" width={44} height={44}
-                                 data-name="Layer 1"
-                                 viewBox="0 0 122.88 122.88">
+                                data-name="Layer 1"
+                                viewBox="0 0 122.88 122.88">
                                 <title>confirm</title>
                                 <path className="cls-1"
-                                      d="M61.44,0A61.44,61.44,0,1,1,0,61.44,61.44,61.44,0,0,1,61.44,0Z"/>
+                                    d="M61.44,0A61.44,61.44,0,1,1,0,61.44,61.44,61.44,0,0,1,61.44,0Z" />
                                 <path className="cls-2"
-                                      d="M42.37,51.68,53.26,62,79,35.87c2.13-2.16,3.47-3.9,6.1-1.19l8.53,8.74c2.8,2.77,2.66,4.4,0,7L58.14,85.34c-5.58,5.46-4.61,5.79-10.26.19L28,65.77c-1.18-1.28-1.05-2.57.24-3.84l9.9-10.27c1.5-1.58,2.7-1.44,4.22,0Z"/>
+                                    d="M42.37,51.68,53.26,62,79,35.87c2.13-2.16,3.47-3.9,6.1-1.19l8.53,8.74c2.8,2.77,2.66,4.4,0,7L58.14,85.34c-5.58,5.46-4.61,5.79-10.26.19L28,65.77c-1.18-1.28-1.05-2.57.24-3.84l9.9-10.27c1.5-1.58,2.7-1.44,4.22,0Z" />
                             </svg>
                         </div>}
                         {isAfterPayment && <h3
@@ -61,6 +65,7 @@ const OrderTracking = ({ isAfterPayment = false }) => {
                         >
                             {`We Will Notify You In Email Or Phone.`}
                         </h3>}
+
                         <h3
                             style={{
                                 fontSize: "18px",
@@ -85,11 +90,11 @@ const OrderTracking = ({ isAfterPayment = false }) => {
                         >
                             <Form.Control
                                 size="lg"
-                                type="text"
+                                type={isAfterPayment ? "number" : "text"}
                                 onChange={(e) => setValue(e.target.value)}
                                 onBlur={() => {
-                                    if(isAfterPayment && value) {
-                                        if(value.length <= 10) {
+                                    if (isAfterPayment && value) {
+                                        if (value.length < 12) {
                                             setError(true);
                                         } else {
                                             setError(false);
@@ -109,7 +114,7 @@ const OrderTracking = ({ isAfterPayment = false }) => {
                                         textAlign: "center",
                                     }}
                                 >
-                                    {`Invalid ${isAfterPayment ? "UTR number" : "order id"}.`}
+                                    {isAfterPayment ? 'input must be 12 character.' : `Invalid order id.`}
                                 </div>
                             )}
                             <div className="d-flex justify-content-center">
@@ -148,6 +153,15 @@ const OrderTracking = ({ isAfterPayment = false }) => {
                             </div>
                         </Form>
                     </div>
+                    {isAfterPayment && (
+
+                        <div className="utr-image">
+                            <img src={utr1} alt="" width={"100%"} />
+                            <img src={utr2} alt="" width={"100%"} />
+                            <img src={utr3} alt="" width={"100%"} />
+                        </div>
+
+                    )}
                 </Col>
             </Row>
         </Container>
