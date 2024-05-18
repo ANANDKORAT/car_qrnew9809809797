@@ -77,7 +77,6 @@ const Header = () => {
         {/* Google g4tag live tracker */}
         {analyticsDesc[0]?.g4tag?.length > 0 && (
           <Helmet>
-            {console.log("gfgf")}
             <script
               async
               src={`https://www.googletagmanager.com/gtag/js?id=${analyticsDesc[0]?.g4tag}`}

@@ -1,46 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef} from "react";
 import "./index.css";
 import { Col, Container, Row, Image, Button } from "react-bootstrap";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
 import SkeletonLoader from "../SkeletonLoader";
 import ProductCard from "../ProductCard";
 import animaionImageHOme from "../../assets/2f53o.gif";
-
+import Countdown, { zeroPad } from 'react-countdown';
+import OfferCountdown from "../Header/OfferCountdown"
+ 
 const Home = () => {
   const { sliderImages } = useAuth();
   const navigate = useNavigate();
   const [categoryArray, setCategoryArray] = useState([]);
   const [productsArray, setProductsArray] = useState([]);
   const [isLoader, setIsLoader] = useState(true);
-  const initialTime = 300; // 5 minutes in seconds
-  const [timer, setTimer] = useState(initialTime);
-  const [timerString, setTimerString] = useState(formatTime(initialTime));
+  const ref = useRef(null);
+  let location = useLocation();
 
   useEffect(() => {
-    const countdown = setInterval(() => {
-      setTimer(prevTimer => prevTimer - 1);
-    }, 1000);
-
-    return () => clearInterval(countdown);
-  }, []);
-
-  useEffect(() => {
-    if (timer === -1) {
-      setTimer(initialTime);
-    } else {
-      setTimerString(formatTime(timer));
+    if (ref?.current) {
+      if (["STOPPED", "COMPLETED"].includes(ref?.current?.state?.status)) {
+        ref?.current?.start();
+      }
     }
-  }, [timer, initialTime]);
+  }, [location, ref]);
 
-  function formatTime(time) {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  }
+
 
   useEffect(() => {
     axios
@@ -87,15 +76,10 @@ const Home = () => {
     handleProductData();
   }, []);
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-
   const [sliderRef, instanceRef] = useKeenSlider(
     {
       loop: true,
       mode: "free",
-      slideChanged(slider) {
-        setCurrentSlide(slider.track.details.rel);
-      },
       slides: {
         perView: 1,
         spacing: 15,
@@ -228,7 +212,7 @@ const Home = () => {
               <div className="timer-logo">
                 <div className="dod-timer">
                   <img className="img-timer" src="http://theskechhs.shop/assets/images/theme/clock.svg" />
-                  <div id="test">{timerString}</div>
+                  <div id="test"> <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref}  renderer={(e) => <OfferCountdown {...e} />} intervalDelay={1000} /></div>
                 </div>
               </div>
             </div>

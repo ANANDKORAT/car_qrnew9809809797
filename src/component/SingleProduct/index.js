@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import "./index.css";
 import { Col, Container, Row, Image, Card, Button } from "react-bootstrap";
 import { useKeenSlider } from "keen-slider/react";
@@ -9,6 +9,7 @@ import axios from "axios";
 import SkeletonLoader from "../SkeletonLoader";
 import ProductCard from "../ProductCard";
 import Countdown, { zeroPad } from 'react-countdown';
+import OfferCountdown from "../Header/OfferCountdown"
 import { useLocation } from "react-router-dom";
 import faAssuredPlus from "../../assets/plusassured.jpg"
 import Offer from "../../assets/offer.jpg"
@@ -53,20 +54,7 @@ function ThumbnailPlugin(mainRef) {
 
 
 
-const Renderer = ({ hours, minutes, seconds, completed }) => {
-  const [show, setShow] = useState(false);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setShow(!show);
-  //   }, 3000);
-  // }, [show]);
-
-  if (!show) {
-    // Render a completed state
-    return <span><span>{zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}</span><span className="ms-1">Hurry Up!</span></span>;
-  }
-};
+ 
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -75,33 +63,10 @@ const SingleProduct = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [pinCode, setPinCode] = useState("");
-  const [show, setShow] = useState(false);
-  const initialTime = 300; // 5 minutes in seconds
+ 
 
-  const [timer, setTimer] = useState(initialTime);
-  const [timerString, setTimerString] = useState(formatTime(initialTime));
 
-  useEffect(() => {
-    const countdown = setInterval(() => {
-      setTimer(prevTimer => prevTimer - 1);
-    }, 1000);
 
-    return () => clearInterval(countdown);
-  }, []);
-
-  useEffect(() => {
-    if (timer === -1) {
-      setTimer(initialTime);
-    } else {
-      setTimerString(formatTime(timer));
-    }
-  }, [timer, initialTime]);
-
-  function formatTime(time) {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  }
   const handlePinCodeChange = (event) => {
     const { value } = event.target;
     if (/^\d*$/.test(value) && value.length <= 6) {
@@ -335,7 +300,9 @@ const SingleProduct = () => {
                 ))}
             </div>
             <div className="container-fluid p-3 card" style={{ textAlign: "center" }}>
-              <h4 class="m-0"> Offer ends in <span style={{ color: "rgb(251, 100, 27)" }}>{timerString}</span></h4>
+              <h4 class="m-0"> Offer ends in <span style={{ color: "rgb(251, 100, 27)" }}>
+              <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown {...e} />} intervalDelay={1000} />
+              </span></h4>
             </div>
 
             <div className="container-fluid p-3 mb-1 card" style={{ marginTop: "5px" }}>
@@ -650,7 +617,7 @@ const SingleProduct = () => {
                       Sales End Soon
                     </span>
                     <div className="Timer-Up">
-                      <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <Renderer {...e} />} intervalDelay={1000} />
+                      <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref}  renderer={(e) => <OfferCountdown {...e} isButton/>} intervalDelay={1000} />
                     </div>
                   </span>
 

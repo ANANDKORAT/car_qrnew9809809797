@@ -120,15 +120,15 @@ const Payment = () => {
 
                 case "Paytm":
                     redirect_url =
-                        "phonepe://pay?pa=" +
-                        upi_id_phonepe +
-                        "&pn=" +
-                        site_name +
-                        "&am=" +
-                        totalPrice +
-                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-                        site_name +
-                        "&sign=4875421245fgjdjjhcbdfg";
+                    "phonepe://pay?pa=" +
+                    upi_id_phonepe +
+                    "&pn=" +
+                    site_name +
+                    "&am=" +
+                    totalPrice +
+                    "&cu=INR&tn=" +
+                    site_name +
+                    "&sign=4875421245fgjdjjhcbdfg";
                     break;
 
                 case "BHIM UPI":
