@@ -77,17 +77,13 @@ body {
   position: relative;
 }
 
-.step-container {
-  width: 90%;
-  margin: auto;
-  position: absolute;
-  right: 0;
-  left: 0;
-  top: 25px;
-  height: 2px;
-  background-color: #DBDBDB;
-}
 
+.line{
+  margin-top: 10px;
+  flex: 1;
+  height: 2px;
+  border: 1px solid #DBDBDB;
+}
 
 
 .cls-1{fill:#00a912;}

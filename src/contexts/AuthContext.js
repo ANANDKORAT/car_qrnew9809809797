@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Col, Container, Row } from "react-bootstrap";
-import Logo from "../assets/logo.jpg"
 
 const AuthContextProvide = createContext();
 
@@ -246,7 +245,7 @@ const AuthContext = ({ children }) => {
         hideAddress,
         setHideAddress,
         sliderImages,
-        logo: Logo,
+        logo,
         category,
         setCategory,
         themColor,

@@ -432,10 +432,10 @@ ${window.location.href.includes("/payment")
             </Container>
           )}
       </Navbar>
-      <Nav className={"d-flex flex-row justify-content-around position-relative"} style={{ padding: "15px 15px 0px 15px" }}>
+      <Nav className={"d-flex flex-row justify-content-around position-relative"} style={{ padding: "15px 20px 0px 20px" }}>
         {step && (isCart || isCheckout || isPayment) ? (
           <>
-            <div className="step-container" />
+            
             <div>
               <div
                 className="step-number m-auto"
@@ -445,9 +445,7 @@ ${window.location.href.includes("/payment")
               </div>
               <p style={{ fontSize: "15px", fontWeight: "500" }}>Cart</p>
             </div>
-            {/* <div>
-            <hr className="step-line" />
-            </div> */}
+            <div class="line"></div>
             <div>
               <div
                 className="step-number m-auto"
@@ -458,9 +456,7 @@ ${window.location.href.includes("/payment")
               </div>
               <p style={{ fontSize: "15px", fontWeight: "500" }}>Address</p>
             </div>
-            {/* <div>
-            <hr className="step-line" />
-            </div> */}
+            <div class="line"></div>
             <div>
               <div
                 className="step-number m-auto"

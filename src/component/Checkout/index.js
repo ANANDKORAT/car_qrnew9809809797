@@ -17,9 +17,10 @@ import {
 } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { MenuItem, TextField } from "@mui/material";
 
 const defaultLensSettingValue = {
-  fullname:"",
+  fullname: "",
   mobile: "",
   pincode: "",
   address1: "",
@@ -67,8 +68,8 @@ const Checkout = () => {
 
 
   const validationSchema = Yup.object().shape({
-    fullname:  Yup.string().required("Full Name is required"),
-    mobile : Yup.string().matches(phoneRegExp, 'Mobile No is not valid').required('Mobile No is required').min(10),
+    fullname: Yup.string().required("Full Name is required"),
+    mobile: Yup.string().matches(phoneRegExp, 'Mobile No is not valid').required('Mobile No is required').min(10),
     // pincode: Yup.string().required("Pincode is required"),
     pincode: Yup.number()
       .required("Pincode is required")
@@ -140,30 +141,33 @@ const Checkout = () => {
                     CONTACT DETAILS
                   </h6>
                   <div className="bg-white px-4 py-3">
-                  <Col md className="mb-3">
-                      <FloatingLabel controlId="fullname" label="Full Name">
+                    <Col md className="mb-2">
+                      {/* <FloatingLabel controlId="fullname" label="Full Name">
                         <Form.Control
                           type="text"
                           name="fullname"
                           placeholder="Please enter FullName"
                           {...getFieldProps("fullname")}
                         />
-                      </FloatingLabel>
+                      </FloatingLabel> */}
+                      <TextField id="outlined-basic" fullWidth controlId="fullname" label="Full Name" name="fullname" placeholder="Please Enter FullName" variant="outlined" {...getFieldProps("fullname")} />
+
                       <ErrorMessage
                         component="span"
                         name={"fullname"}
                         className={`text-danger`}
                       />
                     </Col>
-                    <Col md className="mb-3">
-                      <FloatingLabel controlId="mobile" label="Mobile">
+                    <Col md className="mb-2">
+                      {/* <FloatingLabel controlId="mobile" label="Mobile">
                         <Form.Control
                           type="text"
                           name="mobile"
                           placeholder="Please enter Mobile Number!"
                           {...getFieldProps("mobile")}
                         />
-                      </FloatingLabel>
+                      </FloatingLabel> */}
+                      <TextField id="outlined-basic" fullWidth controlId="mobile" label="Mobile" name="mobile" placeholder="Please Enter Mobile Number!" variant="outlined" {...getFieldProps("mobile")} />
                       <ErrorMessage
                         component="span"
                         name={"mobile"}
@@ -171,15 +175,16 @@ const Checkout = () => {
                       />
                     </Col>
 
-                    <Col md className="mb-3">
-                      <FloatingLabel controlId="pincode" label="Pincode">
+                    <Col md className="mb-2">
+                      {/* <FloatingLabel controlId="pincode" label="Pincode">
                         <Form.Control
                           type="number"
                           name="pincode"
                           placeholder="Please enter Pincode!"
                           {...getFieldProps("pincode")}
                         />
-                      </FloatingLabel>
+                      </FloatingLabel> */}
+                      <TextField id="outlined-basic" type="number" fullWidth controlId="pincode" label="Pincode" name="pincode" placeholder="Please Enter Pincode!" variant="outlined" {...getFieldProps("pincode")} />
                       <ErrorMessage
                         component="span"
                         name={"pincode"}
@@ -196,7 +201,7 @@ const Checkout = () => {
                   </h6>
                   <div className="bg-white px-4 py-3">
                     <Col md className="mb-3">
-                      <FloatingLabel
+                      {/* <FloatingLabel
                         controlId="address"
                         label="Address (House No, Building, Street, Area)"
                       >
@@ -206,7 +211,8 @@ const Checkout = () => {
                           placeholder="Please enter Address"
                           {...getFieldProps("address1")}
                         />
-                      </FloatingLabel>
+                      </FloatingLabel> */}
+                      <TextField id="outlined-basic" type="text" fullWidth controlId="address" label="Address (House No, Building, Street, Area)" name="address1" placeholder="Please Enter Address" variant="outlined" {...getFieldProps("address1")} />
                       <ErrorMessage
                         component="span"
                         name={"address1"}
@@ -214,7 +220,7 @@ const Checkout = () => {
                       />
                     </Col>
                     <Col md className="mb-3">
-                      <FloatingLabel
+                      {/* <FloatingLabel
                         controlId="address"
                         label="Address (House No, Building, Street, Area)"
                       >
@@ -224,19 +230,21 @@ const Checkout = () => {
                           placeholder="Please enter Address"
                           {...getFieldProps("address2")}
                         />
-                      </FloatingLabel>
+                      </FloatingLabel> */}
+                      <TextField id="outlined-basic" type="text" fullWidth controlId="address" label="Address (House No, Building, Street, Area)" name="address2" placeholder="Please Enter Address" variant="outlined" {...getFieldProps("address2")} />
                     </Col>
-                   
+
                     <div className="d-flex align-items-center pe-3">
                       <Col md={6} xs={6} className="me-3">
-                        <FloatingLabel controlId="city" label="City">
+                        {/* <FloatingLabel controlId="city" label="City">
                           <Form.Control
                             type="text"
                             name="city"
                             placeholder="Please enter city"
                             {...getFieldProps("city")}
                           />
-                        </FloatingLabel>
+                        </FloatingLabel> */}
+                        <TextField id="outlined-basic" type="text" fullWidth controlId="city" label="City" name="city" placeholder="Please Enter City" variant="outlined" {...getFieldProps("city")} />
                         <ErrorMessage
                           component="span"
                           name={"city"}
@@ -244,7 +252,7 @@ const Checkout = () => {
                         />
                       </Col>
                       <Col md={6} xs={6}>
-                        <FloatingLabel controlId="state" label="State">
+                        {/* <FloatingLabel controlId="state" label="State">
                           <Form.Select name="state" {...getFieldProps("state")}>
                             {state.map((item) => (
                               <option key={item} value={item}>
@@ -252,7 +260,21 @@ const Checkout = () => {
                               </option>
                             ))}
                           </Form.Select>
-                        </FloatingLabel>
+                        </FloatingLabel> */}
+                        <TextField
+                          id="outlined-select"
+                          select
+                          label="State"
+                          name="state"
+                          defaultValue="Andhra Pradesh"
+                          fullWidth
+                        >
+                          {state.map((item) => (
+                            <MenuItem key={item} value={item}>
+                              {item}
+                            </MenuItem>
+                          ))}
+                        </TextField>
                         <ErrorMessage
                           component="span"
                           name={"state"}
@@ -260,7 +282,7 @@ const Checkout = () => {
                         />
                       </Col>
                     </div>
-                  </div>                
+                  </div>
                 </Row>
               </Form>
             );
@@ -272,7 +294,7 @@ const Checkout = () => {
             <div>
               <div className="addressDetails-base-addressTitle">
                 <div className="addressDetails-base-name">{address?.name}</div>
-               
+
               </div>
               <div className="addressDetails-base-address">
                 <div className="addressDetails-base-addressField">
@@ -280,9 +302,9 @@ const Checkout = () => {
                 </div>
                 <div>{address?.town}</div>
                 <div>
-                 Address:-  {address?.city}, {address?.state} {address?.pincode}
+                  Address:-  {address?.city}, {address?.state} {address?.pincode}
                 </div>
-                
+
                 <div className="addressDetails-base-mobile">
                   <span>Mobile: </span>
                   <span>{address.mobile}</span>
@@ -347,7 +369,7 @@ const Checkout = () => {
           className="d-flex justify-content-center align-items-center"
           variant="dark"
           style={{
-                        width: "100%",
+            width: "100%",
             padding: "10px",
             background: "var(--them-color)",
             borderColor: "var(--them-color)",
