@@ -31,6 +31,7 @@ const AuthContext = ({ children }) => {
   };
   const handleSetCartProducts = (data) => {
     setCartProducts(data);
+    localStorage.setItem("cartProducts", JSON.stringify(data));
   };
   const handleSetWhiteListProducts = (item) => {
     if (whiteListProducts?.find((o) => o._id === item._id)) {
@@ -97,9 +98,15 @@ const AuthContext = ({ children }) => {
     if (selectedProduct?.find((o) => o._id === id)) {
       const selectedItem = selectedProduct.filter((o) => o._id !== id);
       setSelectedProduct(selectedItem);
+      localStorage.setItem("slectedData", JSON.stringify(selectedItem));
     } else {
       const item = cartProducts.find((o) => o._id === id);
-      setSelectedProduct((prevState) => [...prevState, item]);
+      setSelectedProduct((prevState) => {
+          const seletedData= [...prevState, item];
+          localStorage.setItem("slectedData", JSON.stringify(seletedData));
+          return seletedData;
+      });
+
     }
   };
 

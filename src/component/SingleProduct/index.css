@@ -73,7 +73,7 @@
 .image-banner-table {
   display: table;
   width: 100%;
-  padding: 16px 8px;
+  padding: 8px 8px;
   table-layout: fixed;
 }
 image-banner-item:first-child {
@@ -122,7 +122,7 @@ image-banner-item:first-child {
   /* position: absolute; */
   /* left: 10%; */
   text-align: center;
-  padding: 8px;
+  padding: 6px 8px 0px 10px;
 }
 
 .feature-title{

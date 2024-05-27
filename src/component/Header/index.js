@@ -432,49 +432,57 @@ ${window.location.href.includes("/payment")
             </Container>
           )}
       </Navbar>
-      <Nav className={"d-flex flex-row justify-content-around position-relative"} style={{ padding: "15px 20px 0px 20px" }}>
-        {step && (isCart || isCheckout || isPayment) ? (
-          <>
-            
-            <div>
-              <div
-                className="step-number m-auto"
-                style={step > 1 ? { background: "white", border: "1px solid #2874f0 " } : { border: "1px solid #2874f0 " }}
-              >
-                {step > 1 ? <i className="fa-solid fa-check"></i> : 1}
+      <div className="main-steps">
+          {step && (isCart || isCheckout || isPayment) ? (
+            <>
+              <div className="step-container" />
+              <div>
+                <div
+                  className="step-number m-auto"
+                  style={
+                    step > 1
+                      ? { background: "white", border: "1px solid #2874F0" }
+                      : { border: "1px solid #2874F0" }
+                  }
+                >
+                  {step > 1 ? <i className="fa-solid fa-check"></i> : 1}
+                </div>
+                <p style={{ fontSize: "15px", fontWeight: "500" }}>Cart</p>
               </div>
-              <p style={{ fontSize: "15px", fontWeight: "500" }}>Cart</p>
-            </div>
-            <div class="line"></div>
-            <div>
-              <div
-                className="step-number m-auto"
-                style={step > 2 ? { background: "white", border: "1px solid #2874f0 " } : { border: "1px solid #2874f0 " }}
-              >
-                {step > 2 ? <i className="fa-solid fa-check"></i> : 2}
-
+              <div>
+                <div
+                  className="step-number m-auto"
+                  style={
+                    step > 2
+                      ? { background: "white", border: "1px solid #2874F0 " }
+                      : { border: "1px solid #2874F0 " }
+                  }
+                >
+                  {step > 2 ? <i className="fa-solid fa-check"></i> : 2}
+                </div>
+                <p style={{ fontSize: "15px", fontWeight: "500" }}>Address</p>
               </div>
-              <p style={{ fontSize: "15px", fontWeight: "500" }}>Address</p>
-            </div>
-            <div class="line"></div>
-            <div>
-              <div
-                className="step-number m-auto"
-                style={step > 3 ? { background: "white", border: "1px solid #2874f0 " } : { border: "1px solid #2874f0 " }}
-              >
-                {step > 3 ? <i className="fa-solid fa-check"></i> : 3}
-
+              {/* <div>
+            <hr className="step-line" />
+            </div> */}
+              <div>
+                <div
+                  className="step-number m-auto"
+                  style={
+                    step > 3
+                      ? { background: "white", border: "1px solid #2874F0 " }
+                      : { border: "1px solid #2874F0 " }
+                  }
+                >
+                  {step > 3 ? <i className="fa-solid fa-check"></i> : 3}
+                </div>
+                <p style={{ fontSize: "15px", fontWeight: "500" }}>Payment</p>
               </div>
-              <p style={{ fontSize: "15px", fontWeight: "500" }}>Payment</p>
-            </div>
-          </>
-        ) : (
-          <>
-            {/* Render other menu items */}
-
-          </>
-        )}
-      </Nav>
+            </>
+          ) : (
+            ""
+          )}
+        </div>
       {step && (isCart || isCheckout || isPayment) ? (
         <>
           <div style={{ borderTop: "1px solid rgb(206, 206, 222)" }}></div>

@@ -233,7 +233,7 @@ const SingleProduct = () => {
                 </div>
               </div>
             </div>
-            <div className="pb-4">
+            <div className="pb-2">
               <p
                 style={{
                   color: "rgb(87 87 87)",
@@ -326,7 +326,7 @@ const SingleProduct = () => {
 
             <div className="cardification" />
             {singleData?.size?.length > 0 && (
-              <div className="mt-4 pb-4" style={{ textAlign: "start" }}>
+              <div className="mt-2 pb-2" style={{ textAlign: "start" }}>
                 <p style={{ fontWeight: 600 }}>Select Size</p>
                 <div className="d-flex align-items-center">
                   {singleData?.size?.map((item) => (
@@ -337,11 +337,11 @@ const SingleProduct = () => {
                         width: "25px",
                         borderRadius: "50%",
                         border: "1px solid black",
-                        padding: "25px",
+                        padding: "20px",
                         background: selectSize == item ? "#252525" : "#fff",
                         color: selectSize == item ? "#fff" : "#000",
                       }}
-                      className="d-flex justify-content-center align-items-center mx-2"
+                      className="d-flex justify-content-center align-items-center mx-1"
                     >
                       {item}
                     </span>
@@ -351,12 +351,12 @@ const SingleProduct = () => {
             )}
 
             <div className="cardification" />
-            <div className="mt-4 pb-4">
+            <div className="mt-3">
               <h6 className="card-title text-start fw-bold">
                 CHECK DELIVERY &amp; SERVICES
               </h6>
               <div>
-                <div className="address-box pincode-input my-3">
+                <div className="address-box pincode-input my-2">
                   <input
                     type="number"
                     placeholder="Enter a PIN code"
@@ -398,7 +398,7 @@ const SingleProduct = () => {
               </ul>
             </div>
             {singleData.productDetails && (
-              <div className="mt-4 pb-4">
+              <div>
                 <h6 className="card-title text-start fw-bold mb-3">
                   Product Details
                 </h6>
@@ -430,7 +430,7 @@ const SingleProduct = () => {
               </div>
             )}
             <div className="cardification" />
-            <div className="mt-4 pb-4">
+            <div className="mt-1 pb-1">
               <div className="image-banner-table">
                 <div className="image-banner-item">
                   <svg viewBox="0 0 30 30" className="image-banner-image">
@@ -509,10 +509,9 @@ const SingleProduct = () => {
             <div className="cardification" />
             <div class="semi circle">
               <div class="semi2">
-
               </div>
             </div>
-            <div className="pt-4 pb-4 position-sticky bottom-0 bg-white">
+            <div className="pt-2 pb-2 position-sticky bottom-0">
               <div className="main-ciecle-price" style={{ backgroundColor: "black" }}>
                 <div className="inner-price-text">
                   {singleData?.price &&
