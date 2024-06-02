@@ -75,45 +75,46 @@ const Header = () => {
         process.env.REACT_APP_SHOW_OFFER_BANNER == "true" &&
         singleProduct?._id ? 'pb-0' : ''}`} id="nav-look">
         {/* Google g4tag live tracker */}
-        {analyticsDesc[0]?.g4tag?.length > 0 && (
-          <Helmet>
-            <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${analyticsDesc[0]?.g4tag}`}
-            ></script>
-            <script>
-              {`
+        {process.env.REACT_APP_G4  && (
+        <Helmet>
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.REACT_APP_G4}`}
+          ></script>
+          <script>
+            {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments)}
             gtag('js', new Date())
-            gtag('config', '${analyticsDesc[0]?.g4tag}');
+            gtag('config', '${process.env.REACT_APP_G4}');
           `}
-            </script>
-          </Helmet>
-        )}
+          </script>
+        </Helmet>
+      )}
+
         {/* Google Globle live tracker */}
 
-        {analyticsDesc[0]?.gtag?.length > 0 && (
-          <Helmet>
-            <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${analyticsDesc[0]?.gtag}`}
-            ></script>
-            <script>
-              {`
+        {process.env.REACT_APP_AW && (
+        <Helmet>
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.REACT_APP_AW}`}
+          ></script>
+          <script>
+            {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments)}
             gtag('js', new Date())
-            gtag('config', '${analyticsDesc[0]?.gtag}');
+            gtag('config', '${process.env.REACT_APP_AW}');
           `}
-            </script>
-          </Helmet>
-        )}
+          </script>
+        </Helmet>
+      )}
         {/* Facebook Pixel  live tracker */}
-        {analyticsDesc[0]?.fbpixelcode > 0 && (
-          <Helmet>
-            <script>
-              {`
+        { process.env.REACT_APP_FBPIXEL && (
+        <Helmet>
+          <script>
+            {`
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -122,29 +123,32 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '${analyticsDesc[0]?.fbpixelcode}');
+fbq('init', '${process.env.REACT_APP_FBPIXEL}');
 fbq('track', 'PageView');
-${window.location.href.includes("/payment")
-                  ? 'fbq("track", "InitiateCheckout");'
-                  : ""
-                };
+${
+  window.location.href.includes("/payment")
+    ? 'fbq("track", "InitiateCheckout");'
+    : ""
+};
 
 `}
-            </script>
-          </Helmet>
-        )}
+          </script>
+        </Helmet>
+      )}
 
         <Helmet>
           <link rel="icon" type="image/x-icon" href={logo} sizes="16x16" />
         </Helmet>
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style="display:none"
-            src={`https://www.facebook.com/tr?id=${analyticsDesc[0]?.fbpixelcode}&ev=PageView&noscript=1`}
-          />
-        </noscript>
+        { process.env.REACT_APP_FBPIXEL && (
+      <noscript>
+        <img
+          height="1"
+          width="1"
+          style="display:none"
+          src={`https://www.facebook.com/tr?id=${process.env.REACT_APP_FBPIXEL}&ev=PageView&noscript=1`}
+        />
+      </noscript>
+      )}
         {thankYou ? (
           <Container>
             {thankYou ? (

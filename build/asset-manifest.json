@@ -1,23 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.1d2a0fe3.css",
-    "main.js": "/static/js/main.2d95205a.js",
-    "static/js/453.ad6eb26e.chunk.js": "/static/js/453.ad6eb26e.chunk.js",
+    "main.css": "/static/css/main.95a3fd64.css",
+    "main.js": "/static/js/main.5f319c71.js",
+    "static/js/453.99dcf01f.chunk.js": "/static/js/453.99dcf01f.chunk.js",
     "static/media/cod_lat.gif": "/static/media/cod_lat.faf3c063460f90b017b1.gif",
     "static/media/safety-image.jpg": "/static/media/safety-image.ed81de067e878303f73f.jpg",
-    "static/media/phonepay_utr.png": "/static/media/phonepay_utr.0aaf85e239d225356213.png",
     "static/media/2f53o.gif": "/static/media/2f53o.15d6096a0707a502059d.gif",
     "static/media/UTR2.jpeg": "/static/media/UTR2.12f778c45c26b2bda645.jpeg",
     "static/media/UTR3.jpeg": "/static/media/UTR3.aea55a37328d75c0a1f1.jpeg",
     "static/media/UTR1.jpeg": "/static/media/UTR1.46d3f077844a20f5db6d.jpeg",
     "static/media/offer.jpg": "/static/media/offer.8c27273456024ea3e4dd.jpg",
     "index.html": "/index.html",
-    "main.1d2a0fe3.css.map": "/static/css/main.1d2a0fe3.css.map",
-    "main.2d95205a.js.map": "/static/js/main.2d95205a.js.map",
-    "453.ad6eb26e.chunk.js.map": "/static/js/453.ad6eb26e.chunk.js.map"
+    "main.95a3fd64.css.map": "/static/css/main.95a3fd64.css.map",
+    "main.5f319c71.js.map": "/static/js/main.5f319c71.js.map",
+    "453.99dcf01f.chunk.js.map": "/static/js/453.99dcf01f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1d2a0fe3.css",
-    "static/js/main.2d95205a.js"
+    "static/css/main.95a3fd64.css",
+    "static/js/main.5f319c71.js"
   ]
 }

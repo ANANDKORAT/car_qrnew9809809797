@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Image, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import phonePayUTR from '../../assets/phonepay_utr.png'
 import utr1 from "../../assets/UTR1.jpeg";
 import utr2 from "../../assets/UTR2.jpeg";
 import utr3 from "../../assets/UTR3.jpeg";
@@ -11,14 +10,7 @@ const OrderTracking = ({ isAfterPayment = false }) => {
     const [value, setValue] = useState("");
     const navigate = useNavigate();
 
-    /*useEffect(() => {
-        if (isAfterPayment) {
-            setTimeout(() => {
-                navigate("/ThankYou");
-            }, 120000);
-        }
-    }, []);*/
-
+  
     return (
         <Container>
             <Row>

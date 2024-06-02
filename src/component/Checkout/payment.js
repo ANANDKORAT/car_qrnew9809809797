@@ -13,9 +13,7 @@ const Payment = () => {
         totalPrice,
         totalDiscount,
         totalMRP,
-        address,
         totalExtraDiscount,
-        handleSetCartProducts,
         isPaymentPageLoading,
         setIsPaymentPageLoading
     } = useAuth();

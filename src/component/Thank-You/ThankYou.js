@@ -1,11 +1,13 @@
-import React, {useEffect} from "react";
+import React, {useEffect,useState} from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {useAuth} from "../../contexts/AuthContext";
+import { Helmet } from "react-helmet";
 
 const ThankYou = () => {
   const navigate = useNavigate();
-  const {handleSetCartProducts}= useAuth();
+  const {handleSetCartProducts,totalPrice}= useAuth();
+
 
   const generateOrderID = () => {
     const min = 1000000000;
@@ -24,6 +26,22 @@ const ThankYou = () => {
 
   return (
     <div>
+     {process.env.REACT_APP_AW && (
+        <Helmet>
+          <script>
+            {`
+            gtag('event', 'conversion', {
+      'send_to': '${process.env.REACT_APP_AW}/${
+              process.env.REACT_APP_PURCHASETAGGOOGLE || ""
+            }',
+      'value': ${totalPrice},
+      'currency': 'INR',
+      'transaction_id': '${orderId}'
+  });
+          `}
+          </script>
+        </Helmet>
+      )}
       <div
         style={{
           display: "flex",
