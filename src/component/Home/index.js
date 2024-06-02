@@ -203,7 +203,7 @@ const Home = () => {
             <span>Buy 2 Get 1 Free (Add 3 item to cart)</span>
           </marquee>
         </div>
-        <Image src="https://images.meesho.com/images/widgets/OY6J5/xwgyl_800.webp" style={{ width: "100%" }} />
+        {/* <Image src="https://images.meesho.com/images/widgets/OY6J5/xwgyl_800.webp" style={{ width: "100%" }} /> */}
 
         <div className="main-time">
           <div className="inner-time">

@@ -87,9 +87,7 @@ const Payment = () => {
             const payment_options = document.querySelector('#payment_options');
             const payment_bottom_block = document.querySelector('#payment_bottom_block');
             if(!payment_options?.contains(e.target) && !payment_bottom_block?.contains(e.target)) {
-                console.log('------------ inside');
                 if(isLoading) {
-                    console.log('------------ inside 11');
                     setIsLoading(false);
                 }
             }
