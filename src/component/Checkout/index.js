@@ -309,8 +309,8 @@ const Checkout = () => {
                   <span>Mobile: </span>
                   <span>{address.mobile}</span>
                 </div>
-                <div className="addressDetails-base-mobile ">
-                  Address As :- {address?.saveAs}
+                <div className="addressDetails-base-address">
+                  Address As :- {address?.address1}
                 </div>
               </div>
             </div>
