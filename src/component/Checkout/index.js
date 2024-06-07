@@ -302,15 +302,12 @@ const Checkout = () => {
                 </div>
                 <div>{address?.town}</div>
                 <div>
-                  Address:-  {address?.city}, {address?.state} {address?.pincode}
+                  Address As :-  {address?.city}, {address?.address1} , {address?.address2} , {address?.pincode}
                 </div>
 
                 <div className="addressDetails-base-mobile">
                   <span>Mobile: </span>
                   <span>{address.mobile}</span>
-                </div>
-                <div className="addressDetails-base-address">
-                  Address As :- {address?.address1}
                 </div>
               </div>
             </div>
