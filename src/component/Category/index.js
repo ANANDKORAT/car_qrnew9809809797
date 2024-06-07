@@ -132,7 +132,7 @@ const CategoryPage = () => {
           ))
         )}
       </Row>
-      {!isLoader && !hasMore && productsArray?.length === 0 && (
+      {!isLoader && !hasMore && productsArray?.length !== 0 && (
         <div className="my-5">
           <h3
             style={{
