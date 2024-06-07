@@ -51,16 +51,16 @@ const CategoryPage = () => {
           response?.data?.statusCode === 1
         ) {
           setProductsArray((prev) => [...prev, ...response.data.data]);
-          setIsLoader(false);
+          // setIsLoader(true);
         } else {
           setHasMore(false);
-          setIsLoader(false);
+          setIsLoader(true);
         }
         if (response?.data?.total) {
           setTotelData(response.data.total);
         }
         if(response?.data?.data?.length === response?.data?.total) {
-          setHasMore(false);
+          setHasMore(true);
         }
       })
       .catch(function (error) {
@@ -132,7 +132,7 @@ const CategoryPage = () => {
           ))
         )}
       </Row>
-      {!isLoader && !hasMore && productsArray?.length !== 0 && (
+      {isLoader && !hasMore && productsArray?.length !== 0 && (
         <div className="my-5">
           <h3
             style={{
