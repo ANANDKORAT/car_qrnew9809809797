@@ -65,6 +65,9 @@ const ThankYou = () => {
           <strong>Your Order id is:</strong>
           &nbsp;{orderId}
         </p>
+
+        <strong>Your Amount is:</strong>
+        &nbsp;{totalPrice}
       </div>
       <Button
         variant="dark"
