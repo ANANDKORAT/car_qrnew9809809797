@@ -475,8 +475,8 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                         <div className="line-draw"></div>
                         <div className="mt-3 py-2 pt-2 pb-3" style={{ background: "#fff" }}>
                             <div className="text-center">
-                                Offes Ends in
-                                <span style={{ color: "#f38901" }}>
+                                <span className="text-decore">Offes Ends In</span>
+                                <span style={{ color: "#f38901" , fontSize : "22px" , fontWeight : "700" }}>
                                     {` ${Math.floor(time / 60)}`.padStart(2, 0)}min:
                                     {`${time % 60}`.padStart(2, 0)}sec
                                 </span>

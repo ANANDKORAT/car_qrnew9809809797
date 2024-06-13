@@ -150,3 +150,9 @@
     flex-grow: 1;
 }
 
+
+.text-decore{
+    color: black;
+    font-weight: 700;
+    font-size: 22px;
+}

@@ -9,6 +9,7 @@ import { Helmet } from "react-helmet";
 import OfferCountdown from "./OfferCountdown";
 import OfferSlider from "./OfferSlider";
 
+
 const Header = () => {
   const [isCart, setIsCart] = useState(false);
   const [isCheckout, setIsCheckout] = useState(false);
@@ -18,6 +19,7 @@ const Header = () => {
   const [isWhishList, setIsWhishList] = useState(false);
   const [thankYou, setThankYou] = useState(false);
   const [orderComfirm, setOrderComfirm] = useState(false);
+
 
   const [analyticsDesc, setAnalyticsDesc] = useState([]);
   let location = useLocation();
@@ -36,6 +38,8 @@ const Header = () => {
 
     handleProductData();
   }, [location]);
+  
+
 
   useEffect(() => {
     if (cartProducts.length > 0) {

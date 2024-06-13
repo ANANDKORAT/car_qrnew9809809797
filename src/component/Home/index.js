@@ -160,25 +160,7 @@ const Home = () => {
                   right: "12px",
                 }}
               >
-                {/* ....................slider dot code Start................ */}
-                {/* {sliderImages?.length > 1 && (
-                  <div className="dots">
-                    {[...Array(sliderImages?.length).keys()].map((idx) => {
-                      return (
-                        <button
-                          key={idx}
-                          onClick={() => {
-                            instanceRef?.current?.moveToIdx(idx);
-                          }}
-                          className={
-                            "dot" + (currentSlide === idx ? " active" : "")
-                          }
-                        ></button>
-                      );
-                    })}
-                  </div>
-                )} */}
-                {/* ....................slider dot code Close................ */}
+               
               </div>
             </Col>
           )}
