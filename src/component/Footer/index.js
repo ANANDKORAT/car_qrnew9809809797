@@ -1,5 +1,8 @@
 import React from "react";
-import { Container, Row, Col, Accordion } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Accordion from "react-bootstrap/Accordion";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
 
@@ -18,7 +21,7 @@ const Footer = () => {
         >
           <div>
             <svg
-              class="svg-icon"
+              className="svg-icon"
               style={{
                 width: "25px",
                 height: "25px",
@@ -43,7 +46,7 @@ const Footer = () => {
         <Col md={4} xs={4} className="text-center">
           <div>
             <svg
-              class="svg-icon"
+              className="svg-icon"
               style={{
                 width: "25px",
                 height: "25px",
@@ -114,13 +117,10 @@ const Footer = () => {
               >
                 <span>Contact Us</span>
               </Accordion.Header>
-              
             </Accordion.Item>
-           
             <Accordion.Item eventKey="1">
               <Accordion.Header>Our Policy</Accordion.Header>
               <Accordion.Body className="text-center">
-                
                 <div
                   style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
                   className="my-3"
@@ -149,8 +149,6 @@ const Footer = () => {
                 >
                   Terms of service
                 </div>
-                
-               
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="2">
@@ -158,24 +156,27 @@ const Footer = () => {
               <Accordion.Body className="text-center">
               <div
                   style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
+                  className="my-3"
                   onClick={() => navigate("/order-tracking")}
                 >
                   About Us
                 </div>
               <div
                   style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
+                  className="my-3"
                   onClick={() => navigate("/order-tracking")}
                 >
                   Track Order
                 </div>
               <div
                   style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
+                  className="my-3"
                   onClick={() => navigate("/faqs")}
                 >
                   FAQ
                 </div>
-                
-                
+
+
               </Accordion.Body>
             </Accordion.Item>
             <div className="accordion-item pb-3">
@@ -228,7 +229,7 @@ const Footer = () => {
             </div>
             <div className="accordion-item border-bottom-0 pb-5">
               <div className="text-center py-3">Experience Our App</div>
-              <div class="app-button-wrapper d-flex justify-content-center">
+              <div className="app-button-wrapper d-flex justify-content-center">
                 <a href="#" name="Play store" className="mx-1">
                   <div style={{ width: "165px" }}>
                     <img
@@ -238,7 +239,7 @@ const Footer = () => {
                       data-sizes="auto"
                       data-src="//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd.png?v=1644321768"
                       data-srcset="//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_360x.png?v=1644321768 360w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_480x.png?v=1644321768 480w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_765x.png?v=1644321768 765w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_900x.png?v=1644321768 900w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1000x.png?v=1644321768 1000w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1200x.png?v=1644321768 1200w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1500x.png?v=1644321768 1500w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1900x.png?v=1644321768 1900w,"
-                      class="Image--fadeIn lazyautosizes img_blur no_blur Image--lazyLoaded"
+                      className="Image--fadeIn lazyautosizes img_blur no_blur Image--lazyLoaded"
                       data-max-width="188"
                       data-max-height="55"
                       data-original-src="https://thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd.png?v=1644321768"
@@ -256,7 +257,7 @@ const Footer = () => {
                       data-sizes="auto"
                       data-src="//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878.png?v=1644321812"
                       data-srcset="//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_360x.png?v=1644321812 360w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_480x.png?v=1644321812 480w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_765x.png?v=1644321812 765w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_900x.png?v=1644321812 900w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_1000x.png?v=1644321812 1000w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_1200x.png?v=1644321812 1200w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_1500x.png?v=1644321812 1500w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_1900x.png?v=1644321812 1900w,"
-                      class="Image--fadeIn lazyautosizes img_blur no_blur Image--lazyLoaded"
+                      className="Image--fadeIn lazyautosizes img_blur no_blur Image--lazyLoaded"
                       data-max-width="188"
                       data-max-height="55"
                       data-original-src="https://thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878.png?v=1644321812"
@@ -270,7 +271,7 @@ const Footer = () => {
           </Accordion>
         </Col>
       </Row>
-      
+
     </Container>
   );
 };

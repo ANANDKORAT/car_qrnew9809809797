@@ -1,6 +1,8 @@
-import React from "react";
 import "./index.css";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -152,7 +154,7 @@ const Wishlist = () => {
           >
             <div>
               <i
-                class="fas fa-heart-broken mb-3"
+                className="fas fa-heart-broken mb-3"
                 style={{ fontSize: "60px", color: "#ed143d" }}
               ></i>
             </div>

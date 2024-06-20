@@ -1,21 +1,27 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./index.css";
-import { Col, Container, Row, Image, Card, Button } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
+
+import { useAuth } from "../../contexts/AuthContext";
 import SkeletonLoader from "../SkeletonLoader";
 import ProductCard from "../ProductCard";
-import Countdown, { zeroPad } from 'react-countdown';
+import Countdown from 'react-countdown';
 import OfferCountdown from "../Header/OfferCountdown"
-import { useLocation } from "react-router-dom";
 import faAssuredPlus from "../../assets/plusassured.jpg"
 import Offer from "../../assets/offer.jpg"
 import faPlusAssured from "../../assets/plusassured.jpg";
 import replacement from "../../assets/replacement.jpg";
-import noncod from "../../assets/non-cod.jpg"; 
+import noncod from "../../assets/non-cod.jpg";
 
 
 
@@ -52,10 +58,6 @@ function ThumbnailPlugin(mainRef) {
   };
 }
 
-
-
- 
-
 const SingleProduct = () => {
   const { id } = useParams();
   const [selectSize, setSelectSize] = useState("M");
@@ -63,9 +65,6 @@ const SingleProduct = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [pinCode, setPinCode] = useState("");
- 
-
-
 
   const handlePinCodeChange = (event) => {
     const { value } = event.target;
@@ -73,11 +72,12 @@ const SingleProduct = () => {
       setPinCode(value);
     }
   };
+
   const isPinCodeValid = pinCode.length === 6;
+
   const {
     handleSetCartProducts,
     cartProducts,
-    whiteListProducts,
     setSingleProduct,
     singleProduct,
   } = useAuth();
@@ -92,19 +92,9 @@ const SingleProduct = () => {
     }
   }, [location, ref]);
 
-
-  // useEffect(() => {
-  //   const selectProduct = singleData.find((o) => o._id == id);
-  //   setSingleProduct(selectProduct);
-  // }, [id]);
-
   const [singleData, setSingleData] = useState(singleProduct);
 
   const [reletedProduct, setReletedProduct] = useState([]);
-
-  const handleRedirect = (id) => {
-    navigate(`/single-product/${id}`);
-  };
 
   const [sliderRef, instanceRef] = useKeenSlider(
     {
@@ -281,17 +271,6 @@ const SingleProduct = () => {
                       {" "}
                       ₹{singleData.discount}
                     </span>
-                    {/* <span
-                      style={{
-                        color: "#94969f",
-                        marginLeft: "5px",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {" "}
-                      MRP{" "}
-                    </span> */}
-
                   </p>
                 ) : (
                   <p style={{ textAlign: "left" }} className="mb-0">
@@ -300,7 +279,7 @@ const SingleProduct = () => {
                 ))}
             </div>
             <div className="container-fluid p-3 card" style={{ textAlign: "center" }}>
-              <h4 class="m-0"> Offer ends in <span style={{ color: "rgb(251, 100, 27)" }}>
+              <h4 className="m-0"> Offer ends in <span style={{ color: "rgb(251, 100, 27)" }}>
               <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown {...e} />} intervalDelay={1000} />
               </span></h4>
             </div>
@@ -414,7 +393,7 @@ const SingleProduct = () => {
           autoplay
           playsinline
           src="${singleData.product_video}"
-          class="video-background"
+          className="video-background"
         />,
       `,
                     }}
@@ -507,8 +486,8 @@ const SingleProduct = () => {
               </div>
             </div>
             <div className="cardification" />
-            <div class="semi circle">
-              <div class="semi2">
+            <div className="semi circle">
+              <div className="semi2">
               </div>
             </div>
             <div className="pt-2 pb-2 position-sticky bottom-0">
@@ -541,44 +520,6 @@ const SingleProduct = () => {
                 </div>
               </div>
               <div className="d-flex justify-content-center align-items-center">
-                {/* <Button
-                  className="btn default d-flex justify-content-center align-items-center ripple"
-                  variant="outline-dark"
-                  style={{ width: "40%", padding: "10px" }}
-                  onClick={() => navigate("/wishlist")}
-                >
-                  {whiteListProducts?.find((o) => o._id === singleData._id) ? (
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                      <g
-                        stroke="none"
-                        strokeWidth="1"
-                        fill="none"
-                        fillRule="evenodd"
-                      >
-                        <g
-                          fill="#ed143d"
-                          transform="translate(1.000000, 2.000000)"
-                        >
-                          <path d="M11.02835,19.276575 L10.972,19.276575 C10.6304,19.276575 10.2965,19.137625 10.05605,18.895075 L2.71865,11.513925 C1.53495,10.323225 0.88325,8.735275 0.88325,7.042675 C0.88325,5.350075 1.53495,3.762475 2.71865,2.571775 C3.9034,1.379675 5.48435,0.723425 7.1703,0.723425 C8.5759,0.723425 9.90905,1.179825 11,2.022625 C12.0913,1.179825 13.4241,0.723425 14.8297,0.723425 C16.516,0.723425 18.09695,1.379675 19.2817,2.572125 C20.46505,3.762475 21.11675,5.350075 21.11675,7.042675 C21.11675,8.735625 20.46505,10.323225 19.2817,11.513925 L11.94325,18.895775 C11.6993,19.141475 11.3745,19.276575 11.02835,19.276575 L11.02835,19.276575 Z"></path>
-                        </g>
-                      </g>
-                    </svg>
-                  ) : (
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                      <g
-                        stroke="none"
-                        strokeWidth="1"
-                        fill="none"
-                        fillRule="evenodd"
-                      >
-                        <g fill="#3E4152">
-                          <path d="M8.1703,4.473425 C6.9537,4.473425 5.8134,4.946625 4.95975,5.805525 C4.10435,6.666175 3.63325,7.815575 3.63325,9.042675 C3.63325,10.269775 4.10435,11.419525 4.95975,12.280175 L12,19.362425 L19.0406,12.279825 C19.89565,11.419525 20.36675,10.270125 20.36675,9.042675 C20.36675,7.815575 19.89565,6.665825 19.0406,5.805875 C19.0406,5.805875 19.0406,5.805525 19.04025,5.805525 C18.1866,4.946625 17.0463,4.473425 15.8297,4.473425 C14.6138,4.473425 13.4742,4.946275 12.62055,5.804475 C12.29225,6.134525 11.70845,6.134875 11.3798,5.804475 C10.5258,4.946275 9.3862,4.473425 8.1703,4.473425 L8.1703,4.473425 Z M12.02835,21.276575 L11.972,21.276575 C11.6304,21.276575 11.2965,21.137625 11.05605,20.895075 L3.71865,13.513925 C2.53495,12.323225 1.88325,10.735275 1.88325,9.042675 C1.88325,7.350075 2.53495,5.762475 3.71865,4.571775 C4.9034,3.379675 6.48435,2.723425 8.1703,2.723425 C9.5759,2.723425 10.90905,3.179825 12,4.022625 C13.0913,3.179825 14.4241,2.723425 15.8297,2.723425 C17.516,2.723425 19.09695,3.379675 20.2817,4.572125 C21.46505,5.762475 22.11675,7.350075 22.11675,9.042675 C22.11675,10.735625 21.46505,12.323225 20.2817,13.513925 L12.94325,20.895775 C12.6993,21.141475 12.3745,21.276575 12.02835,21.276575 L12.02835,21.276575 Z"></path>
-                        </g>
-                      </g>
-                    </svg>
-                  )}
-                  WISHLIST
-                </Button> */}
                 <Button
                   className="btn primary d-flex justify-content-between align-items-center ripple animated w-100"
                   style={{

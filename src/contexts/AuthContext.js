@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Col, Container, Row } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
 
 const AuthContextProvide = createContext();
 
@@ -112,10 +112,8 @@ const AuthContext = ({ children }) => {
 
   const calcExtraDiscount = (arr, pickIndex, remainingQuantity, totalExtraDiscount) => {
     const bb = arr[pickIndex];
-    console.log('---- totalExtraDiscount', totalExtraDiscount);
     if (bb?.quantity > remainingQuantity) {
       totalExtraDiscount += (bb?.discount || 0) * remainingQuantity;
-      console.log('----- totalExtraDiscount', totalExtraDiscount, bb?.discount, remainingQuantity);
       return totalExtraDiscount;
     } else {
       totalExtraDiscount += bb?.discount * bb?.quantity;
@@ -269,9 +267,6 @@ const AuthContext = ({ children }) => {
             maxWidth: "500px",
             "--them-color": themColor
           }
-          // window.matchMedia("(max-width: 768px)").matches
-          //   ? { maxWidth: "500px", "--them-color":themColor }
-          //   : { maxWidth: "500px", margin: "0px auto", "--them-color":themColor }
         }
       >
         {children}

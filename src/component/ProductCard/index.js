@@ -69,12 +69,10 @@ const ProductCard = ({ item }) => {
             handleRedirect(item._id);
           }}
         >
-          <div className="position-relative" style={{ height: 'calc(100% - 170px)', textAlign: 'center' }} ref={containerRef}>
+          <div className="position-relative" style={{ height: 'calc(100% - 170px)', textAlign: 'center', display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center' }} ref={containerRef}>
             <Card.Img variant="top" src={item?.images[0] ?? ""} style={imageStyle} />
-            {/* <span className="rating_box">
-              {item.rating}
-              <i className="fa-solid fa-star" color="red"></i>
-            </span> */}
           </div>
           <Card.Body className="p-2 pb-0">
             <div className="d-flex justify-content-between align-items-center">
@@ -125,23 +123,7 @@ const ProductCard = ({ item }) => {
                 )}
               </div>
             </div>
-            {/* <Card.Text
-            style={{
-              textAlign: "left",
-              color: "#282c3f",
-              fontSize: "13px",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              fontWeight: "400",
-              margin: "0px",
-            }}
-            className="mb-0"
-          >
-            {item.description}
-          </Card.Text> */}
             <Card.Text className="mb-0" style={{ lineHeight: "18px" }}>
-
               <span style={{ color: "#388e3c", fontSize: "14px", fontWeight: "500", marginTop: "2px" }}>{`${(
                 ((item?.price - item.discount) / item?.price) *
                 100
@@ -154,9 +136,8 @@ const ProductCard = ({ item }) => {
                   textDecoration: "line-through",
                 }}
               >
-                {" "}
-                ₹{item.price}{" "}
-              </span>{" "}
+                ₹{item.price}
+              </span>
             </Card.Text>
             <Card.Text
               style={{

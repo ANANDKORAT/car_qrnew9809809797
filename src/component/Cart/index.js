@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.css";
-import {
-  Container,
-  Form,
-  Card,
-  Row,
-  Col,
-  Button,
-  Offcanvas,
-} from "react-bootstrap";
-import { useAuth } from "../../contexts/AuthContext";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+
+import { useAuth } from "../../contexts/AuthContext";
 import safetyImg from "../../assets/safety-image.jpg";
 
 const Cart = () => {
@@ -39,8 +38,6 @@ const Cart = () => {
       setSelectedProduct(cartProducts);
     }
   }, [cartProducts]);
-
-  console.log('------ cartProducts:->', cartProducts);
 
   return (
     <Container className="h-100 d-flex flex-column justify-content-between">
@@ -83,7 +80,7 @@ const Cart = () => {
                 >
                   Your cart is empty
                 </h2>
-                <div class="Footer__Content Rte">Let's go Buy Somthing!</div>
+                <div className="Footer__Content Rte">Let's go Buy Somthing!</div>
                 <Button
                   variant="dark"
                   className="btn my-3 primary d-flex justify-content-center align-items-center ripple animated"

@@ -1,5 +1,6 @@
-import React from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
 
 const ReturnPolicy=()=>{
 
@@ -29,7 +30,7 @@ const ReturnPolicy=()=>{
             </div>
             <div className="text-center">
                 <h3 style={{ fontSize: '18px', fontWeight: 700, color:'#727272', textAlign: 'center'}}>Get Our Newsletter</h3>
-                <div class="Footer__Content Rte">
+                <div className="Footer__Content Rte">
                     Subscribe to receive update, access to exclusive deals, and more.
                 </div>
                 <Form method="post" action="/contact#footer-newsletter" id="footer-newsletter" accept-charset="UTF-8" className="my-3">

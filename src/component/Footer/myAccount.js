@@ -1,5 +1,9 @@
-import React, { useState } from "react";
-import { Button, Container, Row, Col, Form } from "react-bootstrap";
+import { useState } from "react";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 const MyAccount = () => {
   const [error, setError] = useState(false);

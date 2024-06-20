@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Col, Container, Row, Image, Form, Button } from "react-bootstrap";
+import { useState } from "react";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import utr1 from "../../assets/UTR1.jpeg";
 import utr2 from "../../assets/UTR2.jpeg";
@@ -10,7 +14,6 @@ const OrderTracking = ({ isAfterPayment = false }) => {
     const [value, setValue] = useState("");
     const navigate = useNavigate();
 
-  
     return (
         <Container>
             <Row>
@@ -146,7 +149,6 @@ const OrderTracking = ({ isAfterPayment = false }) => {
                         </Form>
                     </div>
                     {isAfterPayment && (
-
                         <div className="utr-image">
                             <img src={utr1} alt="" width={"100%"} />
                             <img src={utr2} alt="" width={"100%"} />

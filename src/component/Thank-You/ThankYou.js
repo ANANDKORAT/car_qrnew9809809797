@@ -1,5 +1,5 @@
-import React, {useEffect,useState} from "react";
-import { Button } from "react-bootstrap";
+import {useEffect} from "react";
+import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import {useAuth} from "../../contexts/AuthContext";
 import { Helmet } from "react-helmet";
@@ -7,7 +7,6 @@ import { Helmet } from "react-helmet";
 const ThankYou = () => {
   const navigate = useNavigate();
   const {handleSetCartProducts,totalPrice}= useAuth();
-
 
   const generateOrderID = () => {
     const min = 1000000000;
