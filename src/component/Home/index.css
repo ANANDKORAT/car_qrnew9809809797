@@ -42,18 +42,6 @@
     font-weight: bold;
 }
 
-.timer-logo{
-    margin-top: 7px;
-    font-size: 20px;
-    text-align: center;
-}
-
-.dod-timer{
-    font-size: 14px;
-    font-weight: 400;
-    display: flex;
-    align-items: center;
-}
 
 .img-timer{
     margin-right: 5px;

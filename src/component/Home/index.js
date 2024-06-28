@@ -1,13 +1,13 @@
-import {useEffect, useState, useRef} from "react";
+import { useEffect, useState, useRef } from "react";
 import "./index.css";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
-import {useKeenSlider} from "keen-slider/react";
+import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
 import SkeletonLoader from "../SkeletonLoader";
@@ -17,7 +17,7 @@ import Countdown from 'react-countdown';
 import OfferCountdown from "../Header/OfferCountdown"
 
 const Home = () => {
-    const {sliderImages} = useAuth();
+    const { sliderImages } = useAuth();
     const navigate = useNavigate();
     const [categoryArray, setCategoryArray] = useState([]);
     const [productsArray, setProductsArray] = useState([]);
@@ -136,14 +136,14 @@ const Home = () => {
                                     }}
                                     src={item?.image || ""}
                                     rounded
-                                    style={{width: "64px", maxHeight: "64px"}}
+                                    style={{ width: "64px", maxHeight: "64px" }}
                                 />
                             </Col>
                         ))}
                 </Row>
                 <Row>
                     <div>
-                        <img src={animaionImageHOme} className="w-100 mb-2"/>
+                        <img src={animaionImageHOme} className="w-100 mb-2" />
                     </div>
                 </Row>
                 <Row>
@@ -152,7 +152,7 @@ const Home = () => {
                             <div ref={sliderRef} className="keen-slider mt-1">
                                 {sliderImages?.map((item) => (
                                     <div className="keen-slider__slide number-slide1">
-                                        <Image src={item} rounded style={{width: "100%"}}/>
+                                        <Image src={item} rounded style={{ width: "100%" }} />
                                     </div>
                                 ))}
                             </div>
@@ -170,13 +170,13 @@ const Home = () => {
                     )}
                 </Row>
 
-                <div className="menu mt-2 " style={{backgroundColor: process.env.REACT_APP_THEAM_COLOR}}>
+                <div className="menu mt-2 " style={{ backgroundColor: process.env.REACT_APP_THEAM_COLOR }}>
                     <marquee
                         width="100%"
                         direction="left"
                         height="30px"
                         fontWeight="700"
-                        style={{color: "white"}}
+                        style={{ color: "white" }}
                     >
                         <span>Buy 2 Get 1 Free (Add 3 item to cart)</span>
                         <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
@@ -195,8 +195,6 @@ const Home = () => {
                     <div className="inner-time">
                         <div className="dod-div">
                             <div className="dod-label">Hurry Up !! <span className="big-sale-text">Big Sale</span></div>
-                            <div className="timer-logo">
-                                <div className="dod-timer">
                                     {/* <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" width={24} height={24}
                                          data-name="Layer 1" className="me-2" viewBox="0 0 512 512">
                                         <title>stopwatch-outline</title>
@@ -205,15 +203,11 @@ const Home = () => {
                                         <path fill="#000"
                                               d="M277.33,289.83v-76.5a21.33,21.33,0,1,0-42.67,0v85.33a21.34,21.34,0,0,0,6.25,15.08l64,64a21.33,21.33,0,1,0,30.17-30.17Z"/>
                                     </svg> */}
-                                    <div id="test">
-                                        <Countdown
-                                            date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)}
-                                            ref={ref}
-                                            renderer={(e) => <OfferCountdown {...e} />} intervalDelay={1000}
-                                        />
+                                    <div className="container p-3" style={{ textAlign: "center", border: "none" }}>
+                                        <span>
+                                            <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown {...e} />} intervalDelay={1000} />
+                                        </span>
                                     </div>
-                                </div>
-                            </div>
                         </div>
                         {/* <div className="sale_text">
                             <button className="btn-sale-is-live">SALE IS LIVE</button>
@@ -224,16 +218,16 @@ const Home = () => {
                 {isLoader ? (
                     <Row xs={2} md={2} className="g-0 mt-2">
                         <Col>
-                            <SkeletonLoader/>
+                            <SkeletonLoader />
                         </Col>
                         <Col>
-                            <SkeletonLoader/>
+                            <SkeletonLoader />
                         </Col>
                         <Col>
-                            <SkeletonLoader/>
+                            <SkeletonLoader />
                         </Col>
                         <Col>
-                            <SkeletonLoader/>
+                            <SkeletonLoader />
                         </Col>
                     </Row>
                 ) : (
@@ -244,7 +238,7 @@ const Home = () => {
                                     <h4 className="card-title text-center fw-bold my-3">{`${item.categoryName} Collection`}</h4>
                                     <Row xs={2} md={2} className="g-0 mt-2">
                                         {item.products.map((product, index) => (
-                                            <ProductCard item={product} index={index}/>
+                                            <ProductCard item={product} index={index} />
                                         ))}
                                     </Row>
                                     <Button

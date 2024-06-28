@@ -500,7 +500,7 @@ const SingleProduct = () => {
                 <Button
                   className="btn primary d-flex justify-content-between align-items-center ripple animated w-100"
                   style={{
-                    padding: "15px 20px",
+                    padding: "12px 20px",
                     borderRadius: "15px",
                     background: process.env.REACT_APP_THEAM_COLOR,
                     borderColor: process.env.REACT_APP_THEAM_COLOR,
@@ -543,7 +543,7 @@ const SingleProduct = () => {
                       <p style={{ textAlign: "center" }} className="mb-0">
                         <span
                           style={{
-                            color: "#FFFFFF",
+                            color: "#000",
                             marginRight : "5px",
                             textDecoration: "line-through",
                             fontWeight : "bold",
@@ -552,7 +552,7 @@ const SingleProduct = () => {
                           {" "}
                           ₹{singleData?.price}{" "}
                         </span>
-                        <span style={{ fontWeight: 700, color: "white" , fontSize : "22px" }} >
+                        <span style={{ fontWeight: 700, color: "white" , fontSize : "25px" }} >
                           {" "}
                           ₹{singleData.discount.toFixed(0)}{" "}
                         </span>

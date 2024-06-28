@@ -516,12 +516,10 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                                     {`${time % 60}`.padStart(2, 0)}sec
                                 </span>
                             </div> */}
-                            <div id="test">
-                                <Countdown
-                                    date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)}
-                                    ref={ref}
-                                    renderer={(e) => <OfferCountdown {...e} />} intervalDelay={1000}
-                                />
+                            <div className="container p-3" style={{ textAlign: "center" , border : "none" }}>
+                                 <span>
+                                    <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown {...e} />} intervalDelay={1000} />
+                                </span>
                             </div>
                             <div className="m-2">
 
@@ -672,7 +670,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                             textAlign: "start",
                         }}
                     >
-                        <h6 className="mb-0" style={{fontWeight : "bold" , fontSize : "22px"}}>₹{totalPrice}</h6>
+                        <h6 className="mb-0" style={{ fontWeight: "bold", fontSize: "22px" }}>₹{totalPrice}</h6>
                         <a
                             href="#product_details"
                             style={{
