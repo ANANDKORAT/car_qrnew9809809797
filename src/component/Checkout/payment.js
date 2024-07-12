@@ -32,7 +32,6 @@ const Payment = () => {
     const navigate = useNavigate();
     const ref = useRef(null);
 
-
     useEffect(() => {
         Set_upi_id_phonepe(process.env.REACT_APP_UPI_ONLYPHONEPE);
         Set_upi_id_all(process.env.REACT_APP_UPI_ALL);
@@ -518,7 +517,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                             </div> */}
                             <div className="container p-3" style={{ textAlign: "center" , border : "none" }}>
                                  <span>
-                                    <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown {...e} />} intervalDelay={1000} />
+                                    <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown />} intervalDelay={1000} />
                                 </span>
                             </div>
                             <div className="m-2">

@@ -280,7 +280,7 @@ const SingleProduct = () => {
             </div>
             <div className="container-fluid p-3 card" style={{ textAlign: "center" }}>
               <h4 className="m-0"> Offer ends in <span style={{ color: "rgb(251, 100, 27)" }}>
-                <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown {...e} />} intervalDelay={1000} />
+                <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown />} intervalDelay={1000} />
               </span></h4>
             </div>
 

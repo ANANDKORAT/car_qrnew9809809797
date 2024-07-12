@@ -205,7 +205,7 @@ const Home = () => {
                                     </svg> */}
                                     <div className="container p-3" style={{ textAlign: "center", border: "none" }}>
                                         <span>
-                                            <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown {...e} />} intervalDelay={1000} />
+                                            <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown />} intervalDelay={1000} />
                                         </span>
                                     </div>
                         </div>
