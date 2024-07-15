@@ -165,7 +165,6 @@ ${
                   {/* dynamic logo use this code */}
                   <img
                     src={logo}
-                    alt="logo"
                     height={50}
                     width={90}
                     style={{
@@ -203,7 +202,6 @@ ${
                     {/* dynamic logo use this code */}
                     <img
                       src={logo}
-                      alt="logo"
                       height={35}
                       style={{
                         display: "flex",
@@ -252,7 +250,6 @@ ${
                     {/* dynamic logo use this code */}
                     <img
                       src={logo}
-                      alt="logo"
                       height={35}
                       style={{
                         display: "flex",
@@ -268,7 +265,7 @@ ${
               <Nav className={"d-flex flex-row align-items-center"}>
                 <Navbar.Brand href="/">
                   <i className="fa-solid fa-bars" style={{ color: "white" }}></i>
-                  <img src={logo} alt="logo" height={35} style={{ marginLeft: "15%" }} />
+                  <img src={logo} height={35} style={{ marginLeft: "15%" }} />
                 </Navbar.Brand>
               </Nav>
             )}
@@ -454,14 +451,14 @@ ${
             ""
           )}
         </div>
-      {step && (isCart || isCheckout || isPayment) ? (
+      {/* {step && (isCart || isCheckout || isPayment) ? (
         <>
           <div style={{ borderTop: "1px solid rgb(206, 206, 222)" }}></div>
         </>
 
       ) : (
         <></>
-      )}
+      )} */}
 
     </>
 

@@ -1,14 +1,16 @@
-import {useEffect, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import "./index.css";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import {useAuth} from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import payment_video_loop from "../../assets/cod_lat.gif";
+import Countdown from "react-countdown";
+import OfferCountdown from "../Header/OfferCountdown";
 
 
 const Payment = () => {
@@ -28,6 +30,7 @@ const Payment = () => {
     const [upi_id_all, Set_upi_id_all] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const ref = useRef(null);
 
     useEffect(() => {
         Set_upi_id_phonepe(process.env.REACT_APP_UPI_ONLYPHONEPE);
@@ -289,7 +292,7 @@ const Payment = () => {
                     viewBox="-51 -5 122 122"
                 >
                     <g>
-                        <circle className="st0" cx="10" cy="56" r="61" fill="#5F259F"/>
+                        <circle className="st0" cx="10" cy="56" r="61" fill="#5F259F" />
                         <path
                             className="st1"
                             d="M37.7,40.1c0-2.4-2-4.4-4.4-4.4h-8.2L6.3,14.2c-1.7-2-4.4-2.7-7.2-2l-6.5,2c-1,0.3-1.4,1.7-0.7,2.4L12.5,36
@@ -418,16 +421,16 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
         isPaymentPageLoading ?
             <Container
                 className="p-0 pt-3 pb-3 flex-column position-relative d-flex justify-content-center align-items-center"
-                style={{background: "#f2f2f3", height: '250px'}}
+                style={{ background: "#f2f2f3", height: '250px' }}
             >
                 <div>
                     Please Wait...
                 </div>
-                <Spinner/>
+                <Spinner />
             </Container>
             : <Container
                 className="p-0 pt-3 pb-3 position-relative d-flex flex-column justify-content-between"
-                style={{background: "#f2f2f3"}}
+                style={{ background: "#f2f2f3" }}
             >
 
                 <div>
@@ -441,19 +444,19 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                     </div> */}
                     <div>
                         <div className="line-draw"></div>
-                        <div style={{background: "white", display: "flex", justifyContent: "space-between"}}
-                             className="p-3">
+                        <div style={{ background: "white", display: "flex", justifyContent: "space-between" }}
+                            className="p-3">
 
                             <h6
                                 className="card-title px-4 text-start fw-bold pt-1 text-uppercase"
-                                style={{fontSize: "12px"}}
+                                style={{ fontSize: "12px" }}
                             >
                                 Recommended Payment Options
                             </h6>
                             <svg width="80" height="24" viewBox="0 0 80 24" fill="gray" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
-                                      d="M11.1172 3C10.3409 3 9.04382 3.29813 7.82319 3.63C6.57444 3.9675 5.31557 4.36687 4.57532 4.60875C4.26582 4.71096 3.99143 4.8984 3.78367 5.14954C3.57591 5.40068 3.44321 5.70533 3.40082 6.0285C2.73032 11.0651 4.28619 14.7979 6.17394 17.2672C6.97447 18.3236 7.92897 19.2538 9.00557 20.0269C9.43982 20.334 9.84257 20.5691 10.1845 20.73C10.4995 20.8785 10.8382 21 11.1172 21C11.3962 21 11.7337 20.8785 12.0498 20.73C12.4621 20.5296 12.8565 20.2944 13.2288 20.0269C14.3054 19.2538 15.2599 18.3236 16.0604 17.2672C17.9482 14.7979 19.504 11.0651 18.8335 6.0285C18.7912 5.70518 18.6586 5.40035 18.4508 5.14901C18.2431 4.89768 17.9686 4.71003 17.659 4.60762C16.5845 4.25529 15.5015 3.92894 14.4112 3.62888C13.1905 3.29925 11.8934 3 11.1172 3ZM13.5314 9.68925C13.637 9.58363 13.7803 9.52429 13.9297 9.52429C14.079 9.52429 14.2223 9.58363 14.3279 9.68925C14.4335 9.79487 14.4929 9.93813 14.4929 10.0875C14.4929 10.2369 14.4335 10.3801 14.3279 10.4858L10.9529 13.8608C10.9007 13.9131 10.8386 13.9547 10.7703 13.9831C10.7019 14.0114 10.6287 14.026 10.5547 14.026C10.4807 14.026 10.4074 14.0114 10.3391 13.9831C10.2707 13.9547 10.2087 13.9131 10.1564 13.8608L8.46894 12.1733C8.41664 12.121 8.37516 12.0589 8.34685 11.9905C8.31855 11.9222 8.30398 11.849 8.30398 11.775C8.30398 11.701 8.31855 11.6278 8.34685 11.5595C8.37516 11.4911 8.41664 11.429 8.46894 11.3767C8.52124 11.3244 8.58333 11.283 8.65166 11.2547C8.71999 11.2264 8.79323 11.2118 8.86719 11.2118C8.94115 11.2118 9.01439 11.2264 9.08272 11.2547C9.15105 11.283 9.21314 11.3244 9.26544 11.3767L10.5547 12.6671L13.5314 9.68925Z"
-                                      fill="#ADC6FF"></path>
+                                    d="M11.1172 3C10.3409 3 9.04382 3.29813 7.82319 3.63C6.57444 3.9675 5.31557 4.36687 4.57532 4.60875C4.26582 4.71096 3.99143 4.8984 3.78367 5.14954C3.57591 5.40068 3.44321 5.70533 3.40082 6.0285C2.73032 11.0651 4.28619 14.7979 6.17394 17.2672C6.97447 18.3236 7.92897 19.2538 9.00557 20.0269C9.43982 20.334 9.84257 20.5691 10.1845 20.73C10.4995 20.8785 10.8382 21 11.1172 21C11.3962 21 11.7337 20.8785 12.0498 20.73C12.4621 20.5296 12.8565 20.2944 13.2288 20.0269C14.3054 19.2538 15.2599 18.3236 16.0604 17.2672C17.9482 14.7979 19.504 11.0651 18.8335 6.0285C18.7912 5.70518 18.6586 5.40035 18.4508 5.14901C18.2431 4.89768 17.9686 4.71003 17.659 4.60762C16.5845 4.25529 15.5015 3.92894 14.4112 3.62888C13.1905 3.29925 11.8934 3 11.1172 3ZM13.5314 9.68925C13.637 9.58363 13.7803 9.52429 13.9297 9.52429C14.079 9.52429 14.2223 9.58363 14.3279 9.68925C14.4335 9.79487 14.4929 9.93813 14.4929 10.0875C14.4929 10.2369 14.4335 10.3801 14.3279 10.4858L10.9529 13.8608C10.9007 13.9131 10.8386 13.9547 10.7703 13.9831C10.7019 14.0114 10.6287 14.026 10.5547 14.026C10.4807 14.026 10.4074 14.0114 10.3391 13.9831C10.2707 13.9547 10.2087 13.9131 10.1564 13.8608L8.46894 12.1733C8.41664 12.121 8.37516 12.0589 8.34685 11.9905C8.31855 11.9222 8.30398 11.849 8.30398 11.775C8.30398 11.701 8.31855 11.6278 8.34685 11.5595C8.37516 11.4911 8.41664 11.429 8.46894 11.3767C8.52124 11.3244 8.58333 11.283 8.65166 11.2547C8.71999 11.2264 8.79323 11.2118 8.86719 11.2118C8.94115 11.2118 9.01439 11.2264 9.08272 11.2547C9.15105 11.283 9.21314 11.3244 9.26544 11.3767L10.5547 12.6671L13.5314 9.68925Z"
+                                    fill="#ADC6FF"></path>
                                 <path
                                     d="M24.1172 3.53998L24.2472 4.65998L26.0372 3.67998V9.49998H27.1472V2.49998H26.1472L24.1172 3.53998Z"
                                     className="fill-grey-t2"></path>
@@ -497,19 +500,24 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                                     d="M65.3439 21.54V14.5H64.2039V19.78L60.5339 14.46H59.2639V21.5H60.4039V16.22L64.0739 21.54H65.3439Z"
                                     className="fill-grey-t2"></path>
                                 <path d="M72.0671 14.5H66.7571V15.55H68.8471V21.5H69.9871V15.55H72.0671V14.5Z"
-                                      className="fill-grey-t2"></path>
+                                    className="fill-grey-t2"></path>
                                 <path
                                     d="M75.4028 21.65C76.8628 21.65 77.8828 20.79 77.8828 19.48C77.8828 16.8 74.2828 17.97 74.2828 16.3C74.2828 15.7 74.7628 15.35 75.4128 15.35C76.1628 15.35 76.6328 15.79 76.7428 16.43L77.8528 16.23C77.6728 15.13 76.7728 14.35 75.4428 14.35C74.0928 14.35 73.1228 15.17 73.1228 16.4C73.1228 19.08 76.7128 17.91 76.7128 19.6C76.7128 20.23 76.2028 20.66 75.4328 20.66C74.7428 20.66 74.0828 20.29 73.9628 19.58L72.8528 19.82C73.0528 20.99 74.1528 21.65 75.4028 21.65Z"
                                     className="fill-grey-t2"></path>
                             </svg>
                         </div>
                         <div className="line-draw"></div>
-                        <div className="mt-3 py-2 pt-2 pb-3" style={{background: "#fff"}}>
-                            <div className="text-center">
+                        <div className="mt-3 py-2 pt-3 pb-3" style={{ background: "#fff" }}>
+                            {/* <div className="Offers-count">
                                 <span className="text-decore">Offes Ends In</span>
                                 <span style={{color: "#f38901", fontSize: "22px", fontWeight: "700"}}>
                                     {` ${Math.floor(time / 60)}`.padStart(2, 0)}min:
                                     {`${time % 60}`.padStart(2, 0)}sec
+                                </span>
+                            </div> */}
+                            <div className="container p-3" style={{ textAlign: "center" , border : "none" }}>
+                                 <span>
+                                    <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown />} intervalDelay={1000} />
                                 </span>
                             </div>
                             <div className="m-2">
@@ -526,13 +534,13 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                                         borderRadius: "4px"
                                     }}
                                 >
-                                    <img src={payment_video_loop} style={{width: "15%"}}></img>
+                                    <img src={payment_video_loop} style={{ width: "15%" }}></img>
                                     Pay online & get EXTRA ₹33 off
                                 </div>
                             </div>
 
                             <div data-testid="PAY ONLINE" className="text-pay">
-                                <span style={{fontWeight: "600", fontSize: "12px"}}>PAY ONLINE</span>
+                                <span style={{ fontWeight: "600", fontSize: "12px" }}>PAY ONLINE</span>
                                 <div className="hr-line"></div>
                             </div>
                             <Row className="mt-1 g-2 m-0 p-2" id="payment_options">
@@ -541,9 +549,8 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                                         <div
                                             className="fw-semibold"
                                             style={{
-                                                border: `1px solid ${
-                                                    SelectedPaymentUpi === item.name ? "#ed143d" : "#ddd"
-                                                }`,
+                                                border: `1px solid ${SelectedPaymentUpi === item.name ? "#ed143d" : "#ddd"
+                                                    }`,
                                                 borderRadius: "8px",
                                                 padding: "15px 40px",
                                             }}
@@ -552,17 +559,17 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                                             }}
                                         >
                                             <span className="d-flex align-items-center">
-                                              <span>{item?.icon}</span>
-                                              <span className="ms-2">{item.name}</span>
+                                                <span>{item?.icon}</span>
+                                                <span className="ms-2">{item.name}</span>
                                                 {isLoading && SelectedPaymentUpi === item.name &&
-                                                    <Spinner variant="secondary" className="ms-2" size="sm"/>}
+                                                    <Spinner variant="secondary" className="ms-2" size="sm" />}
                                             </span>
                                             {process.env.REACT_APP_COD == "no" &&
                                                 SelectedPaymentUpi === "COD" &&
                                                 item.name === "COD" && (
                                                     <div
                                                         className="text-danger"
-                                                        style={{fontSize: "13px", textAlign: "center"}}
+                                                        style={{ fontSize: "13px", textAlign: "center" }}
                                                     >
                                                         This Payment-Method are Not Allowed For This Offer
                                                         Products Choose Other Products Otherwise Change
@@ -575,7 +582,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                             </Row>
                         </div>
                     </div>
-                    <div className="mt-4">
+                    <div className="mt-3">
                         {selectedProduct?.length && (
                             <div className="bg-white px-4 py-4">
                                 <h6
@@ -584,7 +591,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                                 >{`PRICE DETAILS (${selectedProduct?.length === 1
                                     ? "1 Item"
                                     : `${selectedProduct?.length} Items`
-                                })`}</h6>
+                                    })`}</h6>
                                 <div className="mt-3">
                                     <div className="d-flex flex-row justify-content-between align-items-center ">
                                         <span>Total MRP</span>
@@ -609,7 +616,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                                         ""
                                     )}
                                     {totalExtraDiscount &&
-                                    process.env.REACT_APP_COUPON_APPLY == "true" ? (
+                                        process.env.REACT_APP_COUPON_APPLY == "true" ? (
                                         <>
                                             <div
                                                 className="d-flex flex-row justify-content-between align-items-center mt-2 border-top pt-2">
@@ -651,7 +658,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                     </div>
                 </div>
                 <div
-                    className="position-sticky bottom-0 pb-3 bg-white px-4 mt-4 py-4 d-flex align-content-center justify-content-between"
+                    className="position-sticky bottom-0 pb-3 bg-white px-4 mt-3 py-4 d-flex align-content-center justify-content-between"
                     id="payment_bottom_block">
                     <div
                         style={{
@@ -662,7 +669,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                             textAlign: "start",
                         }}
                     >
-                        <h6 className="mb-0">₹{totalPrice}</h6>
+                        <h6 className="mb-0" style={{ fontWeight: "bold", fontSize: "22px" }}>₹{totalPrice}</h6>
                         <a
                             href="#product_details"
                             style={{

@@ -280,7 +280,7 @@ const SingleProduct = () => {
             </div>
             <div className="container-fluid p-3 card" style={{ textAlign: "center" }}>
               <h4 className="m-0"> Offer ends in <span style={{ color: "rgb(251, 100, 27)" }}>
-              <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown {...e} />} intervalDelay={1000} />
+                <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown />} intervalDelay={1000} />
               </span></h4>
             </div>
 
@@ -288,18 +288,18 @@ const SingleProduct = () => {
               <img src={Offer} />
             </div>
 
-            <div className="container-fluid px-2 py-3 d-flex feature-container product-extra card" style={{flexDirection : "row"}}>
+            <div className="container-fluid px-2 py-3 d-flex feature-container product-extra card" style={{ flexDirection: "row" }}>
               <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
-                <img className="featured-img mb-1" src={replacement} height="35"/>
-                  <span className="feature-title"> 7 days Replacement </span>
+                <img className="featured-img mb-1" src={replacement} height="35" />
+                <span className="feature-title"> 7 days Replacement </span>
               </div>
               <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
-                <img className="featured-img mb-1" src={noncod} height="35"/>
-                  <span className="feature-title"> No Cash On Delivery </span>
+                <img className="featured-img mb-1" src={noncod} height="35" />
+                <span className="feature-title"> No Cash On Delivery </span>
               </div>
               <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
-                <img className="featured-img mb-1 mt-1" src={faPlusAssured} height="30"/>
-                  <span className="feature-title"> Plus (F-Assured) </span>
+                <img className="featured-img mb-1 mt-1" src={faPlusAssured} height="30" />
+                <span className="feature-title"> Plus (F-Assured) </span>
               </div>
             </div>
 
@@ -491,39 +491,16 @@ const SingleProduct = () => {
               </div>
             </div>
             <div className="pt-2 pb-2 position-sticky bottom-0">
-              <div className="main-ciecle-price" style={{ backgroundColor: "black" }}>
-                <div className="inner-price-text">
-                  {singleData?.price &&
-                    (singleData?.discount ? (
-                      <p style={{ textAlign: "center" }} className="mb-0">
-                        <span style={{ fontWeight: 700, color: "white" }} >
-                          {" "}
-                          ₹{singleData.discount.toFixed(0)}{" "}
-                        </span>
-                        <span
-                          style={{
-                            color: "darkgreen",
-                            marginLeft: "5px",
-                            fontWeight: "bold"
-                          }}
-                        >{`${(
-                          ((singleData?.price - singleData.discount) /
-                            singleData?.price) *
-                          100
-                        ).toFixed(0)}% OFF`}</span>
-                      </p>
-                    ) : (
-                      <p style={{ textAlign: "left" }} className="mb-0">
-                        {singleData.price}
-                      </p>
-                    ))}
-                </div>
-              </div>
+              {/* <div className="main-ciecle-price" style={{ backgroundColor: "black" }}> */}
+              {/* <div className="inner-price-text"> */}
+
+              {/* </div> */}
+              {/* </div> */}
               <div className="d-flex justify-content-center align-items-center">
                 <Button
                   className="btn primary d-flex justify-content-between align-items-center ripple animated w-100"
                   style={{
-                    padding: "5px 20px",
+                    padding: "12px 20px",
                     borderRadius: "15px",
                     background: process.env.REACT_APP_THEAM_COLOR,
                     borderColor: process.env.REACT_APP_THEAM_COLOR,
@@ -547,7 +524,7 @@ const SingleProduct = () => {
                   }}
                 >
 
-                  <span>
+                  {/* <span>
                     <span
                       style={{
                         fontSize: "15px",
@@ -559,9 +536,45 @@ const SingleProduct = () => {
                     <div className="Timer-Up">
                       <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref}  renderer={(e) => <OfferCountdown {...e} isButton/>} intervalDelay={1000} />
                     </div>
-                  </span>
+                  </span> */}
 
-                  <span>
+                  {singleData?.price &&
+                    (singleData?.discount ? (
+                      <p style={{ textAlign: "center" }} className="mb-0">
+                        <span
+                          style={{
+                            color: "#000",
+                            marginRight : "5px",
+                            textDecoration: "line-through",
+                            fontWeight : "bold",
+                          }}
+                        >{" "}
+                          {" "}
+                          ₹{singleData?.price}{" "}
+                        </span>
+                        <span style={{ fontWeight: 700, color: "white" , fontSize : "25px" }} >
+                          {" "}
+                          ₹{singleData.discount.toFixed(0)}{" "}
+                        </span>
+                        <span
+                          style={{
+                            color: "darkgreen",
+                            marginLeft: "5px",
+                            fontWeight: "bold"
+                          }}
+                        >{`${(
+                          ((singleData?.price - singleData.discount) /
+                            singleData?.price) *
+                          100
+                        ).toFixed(0)}% OFF`}</span>
+                      </p>
+                    ) : (
+                      <p style={{ textAlign: "left" }} className="mb-0">
+                        {singleData.price}
+                      </p>
+                    ))}
+
+                  <span style={{ display: "flex", alignItems: "center" }}>
                     <svg
                       width="18"
                       height="18"
@@ -571,14 +584,15 @@ const SingleProduct = () => {
                       <g fill="none" fillRule="evenodd">
                         <path
                           fill="#ffffff"
+                          stroke="#ffffff"
                           d="M4.012 20.718L5.246 7.314H7.27v1.763a.733.733 0 101.466 0V7.314h6.528v1.763a.733.733 0 001.466 0V7.314h2.024l1.234 13.404H4.012zM12 3.282c1.56 0 2.865 1.1 3.187 2.565H8.813A3.268 3.268 0 0112 3.282zm8.15 3.228a.733.733 0 00-.73-.663h-2.747A4.734 4.734 0 0012 1.816a4.734 4.734 0 00-4.673 4.03H4.58a.733.733 0 00-.73.664L2.475 21.38a.734.734 0 00.73.804h17.59a.733.733 0 00.73-.803L20.15 6.51z"
                         ></path>
                         <path d="M0 0h24v24H0z" opacity="0.05"></path>
                       </g>
                     </svg>
                     {cartProducts?.find((o) => o._id == id)?._id
-                      ? "GO TO BAG"
-                      : "ADD TO BAG"}
+                      ? "GO TO CART"
+                      : <span style={{ fontWeight: "bold" }}>ADD TO CART</span>}
                   </span>
                 </Button>
               </div>

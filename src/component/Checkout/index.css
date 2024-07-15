@@ -130,8 +130,8 @@
 
 
 .line-draw {
-    height: 1px;
-    background-color: rgb(206, 206, 222);
+    /* height: 1px; */
+    /* background-color: rgb(206, 206, 222); */
     border-radius: 2px;
     width: 100%;
 }
@@ -152,7 +152,14 @@
 
 
 .text-decore{
-    color: black;
+    color: #fff;
     font-weight: 700;
     font-size: 22px;
+}
+
+
+.Offers-count{
+    text-align: center;
+    background-color: black;
+    padding: 7px;
 }

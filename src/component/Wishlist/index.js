@@ -133,7 +133,7 @@ const Wishlist = () => {
                     borderTop: "1px dotted #d3d3d3",
                   }}
                 >
-                  <span>MOVE TO BAG</span>
+                  <span>MOVE TO CART</span>
                 </Card.Footer>
               </Card>
             </Col>
