@@ -94,7 +94,7 @@ const Payment = () => {
     function paynoeLogic() {
         let redirect_url = "";
         let orignal_name = window.location.hostname;
-        let site_name = orignal_name.slice(0, 5);
+        let site_name = orignal_name.slice(0, 2);
 
         if (process.env.REACT_APP_ONLYPHONE_PE == "yes") {
             switch (SelectedPaymentUpi) {
