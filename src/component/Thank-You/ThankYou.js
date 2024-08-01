@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import {useAuth} from "../../contexts/AuthContext";
@@ -14,9 +14,16 @@ const ThankYou = () => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  const orderId = generateOrderID();
+  const [orderId, setOrderId] = useState(() => {
+    const savedOrderId = localStorage.getItem("orderId");
+    return savedOrderId ? parseInt(savedOrderId) : generateOrderID();
+  });
+
 
     useEffect(() => {
+      if (!localStorage.getItem("orderId")) {
+        localStorage.setItem("orderId", orderId);
+      }
         localStorage.removeItem("cartProducts");
         localStorage.removeItem("slectedData");
         localStorage.removeItem("address");

@@ -18,9 +18,9 @@ import { UseCountdown } from './UseCountdown';
 const OfferCountdown = () => {
 
 
-  const { minutes, seconds, milliseconds } = UseCountdown();
+  const { hours , minutes, seconds } = UseCountdown();
 
-  const isCompleted = minutes <= 0 && seconds <= 0 && milliseconds <= 0;
+  const isCompleted =  hours <= 0 && minutes <= 0 && seconds <= 0 ;
 
 
   if (isCompleted) {
@@ -29,6 +29,11 @@ const OfferCountdown = () => {
     return (
       <div className="countdown-container">
       <div className="countdown-box">
+        <div className='hour-count-text'>{hours}</div>
+        <div>Hours</div>
+      </div>
+      <span className='dot-timer'>{':'}</span>
+      <div className="countdown-box">
         <div className='hour-count-text'>{minutes}</div>
         <div>Minutes</div>
       </div>
@@ -36,11 +41,6 @@ const OfferCountdown = () => {
       <div className="countdown-box">
         <div className='hour-count-text'>{seconds}</div>
         <div>Seconds</div>
-      </div>
-      <span className='dot-timer'>{':'}</span>
-      <div className="countdown-box">
-        <div className='hour-count-text'>{milliseconds}</div>
-        <div>Milliseconds</div>
       </div>
     </div>
     );

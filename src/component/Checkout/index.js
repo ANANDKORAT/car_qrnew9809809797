@@ -147,7 +147,7 @@ const Checkout = () => {
                                             />
                                         </Col>
                                         <Col md className="mb-2">
-                                            <TextField id="outlined-basic" fullWidth controlId="mobile" label="Mobile"
+                                            <TextField id="outlined-basic" fullWidth type="number" controlId="mobile" label="Mobile"
                                                        name="mobile" placeholder="Please Enter Mobile Number!"
                                                        variant="outlined" {...getFieldProps("mobile")} />
                                             <ErrorMessage

@@ -16,11 +16,11 @@ const UseCountdown = (initialMinutes = 8) => {
 };
 
 const getReturnValues = (countDown) => {
-  const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
-  const milliseconds = Math.floor((countDown % 1000) / 10); // Get two digits of milliseconds
+  const hours = String(Math.floor((countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+  const minutes = String(Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+  const seconds = String(Math.floor((countDown % (1000 * 60)) / 1000)).padStart(2, '0');
 
-  return { minutes, seconds, milliseconds };
+  return { hours, minutes, seconds };
 };
 
 export { UseCountdown };
