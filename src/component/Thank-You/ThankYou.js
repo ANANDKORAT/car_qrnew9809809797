@@ -1,38 +1,46 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-import {useAuth} from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { Helmet } from "react-helmet";
-
 const ThankYou = () => {
   const navigate = useNavigate();
-  const {handleSetCartProducts,totalPrice}= useAuth();
-
+  const { handleSetCartProducts, totalPrice } = useAuth();
   const generateOrderID = () => {
     const min = 1000000000;
     const max = 9999999999;
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
-
+  const getOrderIDForUTR = (utr) => {
+    const orderData = JSON.parse(localStorage.getItem("orderData")) || {};
+    if (orderData[utr]) {
+      return orderData[utr];
+    } else {
+      const newOrderId = generateOrderID();
+      orderData[utr] = newOrderId;
+      localStorage.setItem("orderData", JSON.stringify(orderData));
+      return newOrderId;
+    }
+  };
+  const [utr, setUTR] = useState(() => localStorage.getItem("utrNumber") || "");
   const [orderId, setOrderId] = useState(() => {
-    const savedOrderId = localStorage.getItem("orderId");
-    return savedOrderId ? parseInt(savedOrderId) : generateOrderID();
+    const savedUTR = localStorage.getItem("utrNumber");
+    return savedUTR ? getOrderIDForUTR(savedUTR) : null;
   });
-
-
-    useEffect(() => {
-      if (!localStorage.getItem("orderId")) {
-        localStorage.setItem("orderId", orderId);
-      }
-        localStorage.removeItem("cartProducts");
-        localStorage.removeItem("slectedData");
-        localStorage.removeItem("address");
-        handleSetCartProducts([]);
-    }, []);
-
+  useEffect(() => {
+    if (utr) {
+      const newOrderId = getOrderIDForUTR(utr);
+      setOrderId(newOrderId);
+      localStorage.setItem("utrNumber", utr);
+    }
+    localStorage.removeItem("cartProducts");
+    localStorage.removeItem("slectedData");
+    localStorage.removeItem("address");
+    handleSetCartProducts([]);
+  }, [utr]);
   return (
     <div>
-     {process.env.REACT_APP_AW && (
+      {process.env.REACT_APP_AW && (
         <Helmet>
           <script>
             {`
@@ -53,25 +61,30 @@ const ThankYou = () => {
           display: "flex",
           flexDirection: "column",
           gap: "10px",
-            padding: '10px 20px'
+          padding: "10px 20px",
         }}
       >
         <h4>YOUR ORDER HAS BEEN RECEIVED</h4>
         <h5>Confirmation of Order Receipt and Payment Processing</h5>
         <p style={{ color: "red" }}>
-            Please note that if your payment is unsuccessful, your order will be automatically canceled. Kindly ensure that you do not close any UPI app until the payment process is completed.
+          Please note that if your payment is unsuccessful, your order will be
+          automatically canceled. Kindly ensure that you do not close any UPI
+          app until the payment process is completed.
         </p>
         <h6>
-            Upon successful processing, you will receive an order confirmation email containing detailed information about your order and a link to track its progress.
+          Upon successful processing, you will receive an order confirmation
+          email containing detailed information about your order and a link to
+          track its progress.
         </h6>
-          <h6>
-              {`Thank you for choosing ${window.location.hostname || ''}. If you have any questions or concerns, feel free to reach out to us.`}
-          </h6>
+        <h6>
+          {`Thank you for choosing ${
+            window.location.hostname || ""
+          }. If you have any questions or concerns, feel free to reach out to us.`}
+        </h6>
         <p>
           <strong>Your Order id is:</strong>
           &nbsp;{orderId}
         </p>
-
         <strong>Your Amount is:</strong>
         &nbsp;{totalPrice}
       </div>
@@ -97,5 +110,4 @@ const ThankYou = () => {
     </div>
   );
 };
-
 export default ThankYou;
