@@ -19,7 +19,7 @@ import ThankYou from "../component/Thank-You/ThankYou";
 import PrivacyPolicy from "../component/Footer/privacyPolicy";
 import Termsofservice from "../component/Footer/Termsofservice";
 import Shippingpolicy from "../component/Footer/Shippingpolicy";
-
+import Aboutus from "../component/Footer/aboutUs";
 const AppRouters = () => (
     <Router>
         <ScrollToTop />
@@ -39,7 +39,7 @@ const AppRouters = () => (
                 <Route path="/contact-us" exact element={<ContactUs />}/>
                 <Route path="/privacypolicy" exact element={<PrivacyPolicy />}/>
                 <Route path="/termsofservice" exact element={<Termsofservice />}/>
-
+                <Route path="/about-us" exact element={<Aboutus />}/>
                 <Route path="/shippingpolicy" exact element={<Shippingpolicy />}/>
                 <Route path="/profile" exact element={<MyAccount />}/>
                 <Route path="/ThankYou" exact element={<ThankYou />}/>
