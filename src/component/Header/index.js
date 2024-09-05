@@ -7,7 +7,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Helmet } from "react-helmet";
-
 import OfferSlider from "./OfferSlider";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -21,8 +20,6 @@ const Header = () => {
   const [isWhishList, setIsWhishList] = useState(false);
   const [thankYou, setThankYou] = useState(false);
   const [orderComfirm, setOrderComfirm] = useState(false);
-
-
   const [analyticsDesc, setAnalyticsDesc] = useState([]);
   let location = useLocation();
   const navigate = useNavigate();
@@ -73,56 +70,57 @@ const Header = () => {
         console.log("---- error", error);
       });
   };
-
+  let navThemeColor = process.env.REACT_APP_NAV_THEME_COLOR
+  console.log('navThemeColor', navThemeColor)
   const logo = process.env.REACT_APP_LOGO;
 
   return (
     <>
 
-      <Navbar expand="lg" sticky="top" className={`flex-column bg-white ${isProductDetails &&
-        process.env.REACT_APP_SHOW_OFFER_BANNER == "true" &&
-        singleProduct?._id ? 'pb-0' : ''}`} id="nav-look">
+      <Navbar expand="lg" sticky="top" className={`flex-column  custom-navbar bg-white ${isProductDetails &&
+        process.env.REACT_APP_SHOW_OFFER_BANNER == "yes" &&
+        singleProduct?._id ? 'pb-0' : ''}`} id="nav-look" style={{ '--nav-theme-color': navThemeColor }}>
         {/* Google g4tag live tracker */}
-        {process.env.REACT_APP_G4  && (
-        <Helmet>
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.REACT_APP_G4}`}
-          ></script>
-          <script>
-            {`
+        {process.env.REACT_APP_G4 && (
+          <Helmet>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.REACT_APP_G4}`}
+            ></script>
+            <script>
+              {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments)}
             gtag('js', new Date())
             gtag('config', '${process.env.REACT_APP_G4}');
           `}
-          </script>
-        </Helmet>
-      )}
+            </script>
+          </Helmet>
+        )}
 
         {/* Google Globle live tracker */}
 
         {process.env.REACT_APP_AW && (
-        <Helmet>
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.REACT_APP_AW}`}
-          ></script>
-          <script>
-            {`
+          <Helmet>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.REACT_APP_AW}`}
+            ></script>
+            <script>
+              {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments)}
             gtag('js', new Date())
             gtag('config', '${process.env.REACT_APP_AW}');
           `}
-          </script>
-        </Helmet>
-      )}
+            </script>
+          </Helmet>
+        )}
         {/* Facebook Pixel  live tracker */}
-        { process.env.REACT_APP_FBPIXEL && (
-        <Helmet>
-          <script>
-            {`
+        {process.env.REACT_APP_FBPIXEL && (
+          <Helmet>
+            <script>
+              {`
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -133,30 +131,29 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '${process.env.REACT_APP_FBPIXEL}');
 fbq('track', 'PageView');
-${
-  window.location.href.includes("/payment")
-    ? 'fbq("track", "InitiateCheckout");'
-    : ""
-};
+${window.location.href.includes("/payment")
+                  ? 'fbq("track", "InitiateCheckout");'
+                  : ""
+                };
 
 `}
-          </script>
-        </Helmet>
-      )}
+            </script>
+          </Helmet>
+        )}
 
         <Helmet>
           <link rel="icon" type="image/x-icon" href={logo} sizes="16x16" />
         </Helmet>
-        { process.env.REACT_APP_FBPIXEL && (
-      <noscript>
-        <img
-          height="1"
-          width="1"
-          style="display:none"
-          src={`https://www.facebook.com/tr?id=${process.env.REACT_APP_FBPIXEL}&ev=PageView&noscript=1`}
-        />
-      </noscript>
-      )}
+        {process.env.REACT_APP_FBPIXEL && (
+          <noscript>
+            <img
+              height="1"
+              width="1"
+              style="display:none"
+              src={`https://www.facebook.com/tr?id=${process.env.REACT_APP_FBPIXEL}&ev=PageView&noscript=1`}
+            />
+          </noscript>
+        )}
         {thankYou ? (
           <Container>
             {thankYou ? (
@@ -301,7 +298,7 @@ ${
                         alignItems: "center",
                         background: "red",
                         marginLeft: "10px",
-                        color : "#ffffff"
+                        color: "#ffffff"
                       }}
                     >
                       {cartProducts.length}
@@ -348,7 +345,7 @@ ${
                         alignItems: "center",
                         background: "red",
                         marginLeft: "10px",
-                        color : "#ffffff"
+                        color: "#ffffff"
 
                       }}
                     >
@@ -384,7 +381,7 @@ ${
         </Container>
 
         {isProductDetails &&
-          process.env.REACT_APP_SHOW_OFFER_BANNER == "true" &&
+          process.env.REACT_APP_SHOW_OFFER_BANNER == "yes" &&
           singleProduct?._id && (
             <Container
               style={{
@@ -404,53 +401,53 @@ ${
           )}
       </Navbar>
       <div className="main-steps">
-          {step && (isCart || isCheckout || isPayment) ? (
-            <>
-              <div className="step-container" />
-              <div>
-                <div
-                  className="step-number m-auto"
-                  style={
-                    step > 1
-                      ? { background: "white", border: "1px solid #2874F0" }
-                      : { border: "1px solid #2874F0" }
-                  }
-                >
-                  {step > 1 ? <i className="fa-solid fa-check"></i> : 1}
-                </div>
-                <p style={{ fontSize: "15px", fontWeight: "500" }}>Cart</p>
+        {step && (isCart || isCheckout || isPayment) ? (
+          <>
+            <div className="step-container" />
+            <div>
+              <div
+                className="step-number m-auto"
+                style={
+                  step > 1
+                    ? { background: "white", border: "1px solid #2874F0" }
+                    : { border: "1px solid #2874F0" }
+                }
+              >
+                {step > 1 ? <i className="fa-solid fa-check"></i> : 1}
               </div>
-              <div>
-                <div
-                  className="step-number m-auto"
-                  style={
-                    step > 2
-                      ? { background: "white", border: "1px solid #2874F0 " }
-                      : { border: "1px solid #2874F0 " }
-                  }
-                >
-                  {step > 2 ? <i className="fa-solid fa-check"></i> : 2}
-                </div>
-                <p style={{ fontSize: "15px", fontWeight: "500" }}>Address</p>
+              <p style={{ fontSize: "15px", fontWeight: "500" }}>Cart</p>
+            </div>
+            <div>
+              <div
+                className="step-number m-auto"
+                style={
+                  step > 2
+                    ? { background: "white", border: "1px solid #2874F0 " }
+                    : { border: "1px solid #2874F0 " }
+                }
+              >
+                {step > 2 ? <i className="fa-solid fa-check"></i> : 2}
               </div>
-              <div>
-                <div
-                  className="step-number m-auto"
-                  style={
-                    step > 3
-                      ? { background: "white", border: "1px solid #2874F0 " }
-                      : { border: "1px solid #2874F0 " }
-                  }
-                >
-                  {step > 3 ? <i className="fa-solid fa-check"></i> : 3}
-                </div>
-                <p style={{ fontSize: "15px", fontWeight: "500" }}>Payment</p>
+              <p style={{ fontSize: "15px", fontWeight: "500" }}>Address</p>
+            </div>
+            <div>
+              <div
+                className="step-number m-auto"
+                style={
+                  step > 3
+                    ? { background: "white", border: "1px solid #2874F0 " }
+                    : { border: "1px solid #2874F0 " }
+                }
+              >
+                {step > 3 ? <i className="fa-solid fa-check"></i> : 3}
               </div>
-            </>
-          ) : (
-            ""
-          )}
-        </div>
+              <p style={{ fontSize: "15px", fontWeight: "500" }}>Payment</p>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
+      </div>
       {/* {step && (isCart || isCheckout || isPayment) ? (
         <>
           <div style={{ borderTop: "1px solid rgb(206, 206, 222)" }}></div>

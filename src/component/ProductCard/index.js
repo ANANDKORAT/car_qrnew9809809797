@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Col, Card, Button, CardSubtitle } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
-import assured from "../../assets/assuredflipcart.jpg";
 import './index.css'
+import assured from "../../assets/assuredflipcart.jpg";
 
 
 const ProductCard = ({ item }) => {
@@ -12,6 +12,8 @@ const ProductCard = ({ item }) => {
   const { whiteListProducts, handleSetWhiteListProducts, setSingleProduct } = useAuth();
   const [imageWidth, setImageWidth] = useState(null);
   const [imageHeight, setImageHeight] = useState(null);
+  const [randomRatingCount, setRandomRatingCount] = useState(0);
+
 
   useEffect(() => {
     const img = new Image();
@@ -29,6 +31,16 @@ const ProductCard = ({ item }) => {
   const imageStyle = {
     width: "100%",
   };
+
+  useEffect(() => {
+    const generateRandomRating = () => {
+      const min = 100; 
+      const max = 5000; 
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+
+    setRandomRatingCount(generateRandomRating());
+  }, []);
 
   if (imageWidth && imageHeight) {
     const aspectRatio = imageWidth / imageHeight;
@@ -148,14 +160,16 @@ const ProductCard = ({ item }) => {
               }}
               className="mb-0"
             >
-              <span>₹{item.discount}</span><img src={assured} width="60" style={{ marginLeft: "10px" }} />
+              <span>₹{item.discount}</span>
+              {(process.env.REACT_APP_FLIPASSURED_IMAGE === "yes") ? (<img src={assured} width="60" style={{ marginLeft: "10px" }} />) : ""}
+              
             </Card.Text>
             <Card.Text className="mb-0">
               <span className="rating_box_des">
                 {item.rating}
                 <i className="fa-solid fa-star" color="red"></i>
               </span>
-              <span className="rating_num">2594 Ratings</span>
+              <span className="rating_num">{randomRatingCount}  Ratings</span>
             </Card.Text>
             <Card.Text>
               <div className="delivery-txt">Limited time deal</div>
