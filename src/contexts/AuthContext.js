@@ -132,7 +132,7 @@ const AuthContext = ({ children }) => {
     let totalDiscount = 0;
     let totalExtraDiscount = 0;
 
-    if (process.env.REACT_APP_COUPON_APPLY == 'true') {
+    if (process.env.REACT_APP_COUPON_APPLY === 'true') {
 
       let Allquantity = products.reduce((acc, cur) => acc + cur.quantity, 0);
       const qua = Array.from({ length: Allquantity }, (value, index) => index);

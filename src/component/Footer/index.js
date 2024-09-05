@@ -152,12 +152,13 @@ const Footer = () => {
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="2">
-              <Accordion.Header>Infromations</Accordion.Header>
+              <Accordion.Header>QUICK LINKS</Accordion.Header>
               <Accordion.Body className="text-center">
+             
               <div
                   style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
                   className="my-3"
-                  onClick={() => navigate("/order-tracking")}
+                  onClick={() => navigate("/about-us")}
                 >
                   About Us
                 </div>

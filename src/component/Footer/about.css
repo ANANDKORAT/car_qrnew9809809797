@@ -1,0 +1,11 @@
+.contain_center{
+    text-align: center;
+}
+
+.inner_contain{
+    line-height: 30px;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align-last: center;
+}
