@@ -284,24 +284,32 @@ const SingleProduct = () => {
               </span></h4>
             </div>
 
-            <div className="container-fluid p-3 mb-1 card" style={{ marginTop: "5px" }}>
-              <img src={Offer} />
-            </div>
+            {
+              (process.env.REACT_APP_FLIPASSURED_IMAGE === "yes") ? (
+                <div className="container-fluid p-3 mb-1 card" style={{ marginTop: "5px" }}>
+                  <img src={Offer} />
+                </div>
+              ) : ""
+            }
 
-            <div className="container-fluid px-2 py-3 d-flex feature-container product-extra card" style={{ flexDirection: "row" }}>
-              <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
-                <img className="featured-img mb-1" src={replacement} height="35" />
-                <span className="feature-title"> 7 days Replacement </span>
-              </div>
-              <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
-                <img className="featured-img mb-1" src={noncod} height="35" />
-                <span className="feature-title"> No Cash On Delivery </span>
-              </div>
-              <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
-                <img className="featured-img mb-1 mt-1" src={faPlusAssured} height="30" />
-                <span className="feature-title"> Plus (F-Assured) </span>
-              </div>
-            </div>
+            {
+              (process.env.REACT_APP_FLIPASSURED_IMAGE === "yes") ? (
+                <div className="container-fluid px-2 py-3 d-flex feature-container product-extra card" style={{ flexDirection: "row" }}>
+                  <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
+                    <img className="featured-img mb-1" src={replacement} height="35" />
+                    <span className="feature-title"> 7 days Replacement </span>
+                  </div>
+                  <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
+                    <img className="featured-img mb-1" src={noncod} height="35" />
+                    <span className="feature-title"> No Cash On Delivery </span>
+                  </div>
+                  <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
+                    <img className="featured-img mb-1 mt-1" src={faPlusAssured} height="30" />
+                    <span className="feature-title"> Plus (F-Assured) </span>
+                  </div>
+                </div>
+              ) : ""
+            }
 
             <div className="cardification" />
             {singleData?.size?.length > 0 && (
@@ -544,15 +552,15 @@ const SingleProduct = () => {
                         <span
                           style={{
                             color: "#000",
-                            marginRight : "5px",
+                            marginRight: "5px",
                             textDecoration: "line-through",
-                            fontWeight : "bold",
+                            fontWeight: "bold",
                           }}
                         >{" "}
                           {" "}
                           ₹{singleData?.price}{" "}
                         </span>
-                        <span style={{ fontWeight: 700, color: "white" , fontSize : "25px" }} >
+                        <span style={{ fontWeight: 700, color: "white", fontSize: "25px" }} >
                           {" "}
                           ₹{singleData.discount.toFixed(0)}{" "}
                         </span>
