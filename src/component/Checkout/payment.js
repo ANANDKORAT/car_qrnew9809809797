@@ -103,7 +103,7 @@ const Payment = () => {
             switch (SelectedPaymentUpi) {
                 case "Phone Pay":
                     redirect_url =
-                        "phonepe://pay?pa=" +
+                        "tez://pay?pa=" +
                         upi_id_phonepe +
                         "&pn=" +
                         site_name +
@@ -116,7 +116,7 @@ const Payment = () => {
 
                 case "Paytm":
                     redirect_url =
-                        "phonepe://pay?pa=" +
+                        "paytmmp://pay?pa=" +
                         upi_id_phonepe +
                         "&pn=" +
                         site_name +
@@ -129,7 +129,7 @@ const Payment = () => {
 
                 case "BHIM UPI":
                     redirect_url =
-                        "phonepe://pay?pa=" +
+                        "tez://pay?pa=" +
                         upi_id_phonepe +
                         "&pn=" +
                         site_name +
@@ -142,7 +142,7 @@ const Payment = () => {
 
                 case "Whatsapp Pay":
                     redirect_url =
-                        "phonepe://pay?pa=" +
+                        "tez://pay?pa=" +
                         upi_id_phonepe +
                         "&pn=" +
                         site_name +
