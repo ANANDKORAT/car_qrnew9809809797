@@ -71,7 +71,6 @@ const Header = () => {
       });
   };
   let navThemeColor = process.env.REACT_APP_NAV_THEME_COLOR
-  console.log('navThemeColor', navThemeColor)
   const logo = process.env.REACT_APP_LOGO;
 
   return (
