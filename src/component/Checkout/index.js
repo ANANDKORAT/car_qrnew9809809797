@@ -1,9 +1,9 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import "./index.css";
-import {Formik, ErrorMessage} from "formik";
+import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import {useAuth} from "../../contexts/AuthContext";
-import {useNavigate} from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -48,7 +48,7 @@ const Checkout = () => {
     });
 
     useEffect(() => {
-        setInitialValues({...defaultLensSettingValue, ...address});
+        setInitialValues({ ...defaultLensSettingValue, ...address });
     }, [address]);
 
     useEffect(() => {
@@ -113,7 +113,7 @@ const Checkout = () => {
     return (
         <Container
             className="p-0 pt-3 pb-3 position-relative d-flex flex-column justify-content-between"
-            style={{background: "#f2f2f3"}}
+            style={{ background: "#f2f2f3" }}
         >
             {!hideAddress ? (
                 <Formik
@@ -123,22 +123,22 @@ const Checkout = () => {
                     onSubmit={handleAddress}
                     innerRef={formikRef}
                 >
-                    {({values, getFieldProps, errors, touched}) => {
+                    {({ values, getFieldProps, errors, touched }) => {
                         return (
                             <Form>
                                 <Row className="g-2 ms-0 me-0">
                                     <h6
                                         className="card-title px-4 text-start fw-bold mb-2"
-                                        style={{fontSize: "12px"}}
+                                        style={{ fontSize: "12px" }}
                                     >
                                         CONTACT DETAILS
                                     </h6>
                                     <div className="bg-white px-4 py-3">
                                         <Col md className="mb-2">
                                             <TextField id="outlined-basic" fullWidth controlId="fullname"
-                                                       label="Full Name" name="fullname"
-                                                       placeholder="Please Enter FullName"
-                                                       variant="outlined" {...getFieldProps("fullname")} />
+                                                label="Full Name" name="fullname"
+                                                placeholder="Please Enter FullName"
+                                                variant="outlined" {...getFieldProps("fullname")} />
 
                                             <ErrorMessage
                                                 component="span"
@@ -148,8 +148,8 @@ const Checkout = () => {
                                         </Col>
                                         <Col md className="mb-2">
                                             <TextField id="outlined-basic" fullWidth type="number" controlId="mobile" label="Mobile"
-                                                       name="mobile" placeholder="Please Enter Mobile Number!"
-                                                       variant="outlined" {...getFieldProps("mobile")} />
+                                                name="mobile" placeholder="Please Enter Mobile Number!"
+                                                variant="outlined" {...getFieldProps("mobile")} />
                                             <ErrorMessage
                                                 component="span"
                                                 name={"mobile"}
@@ -159,9 +159,9 @@ const Checkout = () => {
 
                                         <Col md className="mb-2">
                                             <TextField id="outlined-basic" type="number" fullWidth controlId="pincode"
-                                                       label="Pincode" name="pincode"
-                                                       placeholder="Please Enter Pincode!"
-                                                       variant="outlined" {...getFieldProps("pincode")} />
+                                                label="Pincode" name="pincode"
+                                                placeholder="Please Enter Pincode!"
+                                                variant="outlined" {...getFieldProps("pincode")} />
                                             <ErrorMessage
                                                 component="span"
                                                 name={"pincode"}
@@ -172,16 +172,16 @@ const Checkout = () => {
 
                                     <h6
                                         className="card-title px-4 text-start fw-bold mb-2 mt-3"
-                                        style={{fontSize: "12px"}}
+                                        style={{ fontSize: "12px" }}
                                     >
                                         ADDRESS
                                     </h6>
                                     <div className="bg-white px-4 py-3">
                                         <Col md className="mb-3">
                                             <TextField id="outlined-basic" type="text" fullWidth controlId="address"
-                                                       label="Address (House No, Building, Street, Area)"
-                                                       name="address1" placeholder="Please Enter Address"
-                                                       variant="outlined" {...getFieldProps("address1")} />
+                                                label="Address (House No, Building, Street, Area)"
+                                                name="address1" placeholder="Please Enter Address"
+                                                variant="outlined" {...getFieldProps("address1")} />
                                             <ErrorMessage
                                                 component="span"
                                                 name={"address1"}
@@ -190,16 +190,16 @@ const Checkout = () => {
                                         </Col>
                                         <Col md className="mb-3">
                                             <TextField id="outlined-basic" type="text" fullWidth controlId="address"
-                                                       label="Address (House No, Building, Street, Area)"
-                                                       name="address2" placeholder="Please Enter Address"
-                                                       variant="outlined" {...getFieldProps("address2")} />
+                                                label="Address (House No, Building, Street, Area)"
+                                                name="address2" placeholder="Please Enter Address"
+                                                variant="outlined" {...getFieldProps("address2")} />
                                         </Col>
 
                                         <div className="d-flex align-items-center pe-3">
                                             <Col md={6} xs={6} className="me-3">
                                                 <TextField id="outlined-basic" type="text" fullWidth controlId="city"
-                                                           label="City" name="city" placeholder="Please Enter City"
-                                                           variant="outlined" {...getFieldProps("city")} />
+                                                    label="City" name="city" placeholder="Please Enter City"
+                                                    variant="outlined" {...getFieldProps("city")} />
                                                 <ErrorMessage
                                                     component="span"
                                                     name={"city"}
@@ -284,20 +284,20 @@ const Checkout = () => {
                                             <div>
                                                 <span>Delivery between </span>
                                                 <span className="serviceability-base-estimatedDate">
-                          {`${new Date(
-                              Date.now() + 5 * 24 * 60 * 60 * 1000
-                          ).getDate()} ${new Date(
-                              Date.now() + 5 * 24 * 60 * 60 * 1000
-                          ).toLocaleString("default", {
-                              month: "short",
-                          })}`}{" "}
+                                                    {`${new Date(
+                                                        Date.now() + 5 * 24 * 60 * 60 * 1000
+                                                    ).getDate()} ${new Date(
+                                                        Date.now() + 5 * 24 * 60 * 60 * 1000
+                                                    ).toLocaleString("default", {
+                                                        month: "short",
+                                                    })}`}{" "}
                                                     -{" "}
                                                     {`${new Date(
                                                         Date.now() + 8 * 24 * 60 * 60 * 1000
                                                     ).getDate()} ${new Date(
                                                         Date.now() + 8 * 24 * 60 * 60 * 1000
-                                                    ).toLocaleString("default", {month: "short"})}`}
-                        </span>
+                                                    ).toLocaleString("default", { month: "short" })}`}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -308,7 +308,7 @@ const Checkout = () => {
                 </div>
             )}
 
-            <div className="position-sticky bottom-0 pb-3 bg-white px-4 mt-4 py-4">
+            <div className="position-sticky bottom-0 pb-3 bg-white px-4 mt-4 py-4" style={{ zIndex: "3" }}>
                 <Button
                     className="d-flex justify-content-center align-items-center"
                     variant="dark"

@@ -5,13 +5,16 @@ import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext";
 import payment_video_loop from "../../assets/cod_lat.gif";
 import Countdown from "react-countdown";
 import OfferCountdown from "../Header/OfferCountdown";
-
+import { Modal } from "react-bootstrap";
+import { QRCodeCanvas } from "qrcode.react";
+import { isAndroid, isIOS } from "react-device-detect";
+import html2canvas from "html2canvas";
 
 const Payment = () => {
     const {
@@ -31,11 +34,22 @@ const Payment = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const ref = useRef(null);
+    const [showOptions, setShowOptions] = useState(true);
+    const [selectedPayment, setSelectedPayments] = useState(null);
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const gpayupi = process.env.REACT_APP_GPAY;
+    const phonepayupi = process.env.REACT_APP_PHONE_PAY;
+    const paytmupi = process.env.REACT_APP_PAYTM
+    const payeename = "Test";
+    const [amount, setAmount] = useState(2);
 
     useEffect(() => {
         Set_upi_id_phonepe(process.env.REACT_APP_UPI_ONLYPHONEPE);
         Set_upi_id_all(process.env.REACT_APP_UPI_ALL);
     }, []);
+
+    const timeoutDuration = selectedPayment === "Google Pay" ? 0 : 10000;
 
     useEffect(() => {
         let loadingTimeout = null;
@@ -43,16 +57,17 @@ const Payment = () => {
             clearInterval(loadingTimeout);
             loadingTimeout = setTimeout(() => {
                 setIsPaymentPageLoading(true);
-            }, 10000);
+            }, timeoutDuration);
         } else {
             clearInterval(loadingTimeout);
         }
         return () => {
             clearInterval(loadingTimeout);
         }
-    }, [isLoading]);
+    }, [isLoading,selectedPayment]);
 
-    useEffect(() => {
+   
+   useEffect(() => {
         let navigateTimeout = null;
         if (isPaymentPageLoading) {
             clearInterval(navigateTimeout);
@@ -60,7 +75,7 @@ const Payment = () => {
                 setIsPaymentPageLoading(false);
                 setIsLoading(false);
                 navigate("/order-comfirmation");
-            }, 10000);
+            }, timeoutDuration);
         } else {
             setIsLoading(false);
             clearInterval(navigateTimeout);
@@ -69,7 +84,7 @@ const Payment = () => {
             setIsLoading(false);
             clearInterval(navigateTimeout);
         }
-    }, [isPaymentPageLoading]);
+    }, [isPaymentPageLoading, selectedPayment]);
 
     useEffect(() => {
         let timer = setInterval(() => {
@@ -94,178 +109,66 @@ const Payment = () => {
         });
     }, [isLoading]);
 
+    const generateUPIURL = (
+        gpayupi,
+        payeeName,
+        amount,
+        transactionNote = "Payment"
+    ) => {
+        //   return `upi://pay?pa=${encodeURIComponent(gpayupi)}&pn=${encodeURIComponent(
+        //     payeeName
+        //   )}&&mc=8999&cu=INR&tn=9098787675679&am=${encodeURIComponent(
+        //     amount
+        //   )}&cu=INR&tn=${encodeURIComponent(
+        //     transactionNote
+        //   )}&sign=AAuN7izDWN5cb8A5scnUiNME+LkZqI2DWgkXlN1McoP6WZABa/KkFTiLvuPRP6/nWK8BPg/rPhb+u4QMrUEX10UsANTDbJaALcSM9b8Wk218X+55T/zOzb7xoiB+BcX8yYuYayELImXJHIgL/c7nkAnHrwUCmbM97nRbCVVRvU0ku3Tr`;
+        // };
+        // "intent://h.razor-pay.com/pay/pay.php?pa=MAB0451282A0207967@YESBANK&am=2#Intent;scheme=https;package=com.android.chrome;end";
+        return redirect_url;
+    };
+
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    let redirect_url = "";
+    let orignal_name = window.location.hostname;
+    let site_name = orignal_name.slice(0, 2);
+   
     function paynoeLogic() {
         let redirect_url = "";
         let orignal_name = window.location.hostname;
         let site_name = orignal_name.slice(0, 2);
-
-        if (process.env.REACT_APP_ONLYPHONE_PE == "yes") {
-            switch (SelectedPaymentUpi) {
+     
+            switch (selectedPayment) {
+                case "Google Pay":
+                    redirect_url = `intent://h.razor-pay.com/pay/pay.php?pa=${gpayupi}&am=${amount}#Intent;scheme=https;package=com.android.chrome;end`;
+                    break;
                 case "Phone Pay":
                     redirect_url =
-                        "tez://pay?pa=" +
-                        upi_id_phonepe +
-                        "&pn=" +
+                        "phonepe://upi//pay?pa=" +
+                        phonepayupi +
+                        "&pn==" +
                         site_name +
                         "&am=" +
-                        totalPrice +
-                        "&cu=INR&tn=" +
-                        site_name +
-                        "&sign=4875421245fgjdjjhcbdfg";
+                        amount +
+                        "&cu=INR";
                     break;
-
                 case "Paytm":
                     redirect_url =
-                        "paytmmp://pay?pa=" +
-                        upi_id_phonepe +
+                        "paytmmp://cash_wallet?pa=" +
+                        paytmupi +
                         "&pn=" +
                         site_name +
                         "&am=" +
-                        totalPrice +
-                        "&cu=INR&tn=" +
-                        site_name +
-                        "&sign=4875421245fgjdjjhcbdfg";
+                        amount +
+                        "&tr=&mc=8999&cu=INR&tn=987986756875" +
+                        "&url=&mode=02&purpose=00&orgid=159002&sign=MEQCIDsRrRTBN5u+J9c16TUURJ4IMiPQQ/Sj1WXW7Ane85mYAiBuwEHt/lPXmMKRjFFnz6+jekgTsKWwyTx44qlCXFkfpQ==&featuretype=money_transfer";
                     break;
-
-                case "BHIM UPI":
-                    redirect_url =
-                        "tez://pay?pa=" +
-                        upi_id_phonepe +
-                        "&pn=" +
-                        site_name +
-                        "&am=" +
-                        totalPrice +
-                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-                        site_name +
-                        "&sign=4875421245fgjdjjhcbdfg";
-                    break;
-
-                case "Whatsapp Pay":
-                    redirect_url =
-                        "tez://pay?pa=" +
-                        upi_id_phonepe +
-                        "&pn=" +
-                        site_name +
-                        "&am=" +
-                        totalPrice +
-                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
-                        site_name +
-                        "&sign=4875421245fgjdjjhcbdfg";
+                default:
                     break;
             }
-        }
-        if (process.env.REACT_APP_ONLYPHONE_PE == "no") {
-            switch (SelectedPaymentUpi) {
-                case "Phone Pay":
-                    redirect_url =
-                        "phonepe://pay?pa=" +
-                        upi_id_all +
-                        "&pn=" +
-                        site_name +
-                        "&am=" +
-                        totalPrice +
-                        "&cu=INR&tn=phonepe-" +
-                        site_name +
-                        "&sign=4875421245fgjdjjhcbdfg";
-                    break;
-
-                case "Paytm":
-                    redirect_url =
-                        "paytmmp://pay?pa=" +
-                        upi_id_all +
-                        "&pn=" +
-                        site_name +
-                        "&am=" +
-                        totalPrice +
-                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=paytm-" +
-                        site_name +
-                        "&sign=4875421245fgjdjjhcbdfg";
-                    break;
-
-                case "BHIM UPI":
-                    redirect_url =
-                        "bhim://pay?pa=" +
-                        upi_id_all +
-                        "&pn=" +
-                        site_name +
-                        "&am=" +
-                        totalPrice +
-                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=bhim-" +
-                        site_name +
-                        "&sign=4875421245fgjdjjhcbdfg";
-                    break;
-
-                case "Whatsapp Pay":
-                    redirect_url =
-                        "whatsapp://pay?pa=" +
-                        upi_id_all +
-                        "&pn=" +
-                        site_name +
-                        "&am=" +
-                        totalPrice +
-                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=whats-" +
-                        site_name +
-                        "&sign=4875421245fgjdjjhcbdfg";
-                    break;
-            }
-        }
-        if (process.env.REACT_APP_ONLYPHONE_PE == "twoupi") {
-            switch (SelectedPaymentUpi) {
-                case "Phone Pay":
-                    redirect_url =
-                        "phonepe://pay?pa=" +
-                        upi_id_phonepe +
-                        "&pn=" +
-                        site_name +
-                        "&am=" +
-                        totalPrice +
-                        "&cu=INR&tn=" +
-                        site_name +
-                        "&sign=4875421245fgjdjjhcbdfg";
-                    break;
-
-                case "Paytm":
-                    redirect_url =
-                        "paytmmp://pay?pa=" +
-                        upi_id_all +
-                        "&pn=" +
-                        site_name +
-                        "&am=" +
-                        totalPrice +
-                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=paytm-" +
-                        site_name +
-                        "&sign=4875421245fgjdjjhcbdfg";
-                    break;
-
-                case "BHIM UPI":
-                    redirect_url =
-                        "bhim://pay?pa=" +
-                        upi_id_all +
-                        "&pn=" +
-                        site_name +
-                        "&am=" +
-                        totalPrice +
-                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=bhim-" +
-                        site_name +
-                        "&sign=4875421245fgjdjjhcbdfg";
-                    break;
-
-                case "Whatsapp Pay":
-                    redirect_url =
-                        "whatsapp://pay?pa=" +
-                        upi_id_all +
-                        "&pn=" +
-                        site_name +
-                        "&am=" +
-                        totalPrice +
-                        "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=whats-" +
-                        site_name +
-                        "&sign=4875421245fgjdjjhcbdfg";
-                    break;
-            }
-        }
         if (SelectedPaymentUpi != "COD") {
             window.location.href = redirect_url;
+
             setIsLoading(true);
         } else if (process.env.REACT_APP_COD != "no") {
             navigate("/ThankYou");
@@ -278,7 +181,40 @@ const Payment = () => {
     };
 
     const payment_option = [
-        {
+        isAndroid && {
+            name: "Google Pay",
+            icon: (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xlink="http://www.w3.org/1999/xlink"
+                    width="35px"
+                    height="30px"
+                    viewBox="0 -19 256 256"
+                    version="1.1"
+                    preserveAspectRatio="xMidYMid"
+                >
+                    <g>
+                        <path
+                            d="M232.503966,42.1689673 C207.253909,27.593266 174.966113,36.2544206 160.374443,61.5045895 L123.592187,125.222113 C112.948983,143.621675 126.650534,150.051007 141.928772,159.211427 L177.322148,179.639204 C189.30756,186.552676 204.616725,182.448452 211.530197,170.478784 L249.342585,104.997327 C262.045492,82.993425 254.507868,54.8722676 232.503966,42.1689673 Z"
+                            fill="#EA4335"
+                        ></path>
+                        <path
+                            d="M190.884248,68.541767 L155.490872,48.1141593 C135.952653,37.2682465 124.888287,36.5503588 116.866523,49.3002175 L64.6660169,139.704135 C50.0900907,164.938447 58.7669334,197.211061 84.0012455,211.755499 C106.005147,224.458406 134.126867,216.920782 146.829774,194.91688 L200.029486,102.764998 C206.973884,90.7801476 202.869661,75.4552386 190.884248,68.541767 Z"
+                            fill="#FBBC04"
+                        ></path>
+                        <path
+                            d="M197.696506,22.068674 L172.836685,7.71148235 C145.33968,-8.15950938 110.180221,1.25070674 94.3093189,28.7478917 L46.9771448,110.724347 C39.9857947,122.818845 44.1369141,138.299511 56.2315252,145.275398 L84.0720952,161.34929 C97.8203166,169.292894 115.392174,164.5797 123.335778,150.830917 L177.409304,57.1816314 C188.614245,37.7835939 213.411651,31.1355838 232.809294,42.3404686 L197.696506,22.068674 Z"
+                            fill="#34A853"
+                        ></path>
+                        <path
+                            d="M101.033296,52.202526 L74.1604429,36.7216914 C62.1750303,29.8240204 46.8660906,33.9126683 39.9527877,45.8666484 L7.71149357,101.579108 C-8.15952065,128.997954 1.25071234,164.079816 28.7479029,179.904047 L49.2069432,191.685907 L74.0198681,205.980684 L84.7879024,212.176099 C65.670846,199.37985 59.6002612,173.739558 71.2887797,153.545698 L79.6378018,139.126091 L110.20946,86.3008703 C117.107187,74.3784352 113.002964,59.1001971 101.033296,52.202526 Z"
+                            fill="#4285F4"
+                        ></path>
+                    </g>
+                </svg>
+            ),
+        },
+        isIOS && {
             name: "Phone Pay",
             icon: (
                 <svg
@@ -305,7 +241,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                 </svg>
             ),
         },
-        {
+        isAndroid && {
             name: "Paytm",
             icon: (
                 <svg
@@ -325,80 +261,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                 </svg>
             ),
         },
-        {
-            name: "BHIM UPI",
-            icon: (
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    version="1.1"
-                    id="Layer_1"
-                    width={24}
-                    height={24}
-                    x="0px"
-                    y="0px"
-                    viewBox="0 0 122.88 60.05"
-                >
-                    <g>
-                        <path
-                            className="st2"
-                            d="M111.45,19.26l-5.17,4.81l-0.17-0.13c0.59-2.19,1.18-4.39,1.78-6.58c1.5-5.45,3-10.89,4.51-16.34 c0-0.02,0-0.04,0-0.05c0-0.27,0.14-0.52,0.38-0.65c0.36-0.06,0.35,0.35,0.48,0.58c0.77,1.42,1.35,2.93,2.25,4.28 c0.85,2.06,1.84,4.11,2.91,6.06c0.13,0.2,0.21,0.43,0.21,0.67c0,0.41-0.21,0.8-0.56,1.02C115.82,15.02,113.64,17.15,111.45,19.26 L111.45,19.26z"
-                        />
-                        <path
-                            className="st4"
-                            d="M111.45,19.26c2.2-2.11,4.38-4.24,6.61-6.32c0.35-0.22,0.56-0.61,0.56-1.02c0-0.24-0.07-0.48-0.21-0.67 c-1.08-1.95-2.06-4-2.91-6.06l1.54-5.17c0.64,1.23,1.17,2.24,1.68,3.26c1.29,2.57,2.55,5.16,3.89,7.71 c0.18,0.25,0.27,0.55,0.27,0.86c0,0.51-0.26,0.99-0.7,1.26c-3.66,3.39-7.25,6.86-10.86,10.3c-0.23,0.3-0.54,0.53-0.9,0.65 C110.88,22.49,111.23,20.88,111.45,19.26L111.45,19.26L111.45,19.26z"
-                        />
-                        <path
-                            className="st3"
-                            d="M30.37,12.17c0.76,0.35,1.25,1.11,1.25,1.94c0,0.34-0.08,0.68-0.24,0.98c-0.6,1.95-1.09,3.92-1.63,5.89 c-0.15,1.86-1.71,3.29-3.57,3.29c-0.21,0-0.42-0.02-0.63-0.06c-8.27,0-16.53,0.01-24.8,0.02c-0.65,0-0.89-0.06-0.68-0.79 C2.2,15.9,4.3,8.35,6.39,0.8C6.44,0.35,6.82,0,7.27,0c0.04,0,0.09,0,0.13,0.01c8.51,0.02,17.03,0.01,25.54,0.03 C33.06,0.02,33.18,0,33.3,0c0.95,0,1.71,0.77,1.71,1.71c0,0.24-0.05,0.47-0.15,0.69c-0.64,2.52-1.34,5.02-2.07,7.52 C32.4,11.02,31.5,11.86,30.37,12.17L30.37,12.17z M85.39,59.94h-4.84l6.72-24.26h4.83L85.39,59.94L85.39,59.94z M45.21,58.42 c-0.26,0.96-1.15,1.63-2.14,1.63H18.15c-0.68,0-1.19-0.23-1.52-0.69c-0.33-0.46-0.41-1.04-0.21-1.72l6.08-21.9l4.84,0l-5.43,19.56 h19.34l5.43-19.56l4.83,0L45.21,58.42L45.21,58.42L45.21,58.42z M82.88,36.44c-0.33-0.46-0.85-0.69-1.55-0.69l-26.57,0l-1.31,4.76 h24.17l-1.41,5.08H56.87v-0.01h-4.83l-4.01,14.48h4.83l2.69-9.71h21.73c0.68,0,1.32-0.23,1.92-0.69s0.99-1.04,1.18-1.72l2.69-9.71 C83.27,37.49,83.21,36.9,82.88,36.44L82.88,36.44L82.88,36.44z M50.48,9.77c2.78,0,5.56-0.05,8.34,0.03 C58.88,9.8,58.94,9.81,59,9.81c0.7,0,1.27-0.54,1.32-1.23c0.65-2.48,1.35-4.95,1.96-7.44C62.3,0.5,62.82,0,63.45,0 c0.09,0,0.17,0.01,0.26,0.03c0.46,0.03,0.92,0.05,1.39,0.05c0.45,0,0.91-0.02,1.36-0.05c0.74-0.04,0.91,0.18,0.7,0.91 c-1.05,3.72-2.05,7.46-3.07,11.18c-0.98,3.59-1.98,7.18-2.93,10.78c-0.02,0.75-0.63,1.35-1.38,1.35c-0.11,0-0.22-0.01-0.33-0.04 c-0.46-0.04-0.92-0.06-1.38-0.06c-0.42,0-0.84,0.02-1.26,0.05c-0.71,0.03-0.82-0.2-0.63-0.86c0.76-2.6,1.44-5.22,2.19-7.82 c0.22-0.76,0.12-1.07-0.78-1.06c-5.66,0.04-11.33,0.04-16.99,0.01c-0.06-0.01-0.12-0.01-0.18-0.01c-0.62,0-1.13,0.48-1.16,1.1 c-0.66,2.62-1.43,5.22-2.12,7.83c-0.04,0.48-0.44,0.84-0.92,0.84c-0.06,0-0.12-0.01-0.18-0.02c-0.48-0.03-0.98-0.04-1.46-0.04 c-0.5,0-1,0.02-1.49,0.05c-1.03,0.07-0.86-0.46-0.68-1.1c1.11-4.03,2.22-8.07,3.32-12.1c0.93-3.39,1.86-6.78,2.77-10.17 c0.03-0.46,0.41-0.82,0.87-0.82c0.04,0,0.09,0,0.13,0.01c1.05,0.05,2.11,0.05,3.16,0c0.73-0.03,0.81,0.24,0.63,0.88 c-0.75,2.67-1.44,5.36-2.21,8.03c-0.21,0.71-0.03,0.85,0.64,0.84C44.64,9.75,47.56,9.77,50.48,9.77L50.48,9.77z M73,0.11 c0.35,0,0.7,0,1.05,0c1.4,0,1.41,0,1.05,1.29c-1.96,7.1-3.92,14.21-5.89,21.31c-0.44,1.59-0.46,1.59-2.09,1.59 c-0.77,0-1.55-0.02-2.32,0.01c-0.69,0.03-0.83-0.2-0.64-0.88c1.87-6.66,3.71-13.33,5.55-20c0.23-0.7,0.42-1.41,0.56-2.13 c0-0.02,0-0.03,0-0.05c0-0.67,0.54-1.2,1.21-1.2c0.12,0,0.25,0.02,0.36,0.06c0.21,0.02,0.43,0.02,0.65,0.02 C72.65,0.12,72.83,0.12,73,0.11L73,0.11L73,0.11z M100.08,13.09c-0.81,0.72-1.62,1.42-2.41,2.15c-3.03,2.78-6.04,5.58-9.06,8.38 c-0.5,0.47-0.76,0.55-1.15-0.14c-2.23-3.91-4.5-7.79-6.76-11.68c-0.07-0.1-0.16-0.2-0.25-0.28c-0.34,0.43-0.56,0.96-0.61,1.51 c-0.95,3.38-1.87,6.77-2.77,10.17c-0.02,0.58-0.49,1.03-1.07,1.03c-0.07,0-0.14-0.01-0.21-0.02c-1.01-0.08-2.04-0.03-3.06-0.01 c-0.47,0.01-0.73-0.06-0.56-0.66c2.12-7.65,4.23-15.31,6.33-22.97c0.05-0.08,0.11-0.16,0.18-0.23c0.41,0.37,0.74,0.82,0.97,1.32 c2.86,4.76,5.71,9.52,8.56,14.29c0.64,1.07,0.62,1.05,1.58,0.23c5.16-4.4,10.32-8.8,15.5-13.18c1.04-0.88,2.07-1.77,3.2-2.73 c0.02,0.12,0.03,0.25,0.03,0.38c0,0.39-0.1,0.78-0.28,1.12c-1.96,7.19-3.95,14.37-5.9,21.55c-0.03,0.51-0.46,0.91-0.97,0.91 c-0.06,0-0.12-0.01-0.17-0.02c-0.5-0.03-1.01-0.04-1.51-0.04c-0.48,0-0.97,0.01-1.45,0.04c-0.84,0.05-0.91-0.26-0.7-0.99 c0.89-3.14,1.74-6.3,2.6-9.45c0.05-0.09,0.08-0.19,0.08-0.29C100.22,13.33,100.17,13.19,100.08,13.09L100.08,13.09L100.08,13.09z M11.05,4.76c5.39,0.07,10.76-0.01,16.14-0.01c0.95,0,1.72,0.77,1.72,1.72c0,0.24-0.05,0.48-0.15,0.71c-0.27,1.5-1.58,2.6-3.11,2.6 C20.33,9.77,15,9.77,9.67,9.8c-0.88,0-0.91-0.35-0.69-1.03c0.35-1,0.64-2.01,0.86-3.04c0.01-0.55,0.46-0.98,1.01-0.98 C10.92,4.74,10.98,4.75,11.05,4.76L11.05,4.76z M8.11,14.47c5.35,0,10.71,0.01,16.07,0.03c1.84,0.01,2.57,1.7,1.49,3.44 c-0.58,0.98-1.63,1.58-2.77,1.58c-5.25,0-10.49-0.06-15.74,0.01c-0.81,0.01-1.19-0.1-0.86-1.04c0.37-1.06,0.63-2.16,0.9-3.24 C7.27,14.8,7.66,14.47,8.11,14.47L8.11,14.47z"
-                        />
-                        <polygon
-                            className="st0"
-                            points="100.46,35.72 106.57,47.88 93.71,60.04 95.24,54.53 102.27,47.88 98.93,41.23 100.46,35.72"
-                        />
-                        <polygon
-                            className="st1"
-                            points="96.16,35.72 102.27,47.88 89.41,60.04 96.16,35.72"
-                        />
-                    </g>
-                </svg>
-            ),
-        },
-        {
-            name: "Whatsapp Pay",
-            icon: (
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 48 48"
-                    width="30px"
-                    height="30px"
-                    clip-rule="evenodd"
-                >
-                    <path
-                        fill="#fff"
-                        d="M4.868,43.303l2.694-9.835C5.9,30.59,5.026,27.324,5.027,23.979C5.032,13.514,13.548,5,24.014,5c5.079,0.002,9.845,1.979,13.43,5.566c3.584,3.588,5.558,8.356,5.556,13.428c-0.004,10.465-8.522,18.98-18.986,18.98c-0.001,0,0,0,0,0h-0.008c-3.177-0.001-6.3-0.798-9.073-2.311L4.868,43.303z"
-                    />
-                    <path
-                        fill="#fff"
-                        d="M4.868,43.803c-0.132,0-0.26-0.052-0.355-0.148c-0.125-0.127-0.174-0.312-0.127-0.483l2.639-9.636c-1.636-2.906-2.499-6.206-2.497-9.556C4.532,13.238,13.273,4.5,24.014,4.5c5.21,0.002,10.105,2.031,13.784,5.713c3.679,3.683,5.704,8.577,5.702,13.781c-0.004,10.741-8.746,19.48-19.486,19.48c-3.189-0.001-6.344-0.788-9.144-2.277l-9.875,2.589C4.953,43.798,4.911,43.803,4.868,43.803z"
-                    />
-                    <path
-                        fill="#cfd8dc"
-                        d="M24.014,5c5.079,0.002,9.845,1.979,13.43,5.566c3.584,3.588,5.558,8.356,5.556,13.428c-0.004,10.465-8.522,18.98-18.986,18.98h-0.008c-3.177-0.001-6.3-0.798-9.073-2.311L4.868,43.303l2.694-9.835C5.9,30.59,5.026,27.324,5.027,23.979C5.032,13.514,13.548,5,24.014,5 M24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974 M24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974 M24.014,4C24.014,4,24.014,4,24.014,4C12.998,4,4.032,12.962,4.027,23.979c-0.001,3.367,0.849,6.685,2.461,9.622l-2.585,9.439c-0.094,0.345,0.002,0.713,0.254,0.967c0.19,0.192,0.447,0.297,0.711,0.297c0.085,0,0.17-0.011,0.254-0.033l9.687-2.54c2.828,1.468,5.998,2.243,9.197,2.244c11.024,0,19.99-8.963,19.995-19.98c0.002-5.339-2.075-10.359-5.848-14.135C34.378,6.083,29.357,4.002,24.014,4L24.014,4z"
-                    />
-                    <path
-                        fill="#40c351"
-                        d="M35.176,12.832c-2.98-2.982-6.941-4.625-11.157-4.626c-8.704,0-15.783,7.076-15.787,15.774c-0.001,2.981,0.833,5.883,2.413,8.396l0.376,0.597l-1.595,5.821l5.973-1.566l0.577,0.342c2.422,1.438,5.2,2.198,8.032,2.199h0.006c8.698,0,15.777-7.077,15.78-15.776C39.795,19.778,38.156,15.814,35.176,12.832z"
-                    />
-                    <path
-                        fill="#fff"
-                        fill-rule="evenodd"
-                        d="M19.268,16.045c-0.355-0.79-0.729-0.806-1.068-0.82c-0.277-0.012-0.593-0.011-0.909-0.011c-0.316,0-0.83,0.119-1.265,0.594c-0.435,0.475-1.661,1.622-1.661,3.956c0,2.334,1.7,4.59,1.937,4.906c0.237,0.316,3.282,5.259,8.104,7.161c4.007,1.58,4.823,1.266,5.693,1.187c0.87-0.079,2.807-1.147,3.202-2.255c0.395-1.108,0.395-2.057,0.277-2.255c-0.119-0.198-0.435-0.316-0.909-0.554s-2.807-1.385-3.242-1.543c-0.435-0.158-0.751-0.237-1.068,0.238c-0.316,0.474-1.225,1.543-1.502,1.859c-0.277,0.317-0.554,0.357-1.028,0.119c-0.474-0.238-2.002-0.738-3.815-2.354c-1.41-1.257-2.362-2.81-2.639-3.285c-0.277-0.474-0.03-0.731,0.208-0.968c0.213-0.213,0.474-0.554,0.712-0.831c0.237-0.277,0.316-0.475,0.474-0.791c0.158-0.317,0.079-0.594-0.04-0.831C20.612,19.329,19.69,16.983,19.268,16.045z"
-                        clip-rule="evenodd"
-                    />
-                </svg>
-            ),
-        },
-        {
+        process.env.REACT_APP_COD === "yes" && {
             name: "COD",
             icon: (
                 <svg
@@ -417,8 +280,99 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
         },
     ];
 
+    const payment_option_show = payment_option.filter(Boolean);
+
+
+    const [showModal, setShowModal] = useState(false);
+    const handleQrShow = () => setShowModal(true);
+    const handleQrClose = () => setShowModal(false);
+    const qrRef = useRef();
+
+    const isMobileVerified = process.env.REACT_APP_MOBILE_VERIFIED === "yes";
+    const qrcode = process.env.REACT_APP_QR;
+
+    const downloadQRCode = () => {
+        const qrElement = qrRef.current; // The element containing the QR code
+        if (qrElement) {
+            // Use html2canvas to capture the screenshot of the QR code element
+            html2canvas(qrElement, { scale: 2 }) // Set scale to 2 for higher resolution
+                .then((canvas) => {
+                    // Convert the canvas to a data URL and trigger the download
+                    const link = document.createElement("a");
+                    link.href = canvas.toDataURL("image/png"); // Use PNG format
+                    link.download = "qrcode.png"; // File name
+                    document.body.appendChild(link);
+                    link.click(); // Trigger the download
+                    document.body.removeChild(link); // Clean up the link
+                })
+                .catch((err) => {
+                    console.error("Failed to capture QR code screenshot", err);
+                });
+        }
+    };
+
+    const upiURL = `upi://pay?pa=${qrcode}&pn=${"chirag"}&am=${totalPrice}&cu=INR`;
+
+    const svgQR = (
+        <svg xmlns="http://www.w3.org/2000/svg" href="http://www.w3.org/1999/xlink" height={35} width={35} version="1.1" id="Layer_1" viewBox="0 0 512 512">
+            <g>
+                <path d="M428.522,166.957h-66.783c-9.217,0-16.696-7.473-16.696-16.696V83.478   c0-9.223,7.479-16.696,16.696-16.696h66.783c9.217,0,16.696,7.473,16.696,16.696v66.783   C445.217,159.484,437.739,166.957,428.522,166.957z" />
+                <rect x="278.261" y="278.261" width="25" height="25" />
+                <rect x="278.261" y="345.043" width="25" height="25" />
+                <rect x="278.261" y="411.826" width="25" height="25" />
+                <rect x="311.652" y="311.652" width="25" height="25" />
+                <rect x="311.652" y="378.435" width="25" height="25" />
+                <rect x="311.652" y="445.217" width="25" height="25" />
+                <rect x="345.043" y="278.261" width="25" height="25" />
+                <rect x="345.043" y="345.043" width="25" height="25" />
+                <rect x="345.043" y="411.826" width="25" height="25" />
+                <rect x="378.435" y="311.652" width="25" height="25" />
+                <rect x="378.435" y="378.435" width="25" height="25" />
+                <rect x="378.435" y="445.217" width="25" height="25" />
+            </g>
+            <g>
+                <rect x="411.826" y="278.261" width="25" height="25" />
+                <rect x="411.826" y="345.043" width="25" height="25" />
+                <rect x="411.826" y="411.826" width="25" height="25" />
+                <rect x="445.217" y="311.652" width="25" height="25" />
+                <rect x="445.217" y="378.435" width="25" height="25" />
+                <rect x="445.217" y="445.217" width="25" height="25" />
+            </g>
+            <g>
+                <rect x="278.261" y="478.609" width="25" height="25" />
+                <rect x="345.043" y="478.609" width="25" height="25" />
+            </g>
+            <g>
+                <rect x="411.826" y="478.609" width="25" height="25" />
+                <rect x="478.609" y="278.261" width="25" height="25" />
+                <rect x="478.609" y="345.043" width="25" height="25" />
+                <rect x="478.609" y="411.826" width="25" height="25" />
+                <rect x="478.609" y="478.609" width="25" height="25" />
+            </g>
+            <path d="M512,16.696C512,7.473,504.521,0,495.304,0H395.13" />
+            <path d="M428.522,66.783H395.13v100.174h33.391c9.217,0,16.696-7.473,16.696-16.696V83.478  C445.217,74.256,437.739,66.783,428.522,66.783z" />
+            <path d="M150.261,166.957H83.478c-9.217,0-16.696-7.473-16.696-16.696V83.478  c0-9.223,7.479-16.696,16.696-16.696h66.783c9.217,0,16.696,7.473,16.696,16.696v66.783  C166.957,159.484,159.478,166.957,150.261,166.957z" />
+            <path d="M150.261,66.783H116.87v100.174h33.391c9.217,0,16.696-7.473,16.696-16.696V83.478  C166.957,74.256,159.478,66.783,150.261,66.783z" />
+            <path d="M150.261,445.217H83.478c-9.217,0-16.696-7.473-16.696-16.696v-66.783  c0-9.223,7.479-16.696,16.696-16.696h66.783c9.217,0,16.696,7.473,16.696,16.696v66.783  C166.957,437.744,159.478,445.217,150.261,445.217z" />
+            <path d="M150.261,345.043H116.87v100.174h33.391c9.217,0,16.696-7.473,16.696-16.696v-66.783  C166.957,352.516,159.478,345.043,150.261,345.043z" />
+            <g>
+                <path d="M217.043,233.739H16.696C7.479,233.739,0,226.266,0,217.043V16.696C0,7.473,7.479,0,16.696,0   h200.348c9.217,0,16.696,7.473,16.696,16.696v200.348C233.739,226.266,226.261,233.739,217.043,233.739z M33.391,200.348h166.957   V33.391H33.391V200.348z" />
+                <path d="M217.043,512H16.696C7.479,512,0,504.527,0,495.304V294.957c0-9.223,7.479-16.696,16.696-16.696   h200.348c9.217,0,16.696,7.473,16.696,16.696v200.348C233.739,504.527,226.261,512,217.043,512z M33.391,478.609h166.957V311.652   H33.391V478.609z" />
+            </g>
+            <g>
+                <path d="M217.043,0H116.87v33.391h83.478v166.957H116.87v33.391h100.174c9.217,0,16.696-7.473,16.696-16.696   V16.696C233.739,7.473,226.261,0,217.043,0z" />
+                <path d="M217.043,278.261H116.87v33.391h83.478v166.957H116.87V512h100.174   c9.217,0,16.696-7.473,16.696-16.696V294.957C233.739,285.734,226.261,278.261,217.043,278.261z" />
+                <rect x="395.13" y="311.652" width="16.696" height="33.391" />
+                <rect x="395.13" y="378.435" width="16.696" height="33.391" />
+                <rect x="395.13" y="445.217" width="16.696" height="33.391" />
+            </g>
+            <path d="M495.304,233.739H294.957c-9.217,0-16.696-7.473-16.696-16.696V16.696  C278.261,7.473,285.739,0,294.957,0h200.348C504.521,0,512,7.473,512,16.696v200.348C512,226.266,504.521,233.739,495.304,233.739z   M311.652,200.348h166.957V33.391H311.652V200.348z" />
+            <path d="M495.304,0H395.13v33.391h83.478v166.957H395.13v33.391h100.174c9.217,0,16.696-7.473,16.696-16.696  V16.696C512,7.473,504.521,0,495.304,0z" />
+        </svg>
+    )
+
     return (
-        isPaymentPageLoading ?
+        isPaymentPageLoading && selectedPayment !== "Google Pay" ?
             <Container
                 className="p-0 pt-3 pb-3 flex-column position-relative d-flex justify-content-center align-items-center"
                 style={{ background: "#f2f2f3", height: '250px' }}
@@ -515,8 +469,8 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                                     {`${time % 60}`.padStart(2, 0)}sec
                                 </span>
                             </div> */}
-                            <div className="container p-3" style={{ textAlign: "center" , border : "none" }}>
-                                 <span>
+                            <div className="container p-3" style={{ textAlign: "center", border: "none" }}>
+                                <span>
                                     <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown />} intervalDelay={1000} />
                                 </span>
                             </div>
@@ -543,8 +497,8 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                                 <span style={{ fontWeight: "600", fontSize: "12px" }}>PAY ONLINE</span>
                                 <div className="hr-line"></div>
                             </div>
-                            <Row className="mt-1 g-2 m-0 p-2" id="payment_options">
-                                {payment_option.map((item) => (
+                            {/* <Row className="mt-1 g-2 m-0 p-2" id="payment_options">
+                                {payment_option_show.map((item) => (
                                     <Col md>
                                         <div
                                             className="fw-semibold"
@@ -564,7 +518,7 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                                                 {isLoading && SelectedPaymentUpi === item.name &&
                                                     <Spinner variant="secondary" className="ms-2" size="sm" />}
                                             </span>
-                                            {process.env.REACT_APP_COD == "no" &&
+                                            {process.env.REACT_APP_COD === "yes" &&
                                                 SelectedPaymentUpi === "COD" &&
                                                 item.name === "COD" && (
                                                     <div
@@ -579,6 +533,131 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                                         </div>
                                     </Col>
                                 ))}
+                            </Row> */}
+
+                            {showOptions && (
+                                <div className="">
+                                    <Row className="g-2 m-0 p-2" id="payment_options">
+                                        {/* Filter options based on the platform */}
+                                        {isAndroid
+                                            ? payment_option_show.map((item) => (
+                                                <Col md key={item.name}>
+                                                    <div
+                                                        className="fw-semibold"
+                                                        style={{
+                                                            cursor: "pointer",
+                                                            border: `1px solid ${selectedPayment === item.name
+                                                                ? "#ed143d"
+                                                                : "#ddd"
+                                                                }`,
+                                                            borderRadius: "30px",
+                                                            padding: "15px 40px",
+                                                            color: "black",
+                                                        }}
+                                                        onClick={() => {
+                                                            setSelectedPayments(item.name);
+                                                        }}
+                                                    >
+                                                        <span className="d-flex align-items-center">
+                                                            <span>{item?.icon}</span>
+                                                            <span className="ms-4">{item.name}</span>
+                                                            {isLoading && selectedPayment === item.name &&  selectedPayment !== "Google Pay" && (
+                                                                <Spinner
+                                                                    variant="secondary"
+                                                                    className="ms-2"
+                                                                    size="sm"
+                                                                />
+                                                            )}
+                                                        </span>
+                                                        {process.env.REACT_APP_COD === "yes" && (
+                                                            <div
+                                                                className="text-danger"
+                                                                style={{
+                                                                    fontSize: "13px",
+                                                                    textAlign: "center",
+                                                                }}
+                                                            >
+                                                                This Payment-Method is Not Allowed For This
+                                                                Offer Products. Choose Other Products or Change
+                                                                Payment Method.
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </Col>
+                                            ))
+                                            : payment_option_show
+                                                .filter((item) => item.name === "Phone Pay") // Only show Phone Pay on iOS
+                                                .map((item) => (
+                                                    <Col md key={item.name}>
+                                                        <div
+                                                            className="fw-semibold"
+                                                            style={{
+                                                                cursor: "pointer",
+                                                                border: `1px solid ${selectedPayment === item.name
+                                                                    ? "#ed143d"
+                                                                    : "#ddd"
+                                                                    }`,
+                                                                borderRadius: "30px",
+                                                                padding: "15px 40px",
+                                                                color: "black",
+                                                            }}
+                                                            onClick={() => {
+                                                                setSelectedPayments(item.name);
+                                                            }}
+                                                        >
+                                                            <span className="d-flex align-items-center">
+                                                                <span>{item?.icon}</span>
+                                                                <span className="ms-4">{item.name}</span>
+                                                                {isLoading && selectedPayment === item.name && (
+                                                                    <Spinner
+                                                                        variant="secondary"
+                                                                        className="ms-2"
+                                                                        size="sm"
+                                                                    />
+                                                                )}
+                                                            </span>
+                                                            {process.env.REACT_APP_COD === "yes" && (
+                                                                <div
+                                                                    className="text-danger"
+                                                                    style={{
+                                                                        fontSize: "13px",
+                                                                        textAlign: "center",
+                                                                    }}
+                                                                >
+                                                                    This Payment-Method is Not Allowed For This
+                                                                    Offer Products. Choose Other Products or
+                                                                    Change Payment Method.
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </Col>
+                                                ))}
+                                    </Row>
+                                </div>
+                            )}
+
+                            <Row className="mt-1 g-2 m-0 p-2" id="payment_options">
+                                <div data-testid="PAY ONLINE" className="text-pay">
+                                    <span style={{ fontWeight: "600", fontSize: "12px" }}>PAY BY SCANNER</span>
+                                    <div className="hr-line"></div>
+                                </div>
+                                <Col md>
+                                    <div
+                                        className="fw-semibold"
+                                        style={{
+                                            border: "1px solid #ddd",
+                                            borderRadius: "8px",
+                                            padding: "10px 30px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            gap: "25px"
+                                        }}
+                                        onClick={handleQrShow}
+                                    >
+                                        <p style={{ color: "#FF9F19", marginBottom: "0px" }}>{svgQR}</p>
+                                        <p style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "0px" }}>Scan to Pay</p>
+                                    </div>
+                                </Col>
                             </Row>
                         </div>
                     </div>
@@ -697,7 +776,44 @@ c-2,1-4.8,1.4-6.8,1.4c-5.5,0-8.2-2.7-8.2-8.9V45.5h15C15.9,45.5,15.9,69.4,15.9,69
                         PAY NOW
                     </Button>
                 </div>
+                <Modal show={showModal} onHide={handleQrClose} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Scan to Pay</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="d-flex flex-column align-items-center justify-content-center">
+                            {(isAndroid || isIOS) && isMobileVerified && (
+                                <div className="p-3" ref={qrRef}>
+                                    {qrcode ? (
+                                        <QRCodeCanvas value={upiURL} level={"H"} />
+                                    ) : (
+                                        <p>No QR code available</p>
+                                    )}
+                                </div>
+                            )}
+                            <button
+                                style={{
+                                    padding: "10px 12px",
+                                    background: process.env.REACT_APP_THEAM_COLOR,
+                                    borderColor: "var(--them-color)",
+                                    border: "none",
+                                    borderRadius: "5px",
+                                    color: "#000",
+                                }}
+                                onClick={downloadQRCode}
+                            >
+                                Download QR Code
+                            </button>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleQrClose}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </Container>
+
     );
 };
 

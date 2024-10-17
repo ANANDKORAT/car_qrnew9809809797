@@ -27,7 +27,7 @@ const Footer = () => {
                 height: "25px",
                 verticalAlign: "middle",
                 fill: "currentColor",
-                overflow: "hidden",
+                overflow: "hidden"
               }}
               viewBox="0 0 1024 1024"
               version="1.1"
@@ -52,7 +52,7 @@ const Footer = () => {
                 height: "25px",
                 verticalAlign: "middle",
                 fill: "currentColor",
-                overflow: "hidden",
+                overflow: "hidden"
               }}
               viewBox="0 0 1024 1024"
               version="1.1"
@@ -140,7 +140,7 @@ const Footer = () => {
                   className="my-3"
                   onClick={() => navigate("/shippingpolicy")}
                 >
-                 Shipping policy
+                  Shipping policy
                 </div>
                 <div
                   style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
@@ -154,30 +154,27 @@ const Footer = () => {
             <Accordion.Item eventKey="2">
               <Accordion.Header>QUICK LINKS</Accordion.Header>
               <Accordion.Body className="text-center">
-             
-              <div
+                <div
                   style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
                   className="my-3"
                   onClick={() => navigate("/about-us")}
                 >
                   About Us
                 </div>
-              <div
+                <div
                   style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
                   className="my-3"
                   onClick={() => navigate("/order-tracking")}
                 >
                   Track Order
                 </div>
-              <div
+                <div
                   style={{ color: "rgb(40, 44, 63)", fontSize: "13px" }}
                   className="my-3"
                   onClick={() => navigate("/faqs")}
                 >
                   FAQ
                 </div>
-
-
               </Accordion.Body>
             </Accordion.Item>
             <div className="accordion-item pb-3">
@@ -190,8 +187,7 @@ const Footer = () => {
                     width="40px"
                     height="40px"
                   >
-                    {" "}
-                    <path d="M15,3C8.373,3,3,8.373,3,15c0,6.016,4.432,10.984,10.206,11.852V18.18h-2.969v-3.154h2.969v-2.099c0-3.475,1.693-5,4.581-5 c1.383,0,2.115,0.103,2.461,0.149v2.753h-1.97c-1.226,0-1.654,1.163-1.654,2.473v1.724h3.593L19.73,18.18h-3.106v8.697 C22.481,26.083,27,21.075,27,15C27,8.373,21.627,3,15,3z" />
+                    {" "}<path d="M15,3C8.373,3,3,8.373,3,15c0,6.016,4.432,10.984,10.206,11.852V18.18h-2.969v-3.154h2.969v-2.099c0-3.475,1.693-5,4.581-5 c1.383,0,2.115,0.103,2.461,0.149v2.753h-1.97c-1.226,0-1.654,1.163-1.654,2.473v1.724h3.593L19.73,18.18h-3.106v8.697 C22.481,26.083,27,21.075,27,15C27,8.373,21.627,3,15,3z" />
                   </svg>
                 </div>
                 <div className="mx-3">
@@ -201,8 +197,7 @@ const Footer = () => {
                     width="40px"
                     height="40px"
                   >
-                    {" "}
-                    <path d="M28,6.937c-0.957,0.425-1.985,0.711-3.064,0.84c1.102-0.66,1.947-1.705,2.345-2.951c-1.03,0.611-2.172,1.055-3.388,1.295 c-0.973-1.037-2.359-1.685-3.893-1.685c-2.946,0-5.334,2.389-5.334,5.334c0,0.418,0.048,0.826,0.138,1.215 c-4.433-0.222-8.363-2.346-10.995-5.574C3.351,6.199,3.088,7.115,3.088,8.094c0,1.85,0.941,3.483,2.372,4.439 c-0.874-0.028-1.697-0.268-2.416-0.667c0,0.023,0,0.044,0,0.067c0,2.585,1.838,4.741,4.279,5.23 c-0.447,0.122-0.919,0.187-1.406,0.187c-0.343,0-0.678-0.034-1.003-0.095c0.679,2.119,2.649,3.662,4.983,3.705 c-1.825,1.431-4.125,2.284-6.625,2.284c-0.43,0-0.855-0.025-1.273-0.075c2.361,1.513,5.164,2.396,8.177,2.396 c9.812,0,15.176-8.128,15.176-15.177c0-0.231-0.005-0.461-0.015-0.69C26.38,8.945,27.285,8.006,28,6.937z" />
+                    {" "}<path d="M28,6.937c-0.957,0.425-1.985,0.711-3.064,0.84c1.102-0.66,1.947-1.705,2.345-2.951c-1.03,0.611-2.172,1.055-3.388,1.295 c-0.973-1.037-2.359-1.685-3.893-1.685c-2.946,0-5.334,2.389-5.334,5.334c0,0.418,0.048,0.826,0.138,1.215 c-4.433-0.222-8.363-2.346-10.995-5.574C3.351,6.199,3.088,7.115,3.088,8.094c0,1.85,0.941,3.483,2.372,4.439 c-0.874-0.028-1.697-0.268-2.416-0.667c0,0.023,0,0.044,0,0.067c0,2.585,1.838,4.741,4.279,5.23 c-0.447,0.122-0.919,0.187-1.406,0.187c-0.343,0-0.678-0.034-1.003-0.095c0.679,2.119,2.649,3.662,4.983,3.705 c-1.825,1.431-4.125,2.284-6.625,2.284c-0.43,0-0.855-0.025-1.273-0.075c2.361,1.513,5.164,2.396,8.177,2.396 c9.812,0,15.176-8.128,15.176-15.177c0-0.231-0.005-0.461-0.015-0.69C26.38,8.945,27.285,8.006,28,6.937z" />
                   </svg>
                 </div>
                 <div className="mx-3">
@@ -222,8 +217,7 @@ const Footer = () => {
                     width="40px"
                     height="40px"
                   >
-                    {" "}
-                    <path d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.254,4,12,4,12,4S5.746,4,4.186,4.418 c-0.86,0.23-1.538,0.908-1.768,1.768C2,7.746,2,12,2,12s0,4.254,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768 C5.746,20,12,20,12,20s6.254,0,7.814-0.418c0.861-0.23,1.538-0.908,1.768-1.768C22,16.254,22,12,22,12S22,7.746,21.582,6.186z M10,14.598V9.402c0-0.385,0.417-0.625,0.75-0.433l4.5,2.598c0.333,0.192,0.333,0.674,0,0.866l-4.5,2.598 C10.417,15.224,10,14.983,10,14.598z" />
+                    {" "}<path d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.254,4,12,4,12,4S5.746,4,4.186,4.418 c-0.86,0.23-1.538,0.908-1.768,1.768C2,7.746,2,12,2,12s0,4.254,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768 C5.746,20,12,20,12,20s6.254,0,7.814-0.418c0.861-0.23,1.538-0.908,1.768-1.768C22,16.254,22,12,22,12S22,7.746,21.582,6.186z M10,14.598V9.402c0-0.385,0.417-0.625,0.75-0.433l4.5,2.598c0.333,0.192,0.333,0.674,0,0.866l-4.5,2.598 C10.417,15.224,10,14.983,10,14.598z" />
                   </svg>
                 </div>
               </div>
@@ -239,13 +233,19 @@ const Footer = () => {
                       src="//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd.png?v=1644321768"
                       data-sizes="auto"
                       data-src="//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd.png?v=1644321768"
-                      data-srcset="//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_360x.png?v=1644321768 360w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_480x.png?v=1644321768 480w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_765x.png?v=1644321768 765w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_900x.png?v=1644321768 900w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1000x.png?v=1644321768 1000w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1200x.png?v=1644321768 1200w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1500x.png?v=1644321768 1500w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1900x.png?v=1644321768 1900w,"
                       className="Image--fadeIn lazyautosizes img_blur no_blur Image--lazyLoaded"
                       data-max-width="188"
                       data-max-height="55"
                       data-original-src="https://thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd.png?v=1644321768"
                       sizes="165px"
-                      srcset="//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_360x.png?v=1644321768 360w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_480x.png?v=1644321768 480w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_765x.png?v=1644321768 765w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_900x.png?v=1644321768 900w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1000x.png?v=1644321768 1000w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1200x.png?v=1644321768 1200w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1500x.png?v=1644321768 1500w,//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1900x.png?v=1644321768 1900w,"
+                      srcSet={`//thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_360x.png?v=1644321768 360w,
+              //thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_480x.png?v=1644321768 480w,
+              //thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_765x.png?v=1644321768 765w,
+              //thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_900x.png?v=1644321768 900w,
+              //thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1000x.png?v=1644321768 1000w,
+              //thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1200x.png?v=1644321768 1200w,
+              //thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1500x.png?v=1644321768 1500w,
+              //thehouseofrare.com/cdn/shop/files/google-platstore_360x_68e23216-8ab7-4b33-b964-92fb5f849efd_1900x.png?v=1644321768 1900w`}
                     />
                   </div>
                 </a>
@@ -263,7 +263,7 @@ const Footer = () => {
                       data-max-height="55"
                       data-original-src="https://thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878.png?v=1644321812"
                       sizes="165px"
-                      srcset="//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_360x.png?v=1644321812 360w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_480x.png?v=1644321812 480w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_765x.png?v=1644321812 765w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_900x.png?v=1644321812 900w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_1000x.png?v=1644321812 1000w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_1200x.png?v=1644321812 1200w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_1500x.png?v=1644321812 1500w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_1900x.png?v=1644321812 1900w,"
+                      srcSet="//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_360x.png?v=1644321812 360w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_480x.png?v=1644321812 480w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_765x.png?v=1644321812 765w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_900x.png?v=1644321812 900w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_1000x.png?v=1644321812 1000w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_1200x.png?v=1644321812 1200w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_1500x.png?v=1644321812 1500w,//thehouseofrare.com/cdn/shop/files/app-store_92af60bb-4952-4f7e-b7c0-7bb574b2d878_1900x.png?v=1644321812 1900w,"
                     />
                   </div>
                 </a>
@@ -272,7 +272,6 @@ const Footer = () => {
           </Accordion>
         </Col>
       </Row>
-
     </Container>
   );
 };
