@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.45f0dbdc.css",
-    "main.js": "/static/js/main.b460dad2.js",
+    "main.js": "/static/js/main.cda9efe5.js",
     "static/js/453.99dcf01f.chunk.js": "/static/js/453.99dcf01f.chunk.js",
     "static/media/cod_lat.gif": "/static/media/cod_lat.faf3c063460f90b017b1.gif",
     "static/media/safety-image.jpg": "/static/media/safety-image.ed81de067e878303f73f.jpg",
@@ -10,13 +10,20 @@
     "static/media/UTR3.jpeg": "/static/media/UTR3.aea55a37328d75c0a1f1.jpeg",
     "static/media/UTR1.jpeg": "/static/media/UTR1.46d3f077844a20f5db6d.jpeg",
     "static/media/offer.jpg": "/static/media/offer.8c27273456024ea3e4dd.jpg",
+    "static/media/clock-icon.svg": "/static/media/clock-icon.0e241b994fa217ab12a57f02e85ad507.svg",
+    "static/media/safe-payment-icon.svg": "/static/media/safe-payment-icon.f474e00d68ae809543760395d5b19a22.svg",
+    "static/media/qr-icon.svg": "/static/media/qr-icon.c451798c9a6151111181cdb3e9be00f6.svg",
+    "static/media/paytm-icon.svg": "/static/media/paytm-icon.1e4645861fe129fc901083ea8bc314c7.svg",
+    "static/media/gpay-icon.svg": "/static/media/gpay-icon.1fd1099bf55ff0eb3c254701571dd492.svg",
     "index.html": "/index.html",
+    "static/media/cod-icon.svg": "/static/media/cod-icon.7709dbcb15e9daa091c677addf2a5202.svg",
+    "static/media/phonepay-icon.svg": "/static/media/phonepay-icon.002ca6fb6a4d4612928781d2385fc068.svg",
     "main.45f0dbdc.css.map": "/static/css/main.45f0dbdc.css.map",
-    "main.b460dad2.js.map": "/static/js/main.b460dad2.js.map",
+    "main.cda9efe5.js.map": "/static/js/main.cda9efe5.js.map",
     "453.99dcf01f.chunk.js.map": "/static/js/453.99dcf01f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.45f0dbdc.css",
-    "static/js/main.b460dad2.js"
+    "static/js/main.cda9efe5.js"
   ]
 }

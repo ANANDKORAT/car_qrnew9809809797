@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { Helmet } from "react-helmet";
 const ThankYou = () => {
@@ -27,6 +27,9 @@ const ThankYou = () => {
     const savedUTR = localStorage.getItem("utrNumber");
     return savedUTR ? getOrderIDForUTR(savedUTR) : null;
   });
+
+  const utrNumber = localStorage.getItem("utrNumber");
+
   useEffect(() => {
     if (utr) {
       const newOrderId = getOrderIDForUTR(utr);
@@ -83,7 +86,7 @@ const ThankYou = () => {
         </h6>
         <p>
           <strong>Your Order id is:</strong>
-          &nbsp;{orderId}
+          &nbsp;{utrNumber}
         </p>
         <strong>Your Amount is:</strong>
         &nbsp;{totalPrice}
