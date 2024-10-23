@@ -531,21 +531,6 @@ const SingleProduct = () => {
                     }
                   }}
                 >
-
-                  {/* <span>
-                    <span
-                      style={{
-                        fontSize: "15px",
-                        color: "#f7f7ff",
-                      }}
-                    >
-                      Sales End Soon
-                    </span>
-                    <div className="Timer-Up">
-                      <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref}  renderer={(e) => <OfferCountdown {...e} isButton/>} intervalDelay={1000} />
-                    </div>
-                  </span> */}
-
                   {singleData?.price &&
                     (singleData?.discount ? (
                       <p style={{ textAlign: "center" }} className="mb-0">

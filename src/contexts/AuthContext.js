@@ -32,7 +32,7 @@ const AuthContext = ({ children }) => {
   const handleSetCartProducts = (data) => {
     setCartProducts(data);
     localStorage.setItem("cartProducts", JSON.stringify(data));
-  };
+  };  
   const handleSetWhiteListProducts = (item) => {
     if (whiteListProducts?.find((o) => o._id === item._id)) {
       const selectedItem = whiteListProducts.filter((o) => o._id !== item._id);

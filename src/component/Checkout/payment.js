@@ -90,6 +90,10 @@ const Payment = () => {
     }, 1000);
   }, []);
 
+  const handleQrChange = () => {
+    navigate("/order-comfirmation");
+  }
+
   useEffect(() => {
     document.addEventListener("click", (e) => {
       const payment_options = document.querySelector("#payment_options");
@@ -198,6 +202,31 @@ const Payment = () => {
 
   const upiURL = `upi://pay?pa=${qrcode}&pn=${"chirag"}&am=${totalPrice}&cu=INR`;
 
+  const handleCopy = (text) => {
+    if (!navigator.clipboard) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand("copy");
+        alert("Copied to clipboard!");
+      } catch (err) {
+        console.error("Could not copy text: ", err);
+      }
+      document.body.removeChild(textArea);
+      return;
+    }
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        alert("Text is Copied!");
+      })
+      .catch((err) => {
+        console.error("Could not copy text: ", err);
+      });
+  };
+
   return isPaymentPageLoading && selectedPayment !== "Google Pay" ? (
     <Container
       className="p-0 pt-3 pb-3 flex-column position-relative d-flex justify-content-center align-items-center"
@@ -207,10 +236,7 @@ const Payment = () => {
       <Spinner />
     </Container>
   ) : (
-    <Container
-      className="p-0 pt-3 pb-3 position-relative d-flex flex-column justify-content-between"
-      style={{ background: "#f2f2f3" }}
-    >
+    <Container className="p-0 pt-3 pb-3 position-relative d-flex flex-column justify-content-between" style={{ background: "#f2f2f3" }}>
       <div>
         <div>
           <div className="line-draw"></div>
@@ -547,16 +573,57 @@ const Payment = () => {
                 border: "none",
                 borderRadius: "5px",
                 color: "#000",
+                marginBottom:"10px"
               }}
               onClick={downloadQRCode}
             >
               Download QR Code
             </button>
           </div>
+          <div className="d-flex justify-content-between align-items-center mb-2">
+          <h6 className="mb-0" style={{ fontWeight: "600", fontSize: "14px" }}>
+            <span style={{fontWeight : "bold"}}>UPI ID :</span> {qrcode}
+          </h6>
+          <Button
+            variant="outline-secondary"
+            size="sm"
+            style={{background : "#044723" , color : "white"}}
+            className="btn_copy m-0"
+            onClick={() => handleCopy(qrcode)}
+          >
+            Copy
+          </Button>
+        </div>
+        <div className="d-flex justify-content-between align-items-center mb-2">
+          <h6 className="mb-0" style={{ fontWeight: "600", fontSize: "14px" }}>
+          <span style={{fontWeight : "bold"}}>Amount :</span> {totalPrice} ₹
+          </h6>
+          <Button
+            variant="outline-secondary"
+            size="sm"
+            style={{background : "#044723" , color : "white"}}
+            className="btn_copy m-0"
+            onClick={() => handleCopy(`₹${totalPrice}`)}
+          >
+            Copy
+          </Button>
+        </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleQrClose}>
-            Close
+          <Button 
+          variant="secondary" 
+          // onClick={() => paynoeLogic()} 
+          onClick={handleQrChange}
+          style={{
+                padding: "7px 30px",
+                background: process.env.REACT_APP_THEAM_COLOR,
+                borderColor: "var(--them-color)",
+                border: "none",
+                borderRadius: "5px",
+                color: "#000",
+                marginBottom:"10px"
+          }}>
+            Next
           </Button>
         </Modal.Footer>
       </Modal>
