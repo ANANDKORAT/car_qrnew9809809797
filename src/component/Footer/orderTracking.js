@@ -7,6 +7,7 @@ import utr2 from "../../assets/UTR2.jpeg";
 import utr3 from "../../assets/UTR3.jpeg";
 import axios from "axios";
 import { ReactComponent as ClockIcon } from "../../assets/image/clock-icon.svg";
+import { useAuth } from "../../contexts/AuthContext";
 
 const OrderTracking = () => {
   const [orderId, setOrderId] = useState(null);
@@ -14,7 +15,8 @@ const OrderTracking = () => {
   const [utrNumberState, setUtrNumberState] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [domain, setDomain] = useState(window.location.hostname);
-  const [amount, setAmount] = useState("10");
+  const {totalPrice} = useAuth()
+  const [amount, setAmount] = useState(String(totalPrice));
   const [isRecheck, setIsRecheck] = useState(false);
   const [isPendingPolling, setIsPendingPolling] = useState(false);
   const pollingInterval = useRef(null);
@@ -46,7 +48,7 @@ const OrderTracking = () => {
           utrNumber,
           domain,
           amount,
-        }
+        },
       );
 
       const statusMessages = {
@@ -154,7 +156,7 @@ const OrderTracking = () => {
               {isLoading ? "Enter Your UTR Number" : "Track Your Order"}
             </h3>
             <Formik
-              initialValues={{ utrNumber: "", domain: domain, amount: amount }}
+              initialValues={{ utrNumber: "", domain: domain, amount: totalPrice }}
               validate={(values) => {
                 const errors = {};
                 if (!values.utrNumber) {

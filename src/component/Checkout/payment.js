@@ -41,7 +41,6 @@ const Payment = () => {
   const gpayupi = process.env.REACT_APP_GPAY;
   const phonepayupi = process.env.REACT_APP_PHONE_PAY;
   const paytmupi = process.env.REACT_APP_PAYTM;
-  const [amount, setAmount] = useState(2);
 
   const timeoutDuration = selectedPayment === "Google Pay" ? 0 : 10000;
 
@@ -141,12 +140,15 @@ const Payment = () => {
           "&tr=&mc=8999&cu=INR&tn=987986756875" +
           "&url=&mode=02&purpose=00&orgid=159002&sign=MEQCIDsRrRTBN5u+J9c16TUURJ4IMiPQQ/Sj1WXW7Ane85mYAiBuwEHt/lPXmMKRjFFnz6+jekgTsKWwyTx44qlCXFkfpQ==&featuretype=money_transfer";
         break;
+      case "COD":
+        redirect_url = "/ThankYou"; 
+        break;
       default:
         break;
     }
     if (SelectedPaymentUpi != "COD") {
+      window.location.href = redirect_url;
       setIsLoading(true);
-      window.location.href = "/ThankYou";
     }
   }
 
@@ -163,7 +165,7 @@ const Payment = () => {
       name: "Paytm",
       icon: <PaytmIcon />,
     },
-    process.env.REACT_APP_COD === "no" && {
+    process.env.REACT_APP_COD != "yes" && {
       name: "COD",
       icon: <CodIcon />,
     },
