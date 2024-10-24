@@ -32,7 +32,7 @@ const AuthContext = ({ children }) => {
   const handleSetCartProducts = (data) => {
     setCartProducts(data);
     localStorage.setItem("cartProducts", JSON.stringify(data));
-  };  
+  };
   const handleSetWhiteListProducts = (item) => {
     if (whiteListProducts?.find((o) => o._id === item._id)) {
       const selectedItem = whiteListProducts.filter((o) => o._id !== item._id);
@@ -102,15 +102,19 @@ const AuthContext = ({ children }) => {
     } else {
       const item = cartProducts.find((o) => o._id === id);
       setSelectedProduct((prevState) => {
-          const seletedData= [...prevState, item];
-          localStorage.setItem("slectedData", JSON.stringify(seletedData));
-          return seletedData;
+        const seletedData = [...prevState, item];
+        localStorage.setItem("slectedData", JSON.stringify(seletedData));
+        return seletedData;
       });
-
     }
   };
 
-  const calcExtraDiscount = (arr, pickIndex, remainingQuantity, totalExtraDiscount) => {
+  const calcExtraDiscount = (
+    arr,
+    pickIndex,
+    remainingQuantity,
+    totalExtraDiscount
+  ) => {
     const bb = arr[pickIndex];
     if (bb?.quantity > remainingQuantity) {
       totalExtraDiscount += (bb?.discount || 0) * remainingQuantity;
@@ -119,12 +123,17 @@ const AuthContext = ({ children }) => {
       totalExtraDiscount += bb?.discount * bb?.quantity;
       remainingQuantity = remainingQuantity - bb?.quantity;
       if (remainingQuantity > 0) {
-        return calcExtraDiscount(arr, pickIndex - 1, remainingQuantity, totalExtraDiscount);
+        return calcExtraDiscount(
+          arr,
+          pickIndex - 1,
+          remainingQuantity,
+          totalExtraDiscount
+        );
       } else {
         return totalExtraDiscount;
       }
     }
-  }
+  };
 
   const handlePriceData = (products) => {
     let totalPrice = 0;
@@ -132,8 +141,7 @@ const AuthContext = ({ children }) => {
     let totalDiscount = 0;
     let totalExtraDiscount = 0;
 
-    if (process.env.REACT_APP_COUPON_APPLY === 'true') {
-
+    if (process.env.REACT_APP_COUPON_APPLY === "true") {
       let Allquantity = products.reduce((acc, cur) => acc + cur.quantity, 0);
       const qua = Array.from({ length: Allquantity }, (value, index) => index);
       const originalArray = qua;
@@ -150,8 +158,13 @@ const AuthContext = ({ children }) => {
 
       const sortArry = cartProducts.sort((a, b) => b.discount - a.discount);
 
-      totalExtraDiscount = calcExtraDiscount(sortArry, sortArry.length - 1, countSubArraysLength3, totalExtraDiscount);
-      products.forEach(product => {
+      totalExtraDiscount = calcExtraDiscount(
+        sortArry,
+        sortArry.length - 1,
+        countSubArraysLength3,
+        totalExtraDiscount
+      );
+      products.forEach((product) => {
         const { price, discount, quantity } = product;
 
         // Apply buy 2 get 1 free logic
@@ -163,7 +176,7 @@ const AuthContext = ({ children }) => {
         totalDiscount += totalMrpWithoutDiscount - totalPriceDiscount;
         totalPrice += totalPriceDiscount;
       });
-      totalPrice = totalPrice - totalExtraDiscount
+      totalPrice = totalPrice - totalExtraDiscount;
     } else {
       let total = 0;
       let mrp = 0;
@@ -179,7 +192,7 @@ const AuthContext = ({ children }) => {
           Number(discount) +
           (products[i].discount
             ? Number(products[i].price * products[i].quantity) -
-            products[i].discount
+              products[i].discount
             : 0)
         ).toFixed(2);
       }
@@ -223,7 +236,7 @@ const AuthContext = ({ children }) => {
   }, [storedTime]);
 
   useEffect(() => {
-    setThemColor(process.env.REACT_APP_THEAM_COLOR)
+    setThemColor(process.env.REACT_APP_THEAM_COLOR);
   }, [process.env.REACT_APP_THEAM_COLOR]);
 
   return (
@@ -256,18 +269,16 @@ const AuthContext = ({ children }) => {
         themColor,
         totalExtraDiscount,
         isPaymentPageLoading,
-        setIsPaymentPageLoading
+        setIsPaymentPageLoading,
       }}
     >
       <Container
         className="p-0"
-        style={
-          {
-            margin: "auto",
-            maxWidth: "500px",
-            "--them-color": themColor
-          }
-        }
+        style={{
+          margin: "auto",
+          maxWidth: "500px",
+          "--them-color": themColor,
+        }}
       >
         {children}
       </Container>

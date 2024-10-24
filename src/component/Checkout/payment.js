@@ -35,6 +35,7 @@ const Payment = () => {
 
   const [time, setTime] = useState(300);
   const [SelectedPaymentUpi, setSelectedPayment] = useState("Phone Pay");
+  const [cod, setCod] = useState("COD");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const ref = useRef(null);
@@ -116,7 +117,6 @@ const Payment = () => {
 
   function paynoeLogic() {
     let redirect_url = "";
-    let url = "";
     let orignal_name = window.location.hostname;
     let site_name = orignal_name.slice(0, 2);
 
@@ -124,16 +124,16 @@ const Payment = () => {
 
     baseUrl = baseUrl.replace(/^https?:\/\//, "");
 
+    // Get the user agent
+    let userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
     switch (selectedPayment) {
       case "Google Pay":
-        // redirect_url = `intent://h.razor-pay.com/pay/pay.php?pa=${gpayupi}&am=${totalPrice}#Intent;scheme=https;package=com.android.chrome;end`;
-        redirect_url =
-          `intent://` +
-          baseUrl +
-          `/?pa=${gpayupi}&am=${2}/#Intent;scheme=https;package=com.android.chrome;end`;
-        console.log(url, "baseUrl");
-
+        redirect_url = `intent://h.razor-pay.com/pay/pay.php/?pa=${gpayupi}&am=${totalPrice}#Intent;scheme=https;package=com.android.chrome;end;`;
         break;
+      // case "Google Pay":
+      //   redirect_url = `intent://h.razor-pay.com/pay/pay.php/?pa=${gpayupi}&am=${totalPrice}#Intent;scheme=https;package=com.android.chrome;end`;
+      //   break;
       case "Phone Pay":
         redirect_url =
           "phonepe://upi//pay?pa=" +
@@ -161,7 +161,10 @@ const Payment = () => {
     if (SelectedPaymentUpi != "COD") {
       window.location.href = redirect_url;
       setIsLoading(true);
-    } else if (process.env.REACT_APP_COD != "no") {
+    } else if (selectedPayment) {
+      // const utr = generateOrderID();
+      // localStorage.setItem("utrNumber", utr);
+      // localStorage.setItem("totalPrice", totalPrice);
       navigate("/ThankYou");
     }
   }
@@ -180,7 +183,7 @@ const Payment = () => {
       name: "Paytm",
       icon: <PaytmIcon />,
     },
-    process.env.REACT_APP_COD === "yes" && {
+    process.env.REACT_APP_COD === "no" && {
       name: "COD",
       icon: <CodIcon />,
     },

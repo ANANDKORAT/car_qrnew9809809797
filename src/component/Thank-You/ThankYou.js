@@ -35,6 +35,7 @@ const ThankYou = () => {
       const newOrderId = getOrderIDForUTR(utr);
       setOrderId(newOrderId);
       localStorage.setItem("utrNumber", utr);
+      localStorage.setItem("totalPrice", totalPrice);
     }
     localStorage.removeItem("cartProducts");
     localStorage.removeItem("slectedData");
