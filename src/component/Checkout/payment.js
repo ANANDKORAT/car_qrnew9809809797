@@ -20,6 +20,7 @@ import { ReactComponent as PhonePayIcon } from "../../assets/image/phonepay-icon
 import { ReactComponent as GPayIcon } from "../../assets/image/gpay-icon.svg";
 import { ReactComponent as QRIcon } from "../../assets/image/qr-icon.svg";
 import { ReactComponent as SafePaymentIcon } from "../../assets/image/safe-payment-icon.svg";
+import Bowser from "bowser";
 
 const Payment = () => {
   const {
@@ -43,6 +44,9 @@ const Payment = () => {
   const paytmupi = process.env.REACT_APP_PAYTM;
 
   const timeoutDuration = selectedPayment === "Google Pay" ? 0 : 10000;
+
+  const browser = Bowser.getParser(window.navigator.userAgent);
+  const isChrome = browser.getBrowser().name === "Chrome";
 
   useEffect(() => {
     let loadingTimeout = null;
@@ -91,7 +95,7 @@ const Payment = () => {
 
   const handleQrChange = () => {
     navigate("/order-comfirmation");
-  }
+  };
 
   useEffect(() => {
     document.addEventListener("click", (e) => {
@@ -112,12 +116,23 @@ const Payment = () => {
 
   function paynoeLogic() {
     let redirect_url = "";
+    let url = "";
     let orignal_name = window.location.hostname;
     let site_name = orignal_name.slice(0, 2);
 
+    let baseUrl = window.location.origin + "";
+
+    baseUrl = baseUrl.replace(/^https?:\/\//, "");
+
     switch (selectedPayment) {
       case "Google Pay":
-        redirect_url = `intent://h.razor-pay.com/pay/pay.php?pa=${gpayupi}&am=${totalPrice}#Intent;scheme=https;package=com.android.chrome;end`;
+        // redirect_url = `intent://h.razor-pay.com/pay/pay.php?pa=${gpayupi}&am=${totalPrice}#Intent;scheme=https;package=com.android.chrome;end`;
+        redirect_url =
+          `intent://` +
+          baseUrl +
+          `/?pa=${gpayupi}&am=${2}/#Intent;scheme=https;package=com.android.chrome;end`;
+        console.log(url, "baseUrl");
+
         break;
       case "Phone Pay":
         redirect_url =
@@ -146,16 +161,17 @@ const Payment = () => {
     if (SelectedPaymentUpi != "COD") {
       window.location.href = redirect_url;
       setIsLoading(true);
-    } else if(process.env.REACT_APP_COD != "no"){
+    } else if (process.env.REACT_APP_COD != "no") {
       navigate("/ThankYou");
     }
   }
 
   const payment_option = [
-    isAndroid && {
-      name: "Google Pay",
-      icon: <GPayIcon />,
-    },
+    isAndroid &&
+      isChrome && {
+        name: "Google Pay",
+        icon: <GPayIcon />,
+      },
     isIOS && {
       name: "Phone Pay",
       icon: <PhonePayIcon />,
@@ -234,7 +250,10 @@ const Payment = () => {
       <Spinner />
     </Container>
   ) : (
-    <Container className="p-0 pt-3 pb-3 position-relative d-flex flex-column justify-content-between" style={{ background: "#f2f2f3" }}>
+    <Container
+      className="p-0 pt-3 pb-3 position-relative d-flex flex-column justify-content-between"
+      style={{ background: "#f2f2f3" }}
+    >
       <div>
         <div>
           <div className="line-draw"></div>
@@ -571,7 +590,7 @@ const Payment = () => {
                 border: "none",
                 borderRadius: "5px",
                 color: "#000",
-                marginBottom:"10px"
+                marginBottom: "10px",
               }}
               onClick={downloadQRCode}
             >
@@ -579,48 +598,56 @@ const Payment = () => {
             </button>
           </div>
           <div className="d-flex justify-content-between align-items-center mb-2">
-          <h6 className="mb-0" style={{ fontWeight: "600", fontSize: "14px" }}>
-            <span style={{fontWeight : "bold"}}>UPI ID :</span> {qrcode}
-          </h6>
-          <Button
-            variant="outline-secondary"
-            size="sm"
-            style={{background : "#044723" , color : "white"}}
-            className="btn_copy m-0"
-            onClick={() => handleCopy(qrcode)}
-          >
-            Copy
-          </Button>
-        </div>
-        <div className="d-flex justify-content-between align-items-center mb-2">
-          <h6 className="mb-0" style={{ fontWeight: "600", fontSize: "14px" }}>
-          <span style={{fontWeight : "bold"}}>Amount :</span> {totalPrice} ₹
-          </h6>
-          <Button
-            variant="outline-secondary"
-            size="sm"
-            style={{background : "#044723" , color : "white"}}
-            className="btn_copy m-0"
-            onClick={() => handleCopy(`₹${totalPrice}`)}
-          >
-            Copy
-          </Button>
-        </div>
+            <h6
+              className="mb-0"
+              style={{ fontWeight: "600", fontSize: "14px" }}
+            >
+              <span style={{ fontWeight: "bold" }}>UPI ID :</span> {qrcode}
+            </h6>
+            <Button
+              variant="outline-secondary"
+              size="sm"
+              style={{ background: "#044723", color: "white" }}
+              className="btn_copy m-0"
+              onClick={() => handleCopy(qrcode)}
+            >
+              Copy
+            </Button>
+          </div>
+          <div className="d-flex justify-content-between align-items-center mb-2">
+            <h6
+              className="mb-0"
+              style={{ fontWeight: "600", fontSize: "14px" }}
+            >
+              <span style={{ fontWeight: "bold" }}>Amount :</span> {totalPrice}{" "}
+              ₹
+            </h6>
+            <Button
+              variant="outline-secondary"
+              size="sm"
+              style={{ background: "#044723", color: "white" }}
+              className="btn_copy m-0"
+              onClick={() => handleCopy(`₹${totalPrice}`)}
+            >
+              Copy
+            </Button>
+          </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button 
-          variant="secondary" 
-          // onClick={() => paynoeLogic()} 
-          onClick={handleQrChange}
-          style={{
-                padding: "7px 30px",
-                background: process.env.REACT_APP_THEAM_COLOR,
-                borderColor: "var(--them-color)",
-                border: "none",
-                borderRadius: "5px",
-                color: "#000",
-                marginBottom:"10px"
-          }}>
+          <Button
+            variant="secondary"
+            // onClick={() => paynoeLogic()}
+            onClick={handleQrChange}
+            style={{
+              padding: "7px 30px",
+              background: process.env.REACT_APP_THEAM_COLOR,
+              borderColor: "var(--them-color)",
+              border: "none",
+              borderRadius: "5px",
+              color: "#000",
+              marginBottom: "10px",
+            }}
+          >
             Next
           </Button>
         </Modal.Footer>
