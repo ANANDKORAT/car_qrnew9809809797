@@ -21,7 +21,8 @@ const OrderTracking = () => {
   const [isPendingPolling, setIsPendingPolling] = useState(false);
   const pollingInterval = useRef(null);
   const [isCountdownActive, setIsCountdownActive] = useState(false);
-  const [timer, setTimer] = useState(20);
+  const [timer, setTimer] = useState(180);
+  const [message, setMessage] = useState("");
 
   const generateOrderID = () => {
     const min = 1000000000;
@@ -52,6 +53,7 @@ const OrderTracking = () => {
       setIsCountdownActive(false);
       setIsLoading(false);
       setIsRecheck(true);
+      setMessage("Payment is failed UTR is wrong.");
     }
     return () => clearInterval(countdownInterval);
   }, [isCountdownActive, timer]);
@@ -86,7 +88,7 @@ const OrderTracking = () => {
           );
           setIsRecheck(true);
           setIsCountdownActive(true);
-          setTimer(20); // reset 3-minute countdown
+          setTimer(180);
           setUtrNumberState("");
         },
         3: () => {
@@ -96,7 +98,7 @@ const OrderTracking = () => {
           );
           setIsRecheck(true);
           setIsCountdownActive(true);
-          setTimer(20); // reset 3-minute countdown
+          setTimer(180);
         },
         4: () => {
           setFieldError(
@@ -182,6 +184,8 @@ const OrderTracking = () => {
             >
               {isLoading ? "Enter Your UTR Number" : "Track Your Order"}
             </h3>
+            {message && <div className="alert alert-info">{message}</div>}
+
             <Formik
               initialValues={{
                 utrNumber: "",
