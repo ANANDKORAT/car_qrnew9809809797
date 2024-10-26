@@ -5,6 +5,23 @@ import { useAuth } from "../../contexts/AuthContext";
 import { Helmet } from "react-helmet";
 const ThankYou = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Listen for back button
+    const handleBackNavigation = (event) => {
+      event.preventDefault();
+      navigate("/ThankYou", { replace: true }); // Force navigation to the same page
+    };
+
+    // Add event listener for popstate event
+    window.history.pushState(null, document.title, window.location.href);
+    window.addEventListener("popstate", handleBackNavigation);
+
+    return () => {
+      window.removeEventListener("popstate", handleBackNavigation);
+    };
+  }, [navigate]);
+
   const { handleSetCartProducts, totalPrice } = useAuth();
   const generateOrderID = () => {
     const min = 1000000000;

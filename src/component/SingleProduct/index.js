@@ -15,15 +15,13 @@ import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
 import SkeletonLoader from "../SkeletonLoader";
 import ProductCard from "../ProductCard";
-import Countdown from 'react-countdown';
-import OfferCountdown from "../Header/OfferCountdown"
-import faAssuredPlus from "../../assets/plusassured.jpg"
-import Offer from "../../assets/offer.jpg"
+import Countdown from "react-countdown";
+import OfferCountdown from "../Header/OfferCountdown";
+import faAssuredPlus from "../../assets/plusassured.jpg";
+import Offer from "../../assets/offer.jpg";
 import faPlusAssured from "../../assets/plusassured.jpg";
 import replacement from "../../assets/replacement.jpg";
 import noncod from "../../assets/non-cod.jpg";
-
-
 
 function ThumbnailPlugin(mainRef) {
   return (slider) => {
@@ -239,9 +237,23 @@ const SingleProduct = () => {
                   {singleData?.rating}
                   <i className="fa-solid fa-star" color="red"></i>
                 </span>
-                <span style={{ marginLeft: "50px", fontSize: "14px", color: "gray" }}>2594 Ratings & 6500 Reviews</span>
+                <span
+                  style={{
+                    marginLeft: "50px",
+                    fontSize: "14px",
+                    color: "gray",
+                  }}
+                >
+                  2594 Ratings & 6500 Reviews
+                </span>
               </Card.Text>
-              <img src={faAssuredPlus} height={"25"} style={{ marginTop: "5px" }} />
+              {process.env.REACT_APP_FLIPASSURED_IMAGE === "yes" ? (
+                <img
+                  src={faAssuredPlus}
+                  height={"25"}
+                  style={{ marginTop: "5px" }}
+                />
+              ) : null}
 
               {singleData?.price &&
                 (singleData?.discount ? (
@@ -250,7 +262,7 @@ const SingleProduct = () => {
                       style={{
                         color: "green",
                         marginLeft: "5px",
-                        fontWeight: "700"
+                        fontWeight: "700",
                       }}
                     >{`${(
                       ((singleData?.price - singleData.discount) /
@@ -267,7 +279,13 @@ const SingleProduct = () => {
                       {" "}
                       ₹{singleData?.price}{" "}
                     </span>{" "}
-                    <span style={{ fontWeight: 700, marginLeft: "10px", fontSize: "24px" }}>
+                    <span
+                      style={{
+                        fontWeight: 700,
+                        marginLeft: "10px",
+                        fontSize: "24px",
+                      }}
+                    >
                       {" "}
                       ₹{singleData.discount}
                     </span>
@@ -278,38 +296,66 @@ const SingleProduct = () => {
                   </p>
                 ))}
             </div>
-            <div className="container-fluid p-3 card" style={{ textAlign: "center" }}>
-              <h4 className="m-0"> Offer ends in <span style={{ color: "rgb(251, 100, 27)" }}>
-                <Countdown date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)} ref={ref} renderer={(e) => <OfferCountdown />} intervalDelay={1000} />
-              </span></h4>
+            <div
+              className="container-fluid p-3 card"
+              style={{ textAlign: "center" }}
+            >
+              <h4 className="m-0">
+                {" "}
+                Offer ends in{" "}
+                <span style={{ color: "rgb(251, 100, 27)" }}>
+                  <Countdown
+                    date={
+                      Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)
+                    }
+                    ref={ref}
+                    renderer={(e) => <OfferCountdown />}
+                    intervalDelay={1000}
+                  />
+                </span>
+              </h4>
             </div>
 
-            {
-              (process.env.REACT_APP_FLIPASSURED_IMAGE === "yes") ? (
-                <div className="container-fluid p-3 mb-1 card" style={{ marginTop: "5px" }}>
-                  <img src={Offer} />
-                </div>
-              ) : ""
-            }
+            {process.env.REACT_APP_FLIPASSURED_IMAGE === "yes" ? (
+              <div
+                className="container-fluid p-3 mb-1 card"
+                style={{ marginTop: "5px" }}
+              >
+                <img src={Offer} />
+              </div>
+            ) : (
+              ""
+            )}
 
-            {
-              (process.env.REACT_APP_FLIPASSURED_IMAGE === "yes") ? (
-                <div className="container-fluid px-2 py-3 d-flex feature-container product-extra card" style={{ flexDirection: "row" }}>
-                  <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
-                    <img className="featured-img mb-1" src={replacement} height="35" />
-                    <span className="feature-title"> 7 days Replacement </span>
-                  </div>
-                  <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
-                    <img className="featured-img mb-1" src={noncod} height="35" />
-                    <span className="feature-title"> No Cash On Delivery </span>
-                  </div>
-                  <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
-                    <img className="featured-img mb-1 mt-1" src={faPlusAssured} height="30" />
-                    <span className="feature-title"> Plus (F-Assured) </span>
-                  </div>
+            {process.env.REACT_APP_FLIPASSURED_IMAGE === "yes" ? (
+              <div
+                className="container-fluid px-2 py-3 d-flex feature-container product-extra card"
+                style={{ flexDirection: "row" }}
+              >
+                <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
+                  <img
+                    className="featured-img mb-1"
+                    src={replacement}
+                    height="35"
+                  />
+                  <span className="feature-title"> 7 days Replacement </span>
                 </div>
-              ) : ""
-            }
+                <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
+                  <img className="featured-img mb-1" src={noncod} height="35" />
+                  <span className="feature-title"> No Cash On Delivery </span>
+                </div>
+                <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
+                  <img
+                    className="featured-img mb-1 mt-1"
+                    src={faPlusAssured}
+                    height="30"
+                  />
+                  <span className="feature-title"> Plus (F-Assured) </span>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
 
             <div className="cardification" />
             {singleData?.size?.length > 0 && (
@@ -495,8 +541,7 @@ const SingleProduct = () => {
             </div>
             <div className="cardification" />
             <div className="semi circle">
-              <div className="semi2">
-              </div>
+              <div className="semi2"></div>
             </div>
             <div className="pt-2 pb-2 position-sticky bottom-0">
               {/* <div className="main-ciecle-price" style={{ backgroundColor: "black" }}> */}
@@ -541,11 +586,17 @@ const SingleProduct = () => {
                             textDecoration: "line-through",
                             fontWeight: "bold",
                           }}
-                        >{" "}
+                        >
                           {" "}
                           ₹{singleData?.price}{" "}
                         </span>
-                        <span style={{ fontWeight: 700, color: "white", fontSize: "25px" }} >
+                        <span
+                          style={{
+                            fontWeight: 700,
+                            color: "white",
+                            fontSize: "25px",
+                          }}
+                        >
                           {" "}
                           ₹{singleData.discount.toFixed(0)}{" "}
                         </span>
@@ -553,7 +604,7 @@ const SingleProduct = () => {
                           style={{
                             color: "darkgreen",
                             marginLeft: "5px",
-                            fontWeight: "bold"
+                            fontWeight: "bold",
                           }}
                         >{`${(
                           ((singleData?.price - singleData.discount) /
@@ -583,9 +634,11 @@ const SingleProduct = () => {
                         <path d="M0 0h24v24H0z" opacity="0.05"></path>
                       </g>
                     </svg>
-                    {cartProducts?.find((o) => o._id == id)?._id
-                      ? "GO TO CART"
-                      : <span style={{ fontWeight: "bold" }}>ADD TO CART</span>}
+                    {cartProducts?.find((o) => o._id == id)?._id ? (
+                      "GO TO CART"
+                    ) : (
+                      <span style={{ fontWeight: "bold" }}>ADD TO CART</span>
+                    )}
                   </span>
                 </Button>
               </div>

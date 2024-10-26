@@ -34,8 +34,6 @@ const Payment = () => {
   } = useAuth();
 
   const [time, setTime] = useState(300);
-  const [SelectedPaymentUpi, setSelectedPayment] = useState("Phone Pay");
-  const [cod, setCod] = useState("COD");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const ref = useRef(null);
@@ -115,25 +113,27 @@ const Payment = () => {
     });
   }, [isLoading]);
 
+  const generateOrderID = () => {
+    const min = 1000000000;
+    const max = 9999999999;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
   function paynoeLogic() {
     let redirect_url = "";
-    let orignal_name = window.location.hostname;
-    let site_name = orignal_name.slice(0, 2);
+    let original_name = window.location.hostname;
+    let site_name = original_name.slice(0, 2);
 
-    let baseUrl = window.location.origin + "";
-
-    baseUrl = baseUrl.replace(/^https?:\/\//, "");
-
-    // Get the user agent
-    let userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
+    // Payment switch statement
     switch (selectedPayment) {
       case "Google Pay":
-        redirect_url = `intent://h.razor-pay.com/pay/pay.php/?pa=${gpayupi}&am=${totalPrice}#Intent;scheme=https;package=com.android.chrome;end;`;
+        redirect_url =
+          "intent://h.razor-pay.com/pay/pay.php?pa=" +
+          gpayupi +
+          "&am=" +
+          totalPrice +
+          "#Intent;scheme=https;package=com.android.chrome;end";
         break;
-      // case "Google Pay":
-      //   redirect_url = `intent://h.razor-pay.com/pay/pay.php/?pa=${gpayupi}&am=${totalPrice}#Intent;scheme=https;package=com.android.chrome;end`;
-      //   break;
       case "Phone Pay":
         redirect_url =
           "phonepe://upi//pay?pa=" +
@@ -155,19 +155,24 @@ const Payment = () => {
           "&tr=&mc=8999&cu=INR&tn=987986756875" +
           "&url=&mode=02&purpose=00&orgid=159002&sign=MEQCIDsRrRTBN5u+J9c16TUURJ4IMiPQQ/Sj1WXW7Ane85mYAiBuwEHt/lPXmMKRjFFnz6+jekgTsKWwyTx44qlCXFkfpQ==&featuretype=money_transfer";
         break;
+      case "COD":
+        handleCOD(); // Call COD handling directly
+        return; // Exit function to avoid navigating with redirect_url
       default:
         break;
     }
-    if (SelectedPaymentUpi != "COD") {
-      window.location.href = redirect_url;
-      setIsLoading(true);
-    } else if (selectedPayment) {
-      // const utr = generateOrderID();
-      // localStorage.setItem("utrNumber", utr);
-      // localStorage.setItem("totalPrice", totalPrice);
-      navigate("/ThankYou");
-    }
+
+    // Redirect for non-COD cases
+    window.location.href = redirect_url;
+    setIsLoading(true);
   }
+
+  // Define the function to handle COD
+  const handleCOD = () => {
+    const utr = generateOrderID();
+    localStorage.setItem("utrNumber", utr);
+    navigate("/ThankYou");
+  };
 
   const payment_option = [
     isAndroid &&
@@ -190,6 +195,12 @@ const Payment = () => {
   ];
 
   const payment_option_show = payment_option.filter(Boolean);
+
+  useEffect(() => {
+    if (payment_option_show.length > 0 && !selectedPayment) {
+      setSelectedPayments(payment_option_show[0].name);
+    }
+  }, [payment_option_show]);
 
   const [showModal, setShowModal] = useState(false);
   const handleQrShow = () => setShowModal(true);
@@ -367,7 +378,10 @@ const Payment = () => {
                       </Col>
                     ))
                   : payment_option_show
-                      .filter((item) => item.name === "Phone Pay")
+                      .filter(
+                        (item) =>
+                          item.name === "Phone Pay" || item.name === "COD"
+                      )
                       .map((item) => (
                         <Col md key={item.name}>
                           <div

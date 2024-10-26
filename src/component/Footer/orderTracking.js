@@ -15,12 +15,13 @@ const OrderTracking = () => {
   const [utrNumberState, setUtrNumberState] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [domain, setDomain] = useState(window.location.hostname);
-  const {totalPrice} = useAuth()
+  const { totalPrice } = useAuth();
   const [amount, setAmount] = useState(String(totalPrice));
   const [isRecheck, setIsRecheck] = useState(false);
   const [isPendingPolling, setIsPendingPolling] = useState(false);
   const pollingInterval = useRef(null);
-  const [secondsRemaining, setSecondsRemaining] = useState(0);
+  const [isCountdownActive, setIsCountdownActive] = useState(false);
+  const [timer, setTimer] = useState(20);
 
   const generateOrderID = () => {
     const min = 1000000000;
@@ -39,6 +40,28 @@ const OrderTracking = () => {
       return newOrderId;
     }
   };
+
+  useEffect(() => {
+    let countdownInterval;
+    if (isCountdownActive && timer > 0) {
+      countdownInterval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+    } else if (timer === 0) {
+      clearInterval(countdownInterval);
+      setIsCountdownActive(false);
+      setIsLoading(false);
+      setIsRecheck(true);
+    }
+    return () => clearInterval(countdownInterval);
+  }, [isCountdownActive, timer]);
+
+  const formatTime = (time) => {
+    const minutes = String(Math.floor(time / 60)).padStart(2, "0");
+    const seconds = String(time % 60).padStart(2, "0");
+    return `${minutes}:${seconds}`;
+  };
+
   const payoneLogic = async (utrNumber, domain, amount, setFieldError) => {
     setIsLoading(true);
     try {
@@ -48,7 +71,7 @@ const OrderTracking = () => {
           utrNumber,
           domain,
           amount,
-        },
+        }
       );
 
       const statusMessages = {
@@ -62,6 +85,8 @@ const OrderTracking = () => {
             "UTR matched, but the amount does not match."
           );
           setIsRecheck(true);
+          setIsCountdownActive(true);
+          setTimer(20); // reset 3-minute countdown
           setUtrNumberState("");
         },
         3: () => {
@@ -70,6 +95,8 @@ const OrderTracking = () => {
             "Payment has already been completed for this UTR"
           );
           setIsRecheck(true);
+          setIsCountdownActive(true);
+          setTimer(20); // reset 3-minute countdown
         },
         4: () => {
           setFieldError(
@@ -156,7 +183,11 @@ const OrderTracking = () => {
               {isLoading ? "Enter Your UTR Number" : "Track Your Order"}
             </h3>
             <Formik
-              initialValues={{ utrNumber: "", domain: domain, amount: totalPrice }}
+              initialValues={{
+                utrNumber: "",
+                domain: domain,
+                amount: totalPrice,
+              }}
               validate={(values) => {
                 const errors = {};
                 if (!values.utrNumber) {
@@ -215,7 +246,7 @@ const OrderTracking = () => {
                       Back
                     </Button>
 
-                    <Button
+                    {/* <Button
                       variant="dark"
                       type="submit"
                       disabled={
@@ -236,7 +267,7 @@ const OrderTracking = () => {
                             role="status"
                             aria-hidden="true"
                             className="ms-2"
-                          />
+                          />{" "}
                         </>
                       ) : isPendingPolling ? (
                         <Spinner
@@ -245,6 +276,47 @@ const OrderTracking = () => {
                           role="status"
                           aria-hidden="true"
                           className="ms-2"
+                        />
+                      ) : isRecheck ? (
+                        "Recheck UTR"
+                      ) : (
+                        "Submit"
+                      )}{" "}
+                      set time here
+                    </Button> */}
+                    <Button
+                      variant="dark"
+                      type="submit"
+                      disabled={
+                        isSubmitting ||
+                        (!isRecheck && !isValid) ||
+                        !dirty ||
+                        isCountdownActive // disable if countdown is active
+                      }
+                      style={{
+                        background: "var(--them-color)",
+                        borderColor: "var(--them-color)",
+                        border: "none",
+                        width: "150px",
+                      }}
+                    >
+                      {isCountdownActive ? (
+                        <>
+                          <Spinner
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                            className="me-2"
+                          />
+                          {formatTime(timer)}
+                        </>
+                      ) : isLoading ? (
+                        <Spinner
+                          animation="border"
+                          size="sm"
+                          role="status"
+                          aria-hidden="true"
                         />
                       ) : isRecheck ? (
                         "Recheck UTR"
