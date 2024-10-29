@@ -188,7 +188,7 @@ const Payment = () => {
       name: "Paytm",
       icon: <PaytmIcon />,
     },
-    process.env.REACT_APP_COD === "no" && {
+    process.env.REACT_APP_COD === "yes" && {
       name: "COD",
       icon: <CodIcon />,
     },
