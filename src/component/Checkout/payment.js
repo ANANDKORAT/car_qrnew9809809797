@@ -132,7 +132,7 @@ const Payment = () => {
           gpayupi +
           "&am=" +
           totalPrice +
-          "#Intent;scheme=https;package=com.android.chrome;end";
+          "#Intent;package=com.android.chrome;scheme=https;end";
         break;
       case "Phone Pay":
         redirect_url =
@@ -176,7 +176,8 @@ const Payment = () => {
 
   const payment_option = [
     isAndroid &&
-      isChrome && {
+    
+      {
         name: "Google Pay",
         icon: <GPayIcon />,
       },
