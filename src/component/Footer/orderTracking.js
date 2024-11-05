@@ -66,6 +66,7 @@ const OrderTracking = () => {
   };
 
   const payoneLogic = async (utrNumber, domain, amount, setFieldError) => {
+    
     setIsLoading(true);
     try {
       const { data } = await axios.post(
@@ -99,11 +100,14 @@ const OrderTracking = () => {
          
         },
         4: () => {
-          timer <= 1 ? 
-          setFieldError(
-            "utrNumber",
-            "UTR does not match any record. Domain could not be updated"
-          ):setFieldError("")
+          timer <= 1 ?
+            setFieldError(
+              "utrNumber",
+              "UTR does not match any record. Domain could not be updated"
+            )
+            
+            : setFieldError("");
+          
         },
       };
 
