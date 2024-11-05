@@ -139,7 +139,7 @@ const OrderTracking = () => {
     const newOrderId = getOrderIDForUTR(values.utrNumber);
     setOrderId(newOrderId);
     localStorage.setItem("utrNumber", values.utrNumber);
-    payoneLogic(values.utrNumber, domain, amount, setFieldError).finally(() => {
+    payoneLogic(values.utrNumber, domain, values.amount, setFieldError).finally(() => {
       setSubmitting(false);
     });
   };
