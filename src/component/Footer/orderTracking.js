@@ -43,6 +43,7 @@ const OrderTracking = () => {
   };
 
   useEffect(() => {
+
     let countdownInterval;
     if (isCountdownActive && timer > 0) {
       countdownInterval = setInterval(() => {
@@ -101,10 +102,11 @@ const OrderTracking = () => {
           setTimer(180);
         },
         4: () => {
+          timer <= 0 ? 
           setFieldError(
             "utrNumber",
             "UTR does not match any record. Domain could not be updated"
-          );
+          ):setFieldError("")
         },
       };
 
@@ -120,6 +122,7 @@ const OrderTracking = () => {
       }
 
       if (data.status === "pending") {
+        setIsCountdownActive(true);
         setIsPendingPolling(true);
         setTimeout(() => {
           payoneLogic(utrNumber, domain, amount, setFieldError);
