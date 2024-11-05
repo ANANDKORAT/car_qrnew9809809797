@@ -66,7 +66,6 @@ const OrderTracking = () => {
   };
 
   const payoneLogic = async (utrNumber, domain, amount, setFieldError) => {
-    console.log(amount);
     setIsLoading(true);
     try {
       const { data } = await axios.post(
