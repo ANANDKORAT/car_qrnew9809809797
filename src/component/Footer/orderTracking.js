@@ -66,6 +66,7 @@ const OrderTracking = () => {
   };
 
   const payoneLogic = async (utrNumber, domain, amount, setFieldError) => {
+    console.log(amount);
     setIsLoading(true);
     try {
       const { data } = await axios.post(
@@ -88,9 +89,7 @@ const OrderTracking = () => {
             "UTR matched, but the amount does not match."
           );
           setIsRecheck(true);
-          setIsCountdownActive(true);
-          setTimer(180);
-          setUtrNumberState("");
+         
         },
         3: () => {
           setFieldError(
@@ -98,11 +97,10 @@ const OrderTracking = () => {
             "Payment has already been completed for this UTR"
           );
           setIsRecheck(true);
-          setIsCountdownActive(true);
-          setTimer(180);
+         
         },
         4: () => {
-          timer <= 0 ? 
+          timer <= 1 ? 
           setFieldError(
             "utrNumber",
             "UTR does not match any record. Domain could not be updated"
