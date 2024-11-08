@@ -13,8 +13,8 @@ const Termsofservice = () => {
 
                 <div className="{window.location.hostname}-policy__body">
                     <div className="rte">
-                        <p style={{textalign: 'center'}}><strong>OVERVIEW</strong> This website is operated by My Store.
-                            Throughout the site, the terms “we”, “us” and “our” refer to My Store. My Store offers this
+                        <p style={{ textalign: 'center' }}><strong>OVERVIEW</strong> This website is operated by { process.env.REACT_APP_FAM}.
+                            Throughout the site, the terms “we”, “us” and “our” refer to { process.env.REACT_APP_FAM}. { process.env.REACT_APP_FAM} offers this
                             website, including all information, tools and Services available from this site to you, the
                             user, conditioned upon your acceptance of all terms, conditions, policies and notices stated
                             here. By visiting our site and/ or purchasing something from us, you engage in our “Service”
@@ -181,7 +181,7 @@ const Termsofservice = () => {
                             any representation, warranties or conditions of any kind, either express or implied,
                             including all implied warranties or conditions of merchantability, merchantable quality,
                             fitness for a particular purpose, durability, title, and non-infringement. In no case shall
-                            My Store, our directors, officers, employees, affiliates, agents, contractors, interns,
+                            { process.env.REACT_APP_FAM}, our directors, officers, employees, affiliates, agents, contractors, interns,
                             suppliers, Service providers or licensors be liable for any injury, loss, claim, or any
                             direct, indirect, incidental, punitive, special, or consequential damages of any kind,
                             including, without limitation lost profits, lost revenue, lost savings, loss of data,
@@ -195,7 +195,7 @@ const Termsofservice = () => {
                             allow the exclusion or the limitation of liability for consequential or incidental damages,
                             in such states or jurisdictions, our liability shall be limited to the maximum extent
                             permitted by law. <br></br><br></br><strong>SECTION 14 - INDEMNIFICATION</strong> You agree
-                            to indemnify, defend and hold harmless My Store and our parent, subsidiaries, affiliates,
+                            to indemnify, defend and hold harmless { process.env.REACT_APP_FAM} and our parent, subsidiaries, affiliates,
                             partners, officers, directors, agents, contractors, licensors, Service providers,
                             subcontractors, suppliers, interns and employees, harmless from any claim or demand,
                             including reasonable attorneys’ fees, made by any third-party due to or arising out of your
