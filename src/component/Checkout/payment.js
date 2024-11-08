@@ -175,7 +175,7 @@ const Payment = () => {
   };
 
   const payment_option = [
-    isAndroid &&
+    isAndroid && process.env.REACT_APP_GPAY!=null&&
     
       {
         name: "Google Pay",
