@@ -15,7 +15,7 @@ const PrivacyPolicy = () => {
                     <div className="rte">
 
                         <p style={{textalign: 'center'}}>&nbsp;</p>
-                        <p style={{textalign: 'center'}}>This Privacy Policy describes how My Store (the
+                        <p style={{textalign: 'center'}}>This Privacy Policy describes how {window.location.hostname}  (the
                             "<strong>Site</strong>", "<strong>we</strong>", "<strong>us</strong>", or
                             "<strong>our</strong>") collects, uses, and discloses your personal information when you
                             visit, use our services, or make a purchase from {window.location.hostname} (the
