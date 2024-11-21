@@ -139,7 +139,7 @@ const Home = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   width: "48%",
-                  borderRadius: "5px",
+                  borderRadius: "5px", 
                 }}
               >
                 <Image
