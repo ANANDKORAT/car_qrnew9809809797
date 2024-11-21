@@ -222,7 +222,7 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <div className="accordion-item border-bottom-0 pb-5">
+            <div className="accordion-item border-bottom-0 pb-2">
               <div className="text-center py-3">Experience Our App</div>
               <div className="app-button-wrapper d-flex justify-content-center">
                 <a href="#" name="Play store" className="mx-1">

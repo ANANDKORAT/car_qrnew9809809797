@@ -128,32 +128,39 @@ const Payment = () => {
     switch (selectedPayment) {
       case "Google Pay":
         redirect_url =
-          "intent://h.razor-pay.com/pay/pay.php?pa=" +
+          "tez://pay?pa=" +
           gpayupi +
-          "&am=" +
-          totalPrice +
-          "#Intent;package=com.android.chrome;scheme=https;end";
-        break;
-      case "Phone Pay":
-        redirect_url =
-          "phonepe://upi//pay?pa=" +
-          phonepayupi +
-          "&pn==" +
+          "&pn=" +
           site_name +
           "&am=" +
           totalPrice +
-          "&cu=INR";
+          "&tr=H2MkMGf5olejI&mc=8931&cu=INR&tn=" +
+          site_name +
+          "&sign=4875421245fgjdjjhcbdfg";
+        break;
+      case "Phone Pay":
+        redirect_url =
+          "phonepe://pay?pa=" +
+          phonepayupi +
+          "&pn=" +
+          site_name +
+          "&am=" +
+          totalPrice +
+          "&cu=INR&tn=" +
+          site_name +
+          "&sign=4875421245fgjdjjhcbdfg";
         break;
       case "Paytm":
         redirect_url =
-          "paytmmp://cash_wallet?pa=" +
+          "paytmmp://pay?pa=" +
           paytmupi +
           "&pn=" +
           site_name +
           "&am=" +
           totalPrice +
-          "&tr=&mc=8999&cu=INR&tn=987986756875" +
-          "&url=&mode=02&purpose=00&orgid=159002&sign=MEQCIDsRrRTBN5u+J9c16TUURJ4IMiPQQ/Sj1WXW7Ane85mYAiBuwEHt/lPXmMKRjFFnz6+jekgTsKWwyTx44qlCXFkfpQ==&featuretype=money_transfer";
+          "&cu=INR&tn=" +
+          site_name +
+          "&sign=4875421245fgjdjjhcbdfg";
         break;
       case "COD":
         handleCOD(); // Call COD handling directly
@@ -175,17 +182,15 @@ const Payment = () => {
   };
 
   const payment_option = [
-    isAndroid && process.env.REACT_APP_GPAY!=null&&
-    
-      {
-        name: "Google Pay",
-        icon: <GPayIcon />,
-      },
-    isIOS && {
+    process.env.REACT_APP_GPAY != "" && {
+      name: "Google Pay",
+      icon: <GPayIcon />,
+    },
+    {
       name: "Phone Pay",
       icon: <PhonePayIcon />,
     },
-    isAndroid && {
+    {
       name: "Paytm",
       icon: <PaytmIcon />,
     },
@@ -207,8 +212,6 @@ const Payment = () => {
   const handleQrShow = () => setShowModal(true);
   const handleQrClose = () => setShowModal(false);
   const qrRef = useRef();
-
-  const isMobileVerified = process.env.REACT_APP_MOBILE_VERIFIED === "yes";
   const qrcode = process.env.REACT_APP_QR;
 
   const downloadQRCode = () => {
@@ -266,7 +269,7 @@ const Payment = () => {
     </Container>
   ) : (
     <Container
-      className="p-0 pt-3 pb-3 position-relative d-flex flex-column justify-content-between"
+      className="p-0 position-relative d-flex flex-column justify-content-between"
       style={{ background: "#f2f2f3" }}
     >
       <div>
@@ -289,7 +292,7 @@ const Payment = () => {
             <SafePaymentIcon />
           </div>
           <div className="line-draw"></div>
-          <div className="mt-3 py-2 pt-3 pb-3" style={{ background: "#fff" }}>
+          <div className=" py-2 pt-3 pb-3" style={{ background: "#fff" }}>
             <div
               className="container p-3"
               style={{ textAlign: "center", border: "none" }}
@@ -331,104 +334,52 @@ const Payment = () => {
             <div className="">
               <Row className="g-2 m-0 p-2" id="payment_options">
                 {/* Filter options based on the platform */}
-                {isAndroid
-                  ? payment_option_show.map((item) => (
-                      <Col md key={item.name}>
+                {payment_option_show.map((item) => (
+                  <Col md key={item.name}>
+                    <div
+                      className="fw-semibold"
+                      style={{
+                        cursor: "pointer",
+                        border: `1px solid ${
+                          selectedPayment === item.name ? "#ed143d" : "#ddd"
+                        }`,
+                        borderRadius: "30px",
+                        padding: "15px 40px",
+                        color: "black",
+                      }}
+                      onClick={() => {
+                        setSelectedPayments(item.name);
+                      }}
+                    >
+                      <span className="d-flex align-items-center">
+                        <span>{item?.icon}</span>
+                        <span className="ms-4">{item.name}</span>
+                        {isLoading &&
+                          selectedPayment === item.name &&
+                          selectedPayment !== "Google Pay" && (
+                            <Spinner
+                              variant="secondary"
+                              className="ms-2"
+                              size="sm"
+                            />
+                          )}
+                      </span>
+                      {process.env.REACT_APP_COD === "yes" && (
                         <div
-                          className="fw-semibold"
+                          className="text-danger"
                           style={{
-                            cursor: "pointer",
-                            border: `1px solid ${
-                              selectedPayment === item.name ? "#ed143d" : "#ddd"
-                            }`,
-                            borderRadius: "30px",
-                            padding: "15px 40px",
-                            color: "black",
-                          }}
-                          onClick={() => {
-                            setSelectedPayments(item.name);
+                            fontSize: "13px",
+                            textAlign: "center",
                           }}
                         >
-                          <span className="d-flex align-items-center">
-                            <span>{item?.icon}</span>
-                            <span className="ms-4">{item.name}</span>
-                            {isLoading &&
-                              selectedPayment === item.name &&
-                              selectedPayment !== "Google Pay" && (
-                                <Spinner
-                                  variant="secondary"
-                                  className="ms-2"
-                                  size="sm"
-                                />
-                              )}
-                          </span>
-                          {process.env.REACT_APP_COD === "yes" && (
-                            <div
-                              className="text-danger"
-                              style={{
-                                fontSize: "13px",
-                                textAlign: "center",
-                              }}
-                            >
-                              This Payment-Method is Not Allowed For This Offer
-                              Products. Choose Other Products or Change Payment
-                              Method.
-                            </div>
-                          )}
+                          This Payment-Method is Not Allowed For This Offer
+                          Products. Choose Other Products or Change Payment
+                          Method.
                         </div>
-                      </Col>
-                    ))
-                  : payment_option_show
-                      .filter(
-                        (item) =>
-                          item.name === "Phone Pay" || item.name === "COD"
-                      )
-                      .map((item) => (
-                        <Col md key={item.name}>
-                          <div
-                            className="fw-semibold"
-                            style={{
-                              cursor: "pointer",
-                              border: `1px solid ${
-                                selectedPayment === item.name
-                                  ? "#ed143d"
-                                  : "#ddd"
-                              }`,
-                              borderRadius: "30px",
-                              padding: "15px 40px",
-                              color: "black",
-                            }}
-                            onClick={() => {
-                              setSelectedPayments(item.name);
-                            }}
-                          >
-                            <span className="d-flex align-items-center">
-                              <span>{item?.icon}</span>
-                              <span className="ms-4">{item.name}</span>
-                              {isLoading && selectedPayment === item.name && (
-                                <Spinner
-                                  variant="secondary"
-                                  className="ms-2"
-                                  size="sm"
-                                />
-                              )}
-                            </span>
-                            {process.env.REACT_APP_COD === "yes" && (
-                              <div
-                                className="text-danger"
-                                style={{
-                                  fontSize: "13px",
-                                  textAlign: "center",
-                                }}
-                              >
-                                This Payment-Method is Not Allowed For This
-                                Offer Products. Choose Other Products or Change
-                                Payment Method.
-                              </div>
-                            )}
-                          </div>
-                        </Col>
-                      ))}
+                      )}
+                    </div>
+                  </Col>
+                ))}
               </Row>
             </div>
 
@@ -469,7 +420,7 @@ const Payment = () => {
             </Row>
           </div>
         </div>
-        <div className="mt-3">
+        <div className="">
           {selectedProduct?.length && (
             <div className="bg-white px-4 py-4">
               <h6
@@ -543,7 +494,7 @@ const Payment = () => {
         </div>
       </div>
       <div
-        className="position-sticky bottom-0 pb-3 bg-white px-4 mt-3 py-4 d-flex align-content-center justify-content-between"
+        className="position-sticky bottom-0 pb-3 bg-white px-4 py-4 d-flex align-content-center justify-content-between"
         id="payment_bottom_block"
       >
         <div
@@ -591,7 +542,7 @@ const Payment = () => {
         </Modal.Header>
         <Modal.Body>
           <div className="d-flex flex-column align-items-center justify-content-center">
-            {(isAndroid || isIOS) && isMobileVerified && (
+            {
               <div className="p-3" ref={qrRef}>
                 {qrcode ? (
                   <QRCodeCanvas value={upiURL} level={"H"} />
@@ -599,7 +550,7 @@ const Payment = () => {
                   <p>No QR code available</p>
                 )}
               </div>
-            )}
+            }
             <button
               style={{
                 padding: "10px 12px",
