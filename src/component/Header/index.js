@@ -10,7 +10,6 @@ import { Helmet } from "react-helmet";
 import OfferSlider from "./OfferSlider";
 import { useAuth } from "../../contexts/AuthContext";
 
-
 const Header = () => {
   const [isCart, setIsCart] = useState(false);
   const [isCheckout, setIsCheckout] = useState(false);
@@ -23,7 +22,13 @@ const Header = () => {
   const [analyticsDesc, setAnalyticsDesc] = useState([]);
   let location = useLocation();
   const navigate = useNavigate();
-  const { step, cartProducts, singleProduct, isPaymentPageLoading, setIsPaymentPageLoading } = useAuth();
+  const {
+    step,
+    cartProducts,
+    singleProduct,
+    isPaymentPageLoading,
+    setIsPaymentPageLoading,
+  } = useAuth();
 
   useEffect(() => {
     setIsCart(location.pathname.indexOf("/cart") > -1);
@@ -37,8 +42,6 @@ const Header = () => {
 
     handleProductData();
   }, [location]);
-
-
 
   useEffect(() => {
     if (cartProducts.length > 0) {
@@ -70,15 +73,24 @@ const Header = () => {
         console.log("---- error", error);
       });
   };
-  let navThemeColor = process.env.REACT_APP_NAV_THEME_COLOR
+  let navThemeColor = process.env.REACT_APP_NAV_THEME_COLOR;
   const logo = process.env.REACT_APP_LOGO;
 
   return (
     <>
-
-      <Navbar expand="lg" sticky="top" className={`flex-column  custom-navbar bg-white ${isProductDetails &&
-        process.env.REACT_APP_SHOW_OFFER_BANNER == "yes" &&
-        singleProduct?._id ? 'pb-0' : ''}`} id="nav-look" style={{ '--nav-theme-color': navThemeColor }}>
+      <Navbar
+        expand="lg"
+        sticky="top"
+        className={`flex-column  custom-navbar bg-white ${
+          isProductDetails &&
+          process.env.REACT_APP_SHOW_OFFER_BANNER == "yes" &&
+          singleProduct?._id
+            ? "pb-0"
+            : ""
+        }`}
+        id="nav-look"
+        style={{ "--nav-theme-color": navThemeColor }}
+      >
         {/* Google g4tag live tracker */}
         {process.env.REACT_APP_G4 && (
           <Helmet>
@@ -130,10 +142,11 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '${process.env.REACT_APP_FBPIXEL}');
 fbq('track', 'PageView');
-${window.location.href.includes("/payment")
-                  ? 'fbq("track", "InitiateCheckout");'
-                  : ""
-                };
+${
+  window.location.href.includes("/payment")
+    ? 'fbq("track", "InitiateCheckout");'
+    : ""
+};
 
 `}
             </script>
@@ -156,7 +169,7 @@ ${window.location.href.includes("/payment")
         {thankYou ? (
           <Container>
             {thankYou ? (
-              <Nav className={"d-flex flex-row m-auto align-items-center"} >
+              <Nav className={"d-flex flex-row m-auto align-items-center"}>
                 <Navbar.Brand href="/">
                   {/* dynamic logo use this code */}
                   <img
@@ -177,14 +190,20 @@ ${window.location.href.includes("/payment")
                 className={"d-flex flex-row align-items-center"}
                 style={{ width: isProductDetails || isWhishList ? "40%" : "" }}
               >
-                <div onClick={() => {
-                  if (isPaymentPageLoading && isPayment) {
-                    setIsPaymentPageLoading(false)
-                  } else {
-                    navigate(-1)
-                  }
-                }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" height={24} width={24}>
+                <div
+                  onClick={() => {
+                    if (isPaymentPageLoading && isPayment) {
+                      setIsPaymentPageLoading(false);
+                    } else {
+                      navigate(-1);
+                    }
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height={24}
+                    width={24}
+                  >
                     <path
                       fill="#fff"
                       fillRule="evenodd"
@@ -214,24 +233,30 @@ ${window.location.href.includes("/payment")
         ) : (
           <Container>
             {isCart ||
-              isCheckout ||
-              isPayment ||
-              isProductDetails ||
-              isCategory ||
-              orderComfirm ||
-              isWhishList ? (
+            isCheckout ||
+            isPayment ||
+            isProductDetails ||
+            isCategory ||
+            orderComfirm ||
+            isWhishList ? (
               <Nav
                 className={"d-flex flex-row align-items-center"}
                 style={{ width: isProductDetails || isWhishList ? "40%" : "" }}
               >
-                <div onClick={() => {
-                  if (isPaymentPageLoading && isPayment) {
-                    setIsPaymentPageLoading(false)
-                  } else {
-                    navigate(-1)
-                  }
-                }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" height={24} width={24}>
+                <div
+                  onClick={() => {
+                    if (isPaymentPageLoading && isPayment) {
+                      setIsPaymentPageLoading(false);
+                    } else {
+                      navigate(-1);
+                    }
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height={24}
+                    width={24}
+                  >
                     <path
                       fill="#fff"
                       fillRule="evenodd"
@@ -260,7 +285,10 @@ ${window.location.href.includes("/payment")
             ) : (
               <Nav className={"d-flex flex-row align-items-center"}>
                 <Navbar.Brand href="/">
-                  <i className="fa-solid fa-bars" style={{ color: "white" }}></i>
+                  <i
+                    className="fa-solid fa-bars"
+                    style={{ color: "white" }}
+                  ></i>
                   <img src={logo} height={35} style={{ marginLeft: "15%" }} />
                 </Navbar.Brand>
               </Nav>
@@ -270,40 +298,50 @@ ${window.location.href.includes("/payment")
             >
               {step && (isCart || isCheckout || isPayment) ? (
                 <>
-                  {!orderComfirm && <Nav.Link
-                    onClick={() => navigate("/wishlist")}
-                    className="nav-menu"
-                    style={{ marginRight: "30px" }}
-                  >
-                    <i className="fa-solid fa-square-plus" style={{ color: "#fff", }}></i>
-                  </Nav.Link>}
-                  {!orderComfirm && <Nav.Link
-                    onClick={() => navigate("/cart")}
-                    className="nav-menu postion-relative"
-                  >
-                    <div
-                      id="notificationCount"
-                      className="animated"
-                      style={{
-                        position: "absolute",
-                        top: "0",
-                        opacity: cartProducts.length > 0 ? 1 : 0,
-                        borderRadius: "50%",
-                        fontWeight: "bold",
-                        width: "18px",
-                        height: "18px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        background: "red",
-                        marginLeft: "10px",
-                        color: "#ffffff"
-                      }}
+                  {!orderComfirm && (
+                    <Nav.Link
+                      onClick={() => navigate("/wishlist")}
+                      className="nav-menu"
+                      style={{ marginRight: "30px" }}
                     >
-                      {cartProducts.length}
-                    </div>
-                    <i className="fa-solid fa-cart-shopping" style={{ color: "#fff", marginRight: "30px" }}></i>
-                  </Nav.Link>}
+                      <i
+                        className="fa-solid fa-square-plus"
+                        style={{ color: "#fff" }}
+                      ></i>
+                    </Nav.Link>
+                  )}
+                  {!orderComfirm && (
+                    <Nav.Link
+                      onClick={() => navigate("/cart")}
+                      className="nav-menu postion-relative"
+                    >
+                      <div
+                        id="notificationCount"
+                        className="animated"
+                        style={{
+                          position: "absolute",
+                          top: "0",
+                          opacity: cartProducts.length > 0 ? 1 : 0,
+                          borderRadius: "50%",
+                          fontWeight: "bold",
+                          width: "18px",
+                          height: "18px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          background: "red",
+                          marginLeft: "10px",
+                          color: "#ffffff",
+                        }}
+                      >
+                        {cartProducts.length}
+                      </div>
+                      <i
+                        className="fa-solid fa-cart-shopping"
+                        style={{ color: "#fff", marginRight: "30px" }}
+                      ></i>
+                    </Nav.Link>
+                  )}
                 </>
               ) : (
                 <>
@@ -312,57 +350,69 @@ ${window.location.href.includes("/payment")
                       className="nav-menu"
                       style={{ marginRight: "18px" }}
                     >
-                      <i className="fa-solid fa-magnifying-glass" style={{ color: "#fff", marginRight: "20px" }}></i>
+                      <i
+                        className="fa-solid fa-magnifying-glass"
+                        style={{ color: "#fff", marginRight: "20px" }}
+                      ></i>
                     </Nav.Link>
                   ) : (
                     ""
                   )}
-                  {!orderComfirm && <Nav.Link
-                    onClick={() => navigate("/wishlist")}
-                    className="nav-menu"
-                    style={{ marginRight: "30px" }}
-                  >
-                    <i className="fa-solid fa-square-plus" style={{ color: "#fff", }}></i>
-                  </Nav.Link>}
-                  {!orderComfirm && <Nav.Link
-                    onClick={() => navigate("/cart")}
-                    className="nav-menu postion-relative"
-                  >
-                    <div
-                      id="notificationCount"
-                      className="animated"
-                      style={{
-                        position: "absolute",
-                        top: "0",
-                        opacity: cartProducts.length > 0 ? 1 : 0,
-                        borderRadius: "50%",
-                        fontWeight: "bold",
-                        width: "18px",
-                        height: "18px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        background: "red",
-                        marginLeft: "10px",
-                        color: "#ffffff"
-
-                      }}
+                  {!orderComfirm && (
+                    <Nav.Link
+                      onClick={() => navigate("/wishlist")}
+                      className="nav-menu"
+                      style={{ marginRight: "30px" }}
                     >
-                      {cartProducts.length}
-                    </div>
-                    <i className="fa-solid fa-cart-shopping" style={{ color: "#fff", marginRight: "30px" }}></i>
-                  </Nav.Link>}
+                      <i
+                        className="fa-solid fa-square-plus"
+                        style={{ color: "#fff" }}
+                      ></i>
+                    </Nav.Link>
+                  )}
+                  {!orderComfirm && (
+                    <Nav.Link
+                      onClick={() => navigate("/cart")}
+                      className="nav-menu postion-relative"
+                    >
+                      <div
+                        id="notificationCount"
+                        className="animated"
+                        style={{
+                          position: "absolute",
+                          top: "0",
+                          opacity: cartProducts.length > 0 ? 1 : 0,
+                          borderRadius: "50%",
+                          fontWeight: "bold",
+                          width: "18px",
+                          height: "18px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          background: "red",
+                          marginLeft: "10px",
+                          color: "#ffffff",
+                        }}
+                      >
+                        {cartProducts.length}
+                      </div>
+                      <i
+                        className="fa-solid fa-cart-shopping"
+                        style={{ color: "#fff", marginRight: "30px" }}
+                      ></i>
+                    </Nav.Link>
+                  )}
                 </>
               )}
             </Nav>
           </Container>
-
         )}
         <Helmet>
           <link rel="icon" href={logo} />
         </Helmet>
         <Container
-          className={`${isCart ||
+          className={`${
+            isCart ||
             isCheckout ||
             isPayment ||
             isProductDetails ||
@@ -370,12 +420,17 @@ ${window.location.href.includes("/payment")
             isCategory ||
             thankYou ||
             isWhishList
-            ? "d-none"
-            : ""
-            }`}
+              ? "d-none"
+              : ""
+          }`}
         >
           <div className="form-group" style={{ marginTop: "8px" }}>
-            <input type="text" className="form-control" placeholder="Search for Products, Brands and More" style={{ borderRadius: "3px" }} />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search for Products, Brands and More"
+              style={{ borderRadius: "3px" }}
+            />
           </div>
         </Container>
 
@@ -399,7 +454,7 @@ ${window.location.href.includes("/payment")
             </Container>
           )}
       </Navbar>
-      <div className="main-steps">
+      <div className="">
         {step && (isCart || isCheckout || isPayment) ? (
           <>
             <div className="step-container" />
@@ -455,9 +510,7 @@ ${window.location.href.includes("/payment")
       ) : (
         <></>
       )} */}
-
     </>
-
   );
 };
 
