@@ -123,23 +123,21 @@ const Home = () => {
       <Container>
         <Row
           className={
-            "d-flex flex-wrap category-box m-2 justify-content-between mt-0"
+            "d-flex category-box align-items-center justify-content-center m-2 mt-0"
           }
           style={{ gap: "10px" }}
         >
           {categoryArray.length > 0 &&
             categoryArray?.map((item) => (
               <Col
-                xs={6}
-                md={6}
                 style={{
                   border: "1px solid black",
-                  padding: "8px",
+                  padding: "14px 8px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  width: "48%",
-                  borderRadius: "5px", 
+                  width: "25%",
+                  borderRadius: "5px",
                 }}
               >
                 <Image
@@ -149,7 +147,7 @@ const Home = () => {
                   src={item?.image || ""}
                   rounded
                   style={{
-                    width: "64px",
+                    width: "60px",
                     maxHeight: "64px",
                   }}
                 />
