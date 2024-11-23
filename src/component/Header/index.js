@@ -454,7 +454,7 @@ ${
             </Container>
           )}
       </Navbar>
-      <div className="">
+      <div className="main-steps">
         {step && (isCart || isCheckout || isPayment) ? (
           <>
             <div className="step-container" />
