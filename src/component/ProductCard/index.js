@@ -173,13 +173,14 @@ const ProductCard = ({ item }) => {
             <Card.Text
               style={{
                 textAlign: "left",
-                fontSize: "16px",
                 fontWeight: "bold",
+                fontSize: "13px",
                 color: "#000",
               }}
               className="mb-0"
             >
-              <span>₹{item.discount}</span>
+              ₹ {""}
+              <span style={{ fontSize: "20px" }}>{item.discount}</span>
               {process.env.REACT_APP_FLIPASSURED_IMAGE === "yes" ? (
                 <img src={assured} width="60" style={{ marginLeft: "10px" }} />
               ) : (

@@ -272,22 +272,39 @@ const SingleProduct = () => {
                     <span
                       style={{
                         color: "#94969f",
-                        marginLeft: "10px",
-                        textDecoration: "line-through",
+                        marginLeft: "5px",
+                        fontSize: "11px",
                       }}
                     >
                       {" "}
-                      ₹{singleData?.price}{" "}
-                    </span>{" "}
+                      ₹
+                      <span
+                        style={{
+                          color: "#94969f",
+                          textDecoration: "line-through",
+                          fontSize: "16px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {singleData?.price}
+                      </span>
+                    </span>
                     <span
                       style={{
                         fontWeight: 700,
                         marginLeft: "10px",
-                        fontSize: "24px",
+                        fontSize: "15px",
                       }}
                     >
-                      {" "}
-                      ₹{singleData.discount}
+                      ₹{" "}
+                      <span
+                        style={{
+                          fontWeight: 700,
+                          fontSize: "24px",
+                        }}
+                      >
+                        {singleData.discount}
+                      </span>
                     </span>
                   </p>
                 ) : (
@@ -579,23 +596,40 @@ const SingleProduct = () => {
                         <span
                           style={{
                             color: "#000",
-                            marginRight: "5px",
-                            textDecoration: "line-through",
-                            fontWeight: "bold",
+                            fontSize: "11px",
                           }}
                         >
                           {" "}
-                          ₹{singleData?.price}{" "}
+                          ₹
+                          <span
+                            style={{
+                              color: "#000",
+                              textDecoration: "line-through",
+                              fontSize: "16px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {singleData?.price}
+                          </span>
                         </span>
                         <span
                           style={{
                             fontWeight: 700,
                             color: "white",
-                            fontSize: "25px",
+                            fontSize: "15px",
+                            marginLeft: "5px",
                           }}
                         >
-                          {" "}
-                          ₹{singleData.discount.toFixed(0)}{" "}
+                          ₹{" "}
+                          <span
+                            style={{
+                              fontWeight: 700,
+                              color: "white",
+                              fontSize: "25px",
+                            }}
+                          >
+                            {singleData.discount.toFixed(0)}
+                          </span>{" "}
                         </span>
                         <span
                           style={{

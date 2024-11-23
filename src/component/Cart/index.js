@@ -24,7 +24,7 @@ const Cart = () => {
     setSelectedProduct,
     setStep,
     themColor,
-    totalExtraDiscount
+    totalExtraDiscount,
   } = useAuth();
   const [showOffCanvas, setShowOffCanvas] = useState({
     show: false,
@@ -80,14 +80,16 @@ const Cart = () => {
                 >
                   Your cart is empty
                 </h2>
-                <div className="Footer__Content Rte">Let's go Buy Somthing!</div>
+                <div className="Footer__Content Rte">
+                  Let's go Buy Somthing!
+                </div>
                 <Button
                   variant="dark"
                   className="btn my-3 primary d-flex justify-content-center align-items-center ripple animated"
                   style={{
                     padding: "10px 20px",
                     background: "var(--them-color)",
-                    borderColor: "var(--them-color)"
+                    borderColor: "var(--them-color)",
                   }}
                   onClick={(e) => {
                     e?.target?.classList?.add("bounceIn");
@@ -137,13 +139,8 @@ const Cart = () => {
               <span className="ms-2">{`${selectedProduct?.length || 0}/${
                 cartProducts?.length || 0
               } ITEMS SELECTED`}</span>
-              <span
-                style={{
-                  color: "#ff4e4e",
-                  marginLeft: "5px",
-                }}
-              >
-                ₹{totalPrice}
+              <span style={{ fontSize: "10px" }}>
+                &nbsp; ₹ <span style={{ fontSize: "14px" }}>{totalPrice}</span>
               </span>
             </Col>
           </Row>
@@ -211,7 +208,7 @@ const Cart = () => {
                       height: "100%",
                       minWidth: "100%",
                       borderRadius: "6px",
-                      objectFit:"contain"
+                      objectFit: "contain",
                     }}
                   />
                 </div>
@@ -304,8 +301,11 @@ const Cart = () => {
                   {item?.price &&
                     (item?.discount ? (
                       <Card.Text style={{ textAlign: "left" }} className="mb-0">
-                        <span style={{ fontWeight: 700 }}>
-                          ₹{item?.discount}
+                        <span style={{ fontWeight: 700, fontSize: "14px" }}>
+                          ₹{" "}
+                          <span style={{ fontWeight: 700, fontSize: "20px" }}>
+                            {item?.discount}
+                          </span>
                         </span>
                         <span
                           style={{
@@ -319,10 +319,19 @@ const Cart = () => {
                           style={{
                             color: "#8d8d8d",
                             marginLeft: "5px",
-                            textDecoration: "line-through",
+
+                            fontSize: "11px",
                           }}
                         >
-                          ₹{item.price}
+                          ₹
+                          <span
+                            style={{
+                              textDecoration: "line-through",
+                              fontSize: "16px",
+                            }}
+                          >
+                            {item?.price}
+                          </span>
                         </span>
                         <span
                           style={{
@@ -391,9 +400,8 @@ const Cart = () => {
                 <div className="d-flex flex-row justify-content-between align-items-center ">
                   <span>Total MRP</span>
                   <span className="ms-2">
-                    <span>
-                      <span className="">₹</span>
-                      {totalMRP}
+                    <span style={{ fontSize: "12px" }}>
+                      ₹ <span style={{ fontSize: "18px" }}>{totalMRP}</span>
                     </span>
                   </span>
                 </div>
@@ -401,44 +409,51 @@ const Cart = () => {
                   <div className="d-flex flex-row justify-content-between align-items-center mt-2">
                     <span>Discount on MRP</span>
                     <span className="ms-2 text-success">
-                      <span>
-                        - <span className="">₹</span>
-                        {totalDiscount}
+                      <span style={{ fontSize: "12px" }}>
+                        - ₹{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {totalDiscount}
+                        </span>
                       </span>
                     </span>
                   </div>
                 ) : (
                   ""
                 )}
-                {(totalExtraDiscount && process.env.REACT_APP_COUPON_APPLY == 'true') ? (
-                    <>
+                {totalExtraDiscount &&
+                process.env.REACT_APP_COUPON_APPLY == "true" ? (
+                  <>
                     <div className="d-flex flex-row justify-content-between align-items-center mt-2 border-top pt-2">
-                    <span>Total Price</span>
-                    <span className="ms-2">
-                      <span>
-                        <span className="">₹</span>
-                        {totalMRP - totalDiscount}
+                      <span>Total Price</span>
+                      <span className="ms-2">
+                        <span style={{ fontSize: "12px" }}>
+                          ₹{" "}
+                          <span style={{ fontSize: "20px" }}>
+                            {totalMRP - totalDiscount}
+                          </span>
+                        </span>
                       </span>
-                    </span>
-                  </div>
-                  <div className="d-flex flex-row justify-content-between align-items-center mt-2 ">
-                    <span>Coupon Applied (Buy 2 Get 1 free)</span>
-                    <span className="ms-2 text-success">
-                      <span>
-                        -<span className="">₹</span>
-                        {totalExtraDiscount}
+                    </div>
+                    <div className="d-flex flex-row justify-content-between align-items-center mt-2 ">
+                      <span>Coupon Applied (Buy 2 Get 1 free)</span>
+                      <span className="ms-2 text-success">
+                        <span style={{ fontSize: "12px" }}>
+                          - ₹{" "}
+                          <span style={{ fontSize: "20px" }}>
+                            {totalExtraDiscount}
+                          </span>
+                        </span>
                       </span>
-                    </span>
-                  </div>
+                    </div>
                   </>
-                  ) : ("")
-                }
-                <div className="d-flex flex-row justify-content-between align-items-center mt-2 fw-bold border-top pt-3">
+                ) : (
+                  ""
+                )}
+                <div className="d-flex flex-row justify-content-between align-items-center mt-2 fw-bold border-top py-2">
                   <span>Total Amount</span>
                   <span className="ms-2">
-                    <span>
-                      <span className="">₹</span>
-                      {totalPrice}
+                    <span style={{ fontSize: "12px" }}>
+                      ₹ <span style={{ fontSize: "20px" }}>{totalPrice}</span>
                     </span>
                   </span>
                 </div>
@@ -627,8 +642,8 @@ const Cart = () => {
             style={{
               width: "100%",
               padding: "10px",
-                background: "var(--them-color)",
-                borderColor: "var(--them-color)",
+              background: "var(--them-color)",
+              borderColor: "var(--them-color)",
             }}
             disabled={selectedProduct?.length === 0}
             onClick={(e) => {

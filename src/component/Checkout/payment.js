@@ -12,7 +12,6 @@ import Countdown from "react-countdown";
 import OfferCountdown from "../Header/OfferCountdown";
 import { Modal } from "react-bootstrap";
 import { QRCodeCanvas } from "qrcode.react";
-import { isAndroid, isIOS } from "react-device-detect";
 import html2canvas from "html2canvas";
 import { ReactComponent as CodIcon } from "../../assets/image/cod-icon.svg";
 import { ReactComponent as PaytmIcon } from "../../assets/image/paytm-icon.svg";
@@ -182,18 +181,21 @@ const Payment = () => {
   };
 
   const payment_option = [
-    process.env.REACT_APP_GPAY != "" && {
-      name: "Google Pay",
-      icon: <GPayIcon />,
-    },
-    {
-      name: "Phone Pay",
-      icon: <PhonePayIcon />,
-    },
-    {
-      name: "Paytm",
-      icon: <PaytmIcon />,
-    },
+    process.env.REACT_APP_GPAY != "" &&
+      process.env.REACT_APP_GPAY && {
+        name: "Google Pay",
+        icon: <GPayIcon />,
+      },
+    process.env.REACT_APP_PHONE_PAY != "" &&
+      process.env.REACT_APP_PHONE_PAY && {
+        name: "Phone Pay",
+        icon: <PhonePayIcon />,
+      },
+    process.env.REACT_APP_PAYTM != "" &&
+      process.env.REACT_APP_PAYTM && {
+        name: "Paytm",
+        icon: <PaytmIcon />,
+      },
     process.env.REACT_APP_COD === "yes" && {
       name: "COD",
       icon: <CodIcon />,
@@ -435,9 +437,8 @@ const Payment = () => {
                 <div className="d-flex flex-row justify-content-between align-items-center ">
                   <span>Total MRP</span>
                   <span className="ms-2">
-                    <span>
-                      <span className="">₹</span>
-                      {totalMRP}
+                    <span style={{ fontSize: "12px" }}>
+                      ₹ <span style={{ fontSize: "20px" }}>{totalMRP}</span>
                     </span>
                   </span>
                 </div>
@@ -445,9 +446,11 @@ const Payment = () => {
                   <div className="d-flex flex-row justify-content-between align-items-center mt-2">
                     <span>Discount on MRP</span>
                     <span className="ms-2 text-success">
-                      <span>
-                        - <span className="">₹</span>
-                        {totalDiscount}
+                      <span style={{ fontSize: "12px" }}>
+                        - ₹{" "}
+                        <span style={{ fontSize: "20px" }}>
+                          {totalDiscount}
+                        </span>
                       </span>
                     </span>
                   </div>
@@ -460,18 +463,22 @@ const Payment = () => {
                     <div className="d-flex flex-row justify-content-between align-items-center mt-2 border-top pt-2">
                       <span>Total Price</span>
                       <span className="ms-2">
-                        <span>
-                          <span className="">₹</span>
-                          {totalMRP - totalDiscount}
+                        <span style={{ fontSize: "12px" }}>
+                          ₹{" "}
+                          <span style={{ fontSize: "20px" }}>
+                            {totalMRP - totalDiscount}
+                          </span>
                         </span>
                       </span>
                     </div>
                     <div className="d-flex flex-row justify-content-between align-items-center mt-2 ">
                       <span>Coupon Applied (Buy 2 Get 1 free)</span>
                       <span className="ms-2 text-success">
-                        <span>
-                          -<span className="">₹</span>
-                          {totalExtraDiscount}
+                        <span style={{ fontSize: "12px" }}>
+                          - ₹{" "}
+                          <span style={{ fontSize: "20px" }}>
+                            {totalExtraDiscount}
+                          </span>
                         </span>
                       </span>
                     </div>
@@ -482,9 +489,8 @@ const Payment = () => {
                 <div className="d-flex flex-row justify-content-between align-items-center mt-2 fw-bold border-top pt-3">
                   <span>Total Amount</span>
                   <span className="ms-2">
-                    <span>
-                      <span className="">₹</span>
-                      {totalPrice}
+                    <span style={{ fontSize: "12px" }}>
+                      ₹ <span style={{ fontSize: "20px" }}>{totalPrice}</span>
                     </span>
                   </span>
                 </div>
@@ -507,7 +513,8 @@ const Payment = () => {
           }}
         >
           <h6 className="mb-0" style={{ fontWeight: "bold", fontSize: "22px" }}>
-            ₹{totalPrice}
+            <span style={{ fontWeight: "bold", fontSize: "15px" }}>₹ </span>
+            {totalPrice}
           </h6>
           <a
             href="#product_details"
