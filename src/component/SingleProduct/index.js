@@ -297,7 +297,7 @@ const SingleProduct = () => {
                 ))}
             </div>
             <div
-              className="container-fluid p-3 card"
+              className="container-fluid p-3 pt-2 pb-2 card border-0"
               style={{ textAlign: "center" }}
             >
               <h4 className="m-0">
@@ -317,10 +317,7 @@ const SingleProduct = () => {
             </div>
 
             {process.env.REACT_APP_FLIPASSURED_IMAGE === "yes" ? (
-              <div
-                className="container-fluid p-3 mb-1 card"
-                style={{ marginTop: "5px" }}
-              >
+              <div className="container-fluid p-2 card border-0">
                 <img src={Offer} />
               </div>
             ) : (
@@ -329,7 +326,7 @@ const SingleProduct = () => {
 
             {process.env.REACT_APP_FLIPASSURED_IMAGE === "yes" ? (
               <div
-                className="container-fluid px-2 py-3 d-flex feature-container product-extra card"
+                className="container-fluid px-0 py-3 d-flex feature-container product-extra card border-0"
                 style={{ flexDirection: "row" }}
               >
                 <div className="col-4 featured-item d-flex align-items-center flex-column bd-highlight px-1">
@@ -651,7 +648,7 @@ const SingleProduct = () => {
               <Row
                 xs={2}
                 md={2}
-                className="g-3 mt-2 d-flex flex-row flex-nowrap overflow-x-auto overflow-y-hidden category-box"
+                className="g-0 mt-2 d-flex flex-row flex-nowrap overflow-x-auto overflow-y-hidden category-box"
               >
                 {reletedProduct.map(
                   (item) => item._id != id && <ProductCard item={item} />

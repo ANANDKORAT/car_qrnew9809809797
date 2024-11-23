@@ -115,7 +115,7 @@ const Checkout = () => {
 
   return (
     <Container
-      className="p-0 pt-3 position-relative d-flex flex-column justify-content-between"
+      className="p-0 position-relative d-flex flex-column justify-content-between"
       style={{ background: "#f2f2f3" }}
     >
       {!hideAddress ? (
@@ -131,8 +131,8 @@ const Checkout = () => {
               <Form>
                 <Row className="g-2 ms-0 me-0">
                   <h6
-                    className="card-title px-4 text-start fw-bold mb-2"
-                    style={{ fontSize: "12px" }}
+                    className="card-title px-4 text-start fw-bold pt-3 pb-1"
+                    style={{ fontSize: "11px" }}
                   >
                     CONTACT DETAILS
                   </h6>
@@ -313,8 +313,11 @@ const Checkout = () => {
               CHANGE OR ADD ADDRESS
             </Button>
           </div>
-          <div className="mt-4 px-4">
-            <h6 className="card-title text-start fw-bold">
+          <div className="">
+            <h6
+              className="card-title text-start fw-bold px-3"
+              style={{ background: "#fff" }}
+            >
               DELIVERY ESTIMATES
             </h6>
             {selectedProduct?.map((item) => (

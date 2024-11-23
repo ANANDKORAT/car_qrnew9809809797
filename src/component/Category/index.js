@@ -105,7 +105,7 @@ const CategoryPage = () => {
                 </Row>
             }
         >
-            <Row xs={2} md={2} className="g-0 mt-2">
+            <Row xs={2} md={2} className="g-0 mt-2 mx-3">
                 {isLoader && productsArray.length === 0 ? (
                     <>
                         <Col>

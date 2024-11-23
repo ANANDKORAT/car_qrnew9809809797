@@ -2,18 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Col, Card, Button, CardSubtitle } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
-import './index.css'
+import "./index.css";
 import assured from "../../assets/assuredflipcart.jpg";
-
 
 const ProductCard = ({ item }) => {
   const navigate = useNavigate();
   const containerRef = useRef(null);
-  const { whiteListProducts, handleSetWhiteListProducts, setSingleProduct } = useAuth();
+  const { whiteListProducts, handleSetWhiteListProducts, setSingleProduct } =
+    useAuth();
   const [imageWidth, setImageWidth] = useState(null);
   const [imageHeight, setImageHeight] = useState(null);
   const [randomRatingCount, setRandomRatingCount] = useState(0);
-
 
   useEffect(() => {
     const img = new Image();
@@ -34,8 +33,8 @@ const ProductCard = ({ item }) => {
 
   useEffect(() => {
     const generateRandomRating = () => {
-      const min = 100; 
-      const max = 5000; 
+      const min = 100;
+      const max = 5000;
       return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
@@ -44,36 +43,34 @@ const ProductCard = ({ item }) => {
 
   if (imageWidth && imageHeight) {
     const aspectRatio = imageWidth / imageHeight;
-    let splitValue = aspectRatio.toString().split('.');
+    let splitValue = aspectRatio.toString().split(".");
     if (splitValue && splitValue.length > 0) {
       if (splitValue.length > 1) {
-        splitValue = `${splitValue[0]}.${splitValue[1].charAt(0)}`
+        splitValue = `${splitValue[0]}.${splitValue[1].charAt(0)}`;
       } else {
-        splitValue = splitValue[0]
+        splitValue = splitValue[0];
       }
     }
     splitValue = +splitValue;
 
-    if (splitValue > 1) { // Landscape image
+    if (splitValue > 1) {
+      // Landscape image
       imageStyle.height = "auto"; // Maintain aspect ratio
-    } else { // Portrait or square image
+    } else {
+      // Portrait or square image
       if (splitValue <= 1 && splitValue >= 0.8 && window.innerWidth < 455) {
-        imageStyle.height = 'auto';
-        imageStyle.width = '100%';
+        imageStyle.height = "auto";
+        imageStyle.width = "100%";
       } else {
-        imageStyle.height = '100%';
-        imageStyle.width = 'auto';
+        imageStyle.height = "100%";
+        imageStyle.width = "auto";
       }
     }
   }
 
-
   return (
     <>
-      <Col
-        key={item._id}
-        style={{ maxHeight: "400px" }}
-      >
+      <Col key={item._id} style={{ maxHeight: "400px", padding: "0px" }}>
         <Card
           style={{ height: "100%", borderRadius: 2 }}
           onClick={() => {
@@ -81,10 +78,22 @@ const ProductCard = ({ item }) => {
             handleRedirect(item._id);
           }}
         >
-          <div className="position-relative" style={{ height: 'calc(100% - 170px)', textAlign: 'center', display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center' }} ref={containerRef}>
-            <Card.Img variant="top" src={item?.images[0] ?? ""} style={imageStyle} />
+          <div
+            className="position-relative"
+            style={{
+              height: "calc(100% - 170px)",
+              textAlign: "center",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            ref={containerRef}
+          >
+            <Card.Img
+              variant="top"
+              src={item?.images[0] ?? ""}
+              style={imageStyle}
+            />
           </div>
           <Card.Body className="p-2 pb-0">
             <div className="d-flex justify-content-between align-items-center">
@@ -93,7 +102,7 @@ const ProductCard = ({ item }) => {
                   textAlign: "left",
                   color: "#262626",
                   fontWeight: "500",
-                  fontSize: "14px"
+                  fontSize: "14px",
                 }}
                 className="mb-0 text-ellips"
               >
@@ -114,7 +123,10 @@ const ProductCard = ({ item }) => {
                       fill="none"
                       fillRule="evenodd"
                     >
-                      <g fill="#ed143d" transform="translate(1.000000, 2.000000)">
+                      <g
+                        fill="#ed143d"
+                        transform="translate(1.000000, 2.000000)"
+                      >
                         <path d="M11.02835,19.276575 L10.972,19.276575 C10.6304,19.276575 10.2965,19.137625 10.05605,18.895075 L2.71865,11.513925 C1.53495,10.323225 0.88325,8.735275 0.88325,7.042675 C0.88325,5.350075 1.53495,3.762475 2.71865,2.571775 C3.9034,1.379675 5.48435,0.723425 7.1703,0.723425 C8.5759,0.723425 9.90905,1.179825 11,2.022625 C12.0913,1.179825 13.4241,0.723425 14.8297,0.723425 C16.516,0.723425 18.09695,1.379675 19.2817,2.572125 C20.46505,3.762475 21.11675,5.350075 21.11675,7.042675 C21.11675,8.735625 20.46505,10.323225 19.2817,11.513925 L11.94325,18.895775 C11.6993,19.141475 11.3745,19.276575 11.02835,19.276575 L11.02835,19.276575 Z"></path>
                       </g>
                     </g>
@@ -136,7 +148,14 @@ const ProductCard = ({ item }) => {
               </div>
             </div>
             <Card.Text className="mb-0" style={{ lineHeight: "18px" }}>
-              <span style={{ color: "#388e3c", fontSize: "14px", fontWeight: "500", marginTop: "2px" }}>{`${(
+              <span
+                style={{
+                  color: "#388e3c",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  marginTop: "2px",
+                }}
+              >{`${(
                 ((item?.price - item.discount) / item?.price) *
                 100
               ).toFixed(0)}% OFF`}</span>
@@ -156,20 +175,23 @@ const ProductCard = ({ item }) => {
                 textAlign: "left",
                 fontSize: "16px",
                 fontWeight: "bold",
-                color: "#000"
+                color: "#000",
               }}
               className="mb-0"
             >
               <span>₹{item.discount}</span>
-              {(process.env.REACT_APP_FLIPASSURED_IMAGE === "yes") ? (<img src={assured} width="60" style={{ marginLeft: "10px" }} />) : ""}
-              
+              {process.env.REACT_APP_FLIPASSURED_IMAGE === "yes" ? (
+                <img src={assured} width="60" style={{ marginLeft: "10px" }} />
+              ) : (
+                ""
+              )}
             </Card.Text>
             <Card.Text className="mb-0">
               <span className="rating_box_des">
                 {item.rating}
                 <i className="fa-solid fa-star" color="red"></i>
               </span>
-              <span className="rating_num">{randomRatingCount}  Ratings</span>
+              <span className="rating_num">{randomRatingCount} Ratings</span>
             </Card.Text>
             <Card.Text>
               <div className="delivery-txt">Limited time deal</div>
@@ -181,7 +203,7 @@ const ProductCard = ({ item }) => {
               variant="dark"
               style={{
                 backgroundColor: "#fb641b",
-                border: "none"
+                border: "none",
               }}
             >
               Add To Cart
