@@ -43,7 +43,6 @@ const OrderTracking = () => {
   };
 
   useEffect(() => {
-
     let countdownInterval;
     if (isCountdownActive && timer > 0) {
       countdownInterval = setInterval(() => {
@@ -66,7 +65,6 @@ const OrderTracking = () => {
   };
 
   const payoneLogic = async (utrNumber, domain, amount, setFieldError) => {
-    
     setIsLoading(true);
     try {
       const { data } = await axios.post(
@@ -89,7 +87,9 @@ const OrderTracking = () => {
             "UTR matched, but the amount does not match."
           );
           setIsRecheck(true);
-         
+          setIsCountdownActive(true);
+          setTimer(180);
+          setUtrNumberState("");
         },
         3: () => {
           setFieldError(
@@ -97,17 +97,14 @@ const OrderTracking = () => {
             "Payment has already been completed for this UTR"
           );
           setIsRecheck(true);
-         
+          setIsCountdownActive(true);
+          setTimer(180);
         },
         4: () => {
-          timer <= 1 ?
-            setFieldError(
-              "utrNumber",
-              "UTR does not match any record. Domain could not be updated"
-            )
-            
-            : setFieldError("");
-          
+          setFieldError(
+            "utrNumber",
+            "UTR does not match any record. Domain could not be updated"
+          );
         },
       };
 
@@ -123,7 +120,6 @@ const OrderTracking = () => {
       }
 
       if (data.status === "pending") {
-        setIsCountdownActive(true);
         setIsPendingPolling(true);
         setTimeout(() => {
           payoneLogic(utrNumber, domain, amount, setFieldError);
@@ -140,8 +136,9 @@ const OrderTracking = () => {
     const newOrderId = getOrderIDForUTR(values.utrNumber);
     setOrderId(newOrderId);
     localStorage.setItem("utrNumber", values.utrNumber);
-    payoneLogic(values.utrNumber, domain, values.amount, setFieldError).finally(() => {
+    payoneLogic(values.utrNumber, domain, amount, setFieldError).finally(() => {
       setSubmitting(false);
+      setIsCountdownActive(true);
     });
   };
 
