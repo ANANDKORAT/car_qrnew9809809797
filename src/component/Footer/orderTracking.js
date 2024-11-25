@@ -23,6 +23,7 @@ const OrderTracking = () => {
   const [isCountdownActive, setIsCountdownActive] = useState(false);
   const [timer, setTimer] = useState(180);
   const [message, setMessage] = useState("");
+  const abortControllerRef = useRef(null); // Ref for AbortController
 
   const generateOrderID = () => {
     const min = 1000000000;
@@ -64,16 +65,25 @@ const OrderTracking = () => {
     return `${minutes}:${seconds}`;
   };
 
-  const payoneLogic = async (utrNumber, domain, amount, setFieldError) => {
+  const imagesData = [
+    { src: utr1, alt: "utr1" },
+    { src: utr2, alt: "utr2" },
+    { src: utr3, alt: "utr3" },
+  ];
+
+  const payoneLogic = async (
+    utrNumber,
+    domain,
+    amount,
+    setFieldError,
+    signal
+  ) => {
     setIsLoading(true);
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_PAYMENT_API}`,
-        {
-          utrNumber,
-          domain,
-          amount,
-        }
+        { utrNumber, domain, amount },
+        { signal } // Pass the signal for request cancellation
       );
 
       const statusMessages = {
@@ -122,35 +132,49 @@ const OrderTracking = () => {
       if (data.status === "pending") {
         setIsPendingPolling(true);
         setTimeout(() => {
-          payoneLogic(utrNumber, domain, amount, setFieldError);
+          payoneLogic(utrNumber, domain, amount, setFieldError, signal);
         }, 20000);
       }
     } catch (err) {
-      console.error("Error:", err);
+      if (axios.isCancel(err)) {
+        console.log("Request canceled:", err.message);
+      } else {
+        console.error("Error:", err);
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleSubmit = (values, { setSubmitting, setFieldError }) => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort(); // Abort previous request if any
+    }
+    const abortController = new AbortController();
+    abortControllerRef.current = abortController;
+
     const newOrderId = getOrderIDForUTR(values.utrNumber);
     setOrderId(newOrderId);
     localStorage.setItem("utrNumber", values.utrNumber);
-    payoneLogic(values.utrNumber, domain, amount, setFieldError).finally(() => {
+
+    payoneLogic(
+      values.utrNumber,
+      domain,
+      amount,
+      setFieldError,
+      abortController.signal
+    ).finally(() => {
       setSubmitting(false);
       setIsCountdownActive(true);
     });
   };
 
-  const imagesData = [
-    { src: utr1, alt: "utr1" },
-    { src: utr2, alt: "utr2" },
-    { src: utr3, alt: "utr3" },
-  ];
-
   useEffect(() => {
     return () => {
-      clearInterval(pollingInterval.current);
+      // Cleanup: Abort ongoing requests when component unmounts
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
     };
   }, []);
 
