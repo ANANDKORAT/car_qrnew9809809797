@@ -200,7 +200,7 @@ const Home = () => {
           )}
         </Row>
 
-        <Row className="mt-1">
+        <Row className="">
           <div>
             <img src={animaionImageHOme} className="w-100 mb-2" />
           </div>
