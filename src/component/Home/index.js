@@ -122,82 +122,85 @@ const Home = () => {
     <div className="category_block">
       <Container>
         <Row className="d-flex align-items-center justify-content-around m-0">
-          {categoryArray.length === 6 ? (
-            <>
-              {/* First row with 3 images */}
-              <Row className="d-flex justify-content-center">
-                {categoryArray.slice(0, 3).map((item) => (
-                  <Col
-                    key={item._id}
-                    xs={4} // 3 columns in a row
-                    className="d-flex align-items-center justify-content-center"
-                  >
-                    <Image
-                      onClick={() => navigate(`/category/${item._id}`)}
-                      src={item?.image || ""}
-                      alt={item?.name || "Category"}
-                      rounded
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        border: "1px solid black",
-                      }}
-                    />
-                  </Col>
-                ))}
-              </Row>
-
-              {/* Second row with 3 images */}
-              <Row className="d-flex justify-content-center mt-2">
-                {categoryArray.slice(3, 6).map((item) => (
-                  <Col
-                    key={item._id}
-                    xs={4} // 3 columns in a row
-                    className="d-flex align-items-center justify-content-center"
-                  >
-                    <Image
-                      onClick={() => navigate(`/category/${item._id}`)}
-                      src={item?.image || ""}
-                      alt={item?.name || "Category"}
-                      rounded
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        border: "1px solid black",
-                      }}
-                    />
-                  </Col>
-                ))}
-              </Row>
-            </>
-          ) : (
-            // For images less than 4, display them in one row without gaps
-            <Row className="d-flex justify-content-center p-0">
-              {categoryArray.map((item) => (
-                <Col
-                  key={item._id}
-                  xs={12 / categoryArray.length} // Dynamic width based on the number of images
-                  className="d-flex align-items-center justify-content-center"
-                  style={{ padding: "2px" }}
-                >
-                  <Image
-                    onClick={() => navigate(`/category/${item._id}`)}
-                    src={item?.image || ""}
-                    alt={item?.name || "Category"}
-                    rounded
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      border: "1px solid black",
-                    }}
-                  />
-                </Col>
-              ))}
+          {categoryArray.length > 1 && (
+            <Row className="d-flex align-items-center justify-content-around mb-2">
+              {categoryArray.length === 6 ? (
+                <>
+                  {/* First row with 3 images */}
+                  <Row className="d-flex justify-content-center">
+                    {categoryArray.slice(0, 3).map((item) => (
+                      <Col
+                        key={item._id}
+                        xs={4} // 3 columns in a row
+                        className="d-flex align-items-center justify-content-center"
+                      >
+                        <Image
+                          onClick={() => navigate(`/category/${item._id}`)}
+                          src={item?.image || ""}
+                          alt={item?.name || "Category"}
+                          rounded
+                          style={{
+                            width: "100%",
+                            height: "auto",
+                            border: "1px solid black",
+                          }}
+                        />
+                      </Col>
+                    ))}
+                  </Row>
+                  {/* Second row with 3 images */}
+                  <Row className="d-flex justify-content-center mt-2">
+                    {categoryArray.slice(3, 6).map((item) => (
+                      <Col
+                        key={item._id}
+                        xs={4} // 3 columns in a row
+                        className="d-flex align-items-center justify-content-center"
+                      >
+                        <Image
+                          onClick={() => navigate(`/category/${item._id}`)}
+                          src={item?.image || ""}
+                          alt={item?.name || "Category"}
+                          rounded
+                          style={{
+                            width: "100%",
+                            height: "auto",
+                            border: "1px solid black",
+                          }}
+                        />
+                      </Col>
+                    ))}
+                  </Row>
+                </>
+              ) : (
+                // For images less than 4, display them in one row without gaps
+                <Row className="d-flex justify-content-center p-0">
+                  {categoryArray.map((item) => (
+                    <Col
+                      key={item._id}
+                      xs={12 / categoryArray.length} // Dynamic width based on the number of images
+                      className="d-flex align-items-center justify-content-center"
+                      style={{ padding: "2px" }}
+                    >
+                      <Image
+                        onClick={() => navigate(`/category/${item._id}`)}
+                        src={item?.image || ""}
+                        alt={item?.name || "Category"}
+                        rounded
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          border: "1px solid black",
+                        }}
+                      />
+                    </Col>
+                  ))}
+                </Row>
+              )}
             </Row>
           )}
         </Row>
 
-        <Row>
+        <Row className="mt-1">
           <div>
             <img src={animaionImageHOme} className="w-100 mb-2" />
           </div>

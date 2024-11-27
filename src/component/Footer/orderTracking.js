@@ -111,10 +111,7 @@ const OrderTracking = () => {
           setTimer(180);
         },
         4: () => {
-          setFieldError(
-            "utrNumber",
-            "UTR does not match any record. Domain could not be updated"
-          );
+          setFieldError("utrNumber", "UTR does not match any record.");
         },
       };
 
