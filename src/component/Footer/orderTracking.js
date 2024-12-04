@@ -81,7 +81,7 @@ const OrderTracking = () => {
     setIsLoading(true);
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_PAYMENT_API}`,
+        `${process.env.REACT_APP_PAYMENT_API}/api/utrmessages/compare`,
         { utrNumber, domain, amount },
         { signal } // Pass the signal for request cancellation
       );
