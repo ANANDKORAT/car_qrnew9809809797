@@ -41,7 +41,7 @@ const Payment = () => {
   const phonepayupi = process.env.REACT_APP_PHONE_PAY;
   const paytmupi = process.env.REACT_APP_PAYTM;
 
-  const timeoutDuration = selectedPayment === "Google Pay" ? 0 : 10000;
+  const timeoutDuration = 10000;
 
   const browser = Bowser.getParser(window.navigator.userAgent);
   const isChrome = browser.getBrowser().name === "Chrome";
@@ -261,7 +261,7 @@ const Payment = () => {
       });
   };
 
-  return isPaymentPageLoading && selectedPayment !== "Google Pay" ? (
+  return isPaymentPageLoading ? (
     <Container
       className="p-0 pt-3 pb-3 flex-column position-relative d-flex justify-content-center align-items-center"
       style={{ background: "#f2f2f3", height: "250px" }}
@@ -356,15 +356,13 @@ const Payment = () => {
                       <span className="d-flex align-items-center">
                         <span>{item?.icon}</span>
                         <span className="ms-4">{item.name}</span>
-                        {isLoading &&
-                          selectedPayment === item.name &&
-                          selectedPayment !== "Google Pay" && (
-                            <Spinner
-                              variant="secondary"
-                              className="ms-2"
-                              size="sm"
-                            />
-                          )}
+                        {isLoading && selectedPayment === item.name && (
+                          <Spinner
+                            variant="secondary"
+                            className="ms-2"
+                            size="sm"
+                          />
+                        )}
                       </span>
                       {process.env.REACT_APP_COD === "yes" && (
                         <div
