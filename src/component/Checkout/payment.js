@@ -127,7 +127,7 @@ const Payment = () => {
     switch (selectedPayment) {
       case "Google Pay":
         redirect_url =
-          "tez://pay?pa=" +
+          "tez://upi/pay?pa=" +
           gpayupi +
           "&pn=" +
           site_name +
@@ -333,7 +333,7 @@ const Payment = () => {
               <div className="hr-line"></div>
             </div>
 
-            <div className="">
+            <div>
               <Row className="g-2 m-0 p-2" id="payment_options">
                 {/* Filter options based on the platform */}
                 {payment_option_show.map((item) => (
@@ -420,7 +420,7 @@ const Payment = () => {
             </Row>
           </div>
         </div>
-        <div className="">
+        <div>
           {selectedProduct?.length && (
             <div className="bg-white px-4 py-4">
               <h6
