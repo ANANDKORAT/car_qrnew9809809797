@@ -3,45 +3,32 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 
 const Shippingpolicy = () => {
+     const hostname = window.location.hostname;
 
     return (
-        <Container id="main" role="main">
-            <div className="{window.location.hostname}-policy__container">
-                <div className="{window.location.hostname}-policy__title">
-                    <h1>Shipping policy </h1>
-                </div>
+    <div className="p-6 max-w-4xl mx-auto bg-white shadow-lg rounded-lg">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">At {hostname}, We Aim to Provide Efficient Delivery Services Across India</h2>
+      <section className="mb-4">
+        <h3 className="text-xl font-medium text-gray-700">Delivery Timeframe</h3>
+        <p className="text-gray-600">
+          All items purchased from our store are shipped across India and are typically delivered within 🚛 3 to 7 days from the order placement date and time.
+        </p>
+      </section>
 
-                <div className="{window.location.hostname}-policy__body">
-                    <div className="rte">
-                        <div style={{textalign: 'center'}}><strong><span>Shipping  Delivery Policy</span></strong></div>
-                        <div data-mce-fragment="1" style={{textalign: 'center'}}><span data-mce-fragment="1">We ship the orders on the next working day. In any case we will ship your order within 48 hours.</span>
-                        </div>
-                        <div data-mce-fragment="1" style={{textalign: 'center'}}><span data-mce-fragment="1">For Customer living in Metros and Tier-1 cities products will get delivered within 2 working days, and for the rest of India they make take up-to<strong> 4- 7 working days.</strong></span>
-                        </div>
-                        <div data-mce-fragment="1" style={{textalign: 'center'}}><span data-mce-fragment="1">Delivery of products is however, limited to certain pin-code/locations. For more information on delivery locations of products, you can use the ‘Check Delivery’ option on product page.</span>
-                        </div>
-                        <div data-mce-fragment="1" style={{textalign: 'center'}}><span data-mce-fragment="1">You will get updated status of shipment at its each stage from order is placed to, processes to, ready to ship to, dispatch to deliver. You can track your orders through; My Account -&gt; Orders.</span>
-                        </div>
-                        <div data-mce-fragment="1" style={{textalign: 'center'}}><span data-mce-fragment="1">Please note our shipping policy as follows:</span>
-                        </div>
-                        <div data-mce-fragment="1" style={{textalign: 'center'}}><span data-mce-fragment="1">However in some cases, we may take longer, up to <strong>3 working days</strong>, to ship the order.</span>
-                        </div>
-                        <div data-mce-fragment="1" style={{textalign: 'center'}}><span data-mce-fragment="1">We ship on all week days (Monday to Saturday), excluding Sunday &amp; public holidays.</span>
-                        </div>
-                        <div data-mce-fragment="1" style={{textalign: 'center'}}><span data-mce-fragment="1">To ensure that your order reaches you in the fastest time and in good condition, we only ship through reputed courier agencies.</span>
-                        </div>
-                        <div data-mce-fragment="1" style={{textalign: 'center'}}><span data-mce-fragment="1">While we strive hard to deliver on time, due to the load with the couriers, estimate a delay of 0-2 days.</span>
-                        </div>
-                        <div data-mce-fragment="1" style={{textalign: 'center'}}><span data-mce-fragment="1">While we shall endeavor to ship all items in your order together, this may not always be possible due to product characteristics, or availability.</span>
-                        </div>
-                        <div data-mce-fragment="1" style={{textalign: 'center'}}><span data-mce-fragment="1">Please note all items will be shipped with an invoice mentioning the price, as per Indian Tax Regulations.</span>
-                        </div>
-                        <div data-mce-fragment="1" style={{textalign: 'center'}}><span data-mce-fragment="1">We Are not liable for any delay in delivery by the courier company / postal authorities and only guarantees to hand over the consignment to the courier company or postal authorities within<strong> 3 working days</strong> from the date of the order and payment or as per the delivery date agreed at the time of order confirmation.</span>
-                        </div>
+      <section className="mb-4">
+        <h3 className="text-xl font-medium text-gray-700">Possible Delays</h3>
+        <p className="text-gray-600">
+          While we strive to ensure timely delivery, please understand that occasional delays may occur due to unforeseen circumstances beyond our control. We appreciate your patience and understanding in such situations.
+        </p>
+      </section>
 
-
-                    </div>
-                </div>
+      <section>
+        <h3 className="text-xl font-medium text-gray-700">Contact Us</h3>
+        <p className="text-gray-600">
+          If you have any questions or require assistance regarding your order or delivery, please don't hesitate to reach out to us at <a href={`mailto:support@${hostname}`} className="text-blue-600">support@{hostname}</a>. Our dedicated customer support team is here to help.
+        </p>
+      </section>
+    </div>
                 <div className="text-center">
                     <h3 style={{fontSize: '18px', fontWeight: 700, color: '#727272', textAlign: 'center'}}>Get Our
                         Newsletter</h3>
