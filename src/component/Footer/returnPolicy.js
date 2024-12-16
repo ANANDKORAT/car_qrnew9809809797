@@ -22,7 +22,7 @@ const ReturnPolicy=()=>{
         </li>
       </ul>
       <p className="mb-4">
-        To start a return, you can contact us at: <a href="mailto:support@{window.location.hostname}" className="text-blue-600">support@{window.location.hostname}</a>
+        To start a return, you can contact us at: support@{window.location.hostname}
       </p>
       <h2 className="text-xl font-semibold mb-2">Return Address:</h2>
       <address className="mb-4 not-italic">
@@ -34,8 +34,7 @@ const ReturnPolicy=()=>{
         If your return is accepted, we’ll send you a return shipping label, as well as instructions on how and where to send your package. Items sent back to us without first requesting a return will not be accepted.
       </p>
       <p className="mb-4">
-        You can always contact us for any return questions at: <a href="mailto:support@{window.location.hostname}" className="text-blue-600">support@{window.location.hostname}</a>
-      </p>
+        You can always contact us for any return questions at: support@{window.location.hostname}
       <h2 className="text-xl font-semibold mb-2">Damages and Issues:</h2>
       <p className="mb-4">
         Please inspect your order upon reception and contact us immediately if the item is defective, damaged, or if you receive the wrong item so that we can evaluate the issue and make it right.
@@ -57,7 +56,7 @@ const ReturnPolicy=()=>{
         Please remember it can take some time for your bank or credit card company to process and post the refund.
       </p>
       <p>
-        If more than 5 to 7 business days have passed since we’ve approved your return, please contact us at: <a href="mailto:support@{window.location.hostname}" className="text-blue-600">support@{window.location.hostname}</a>
+        If more than 5 to 7 business days have passed since we’ve approved your return, please contact us at: support@{window.location.hostname}
       </p>
                     </div>                  
  
