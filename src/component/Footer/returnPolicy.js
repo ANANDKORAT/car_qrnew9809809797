@@ -13,20 +13,45 @@ const ReturnPolicy=()=>{
 
             <div className="shopify-policy__body">
                 <div className="rte">
-                    <p><strong>Returns</strong> <br /> Our return policy lasts 7 days. If 7 days have gone by since your order delivery, unfortunately, we can’t offer you a refund or exchange.</p>
-                    <p>No returns and only exchanges will be applicable on all orders purchased during the sale time.</p>
-                    <p>To be eligible for a return, your item must be unused and in the same condition that you received it. It must also be in the original packaging.&nbsp;</p>
-                    <p><span>Wrong product handover in return: Action will be taken on the basis of package opening footage &amp; will be returning the same product we have received. In such cases, the seller will not be liable for any loss &amp; no action will be made if the customer fails to raise the query within 7 days of pickup.<br/></span><br/> </p>
-                   If the product has been collected by the courier partner and is subsequently returned to you due to unexpected circumstances, the courier partner may &nbsp;request you to show a government-issued ID as evidence of the handover.<br/> 
-                    <p>To complete your return, we require a receipt or proof of purchase. <br /> Please do not send your purchase back to the manufacturer. <br /> <br /> There are certain situations where only partial refunds are granted (if applicable) <br/> - Any item not in its original condition, is damaged or missing parts for reasons not due to our error <br/> - Any item that is returned more than 10 days after delivery</p>
-                    <p><strong>Refunds (if applicable)</strong> <br /> Once your return is received and inspected, we will send you an email to notify you that we have received your returned item. We will also notify you of the approval or rejection of your refund. <br/> If it is&nbsp;approved, then your refund will be processed and credited to your Wallet / Source of payment /&nbsp;bank account (for COD only) within 7-10 working days.&nbsp;<br/> <br/> <strong>Late or missing refunds (if applicable)</strong> <br/> If you haven’t received a refund yet, first login in you account again and check.</p>
-                    <p>If you’ve done all of this and you still have not received your refund yet, please contact us at support@{window.location.hostname}. <br /> <br/> <strong>Sale items (if applicable)</strong> <br /> Only regular priced items may be refunded, unfortunately on few item on a conveyed sale day cannot be refunded or returned.&nbsp;<br/> <br/> <strong>Exchanges (if applicable)</strong> <br/> We only replace items if they are defective or damaged or size doesn't fit well. If you need to exchange it for the same item, please login in your account and place an exchange request directly. There is no additional charge for any exchange orders. For new orders of lower price, the balance amount will be refunded as a origin payment .</p>
-                    <p>Exchange of product is subjected to availability of size.</p>
-                    
-                    <p>Shipping costs are non-refundable. If you receive a refund, the cost of return shipping will be deducted from your refund.</p>
-                    <p>Depending on where you live, the time it may take for your exchanged product to reach you, may vary.</p>
-                    <p><strong>Self-Ship<br /></strong>If your Pincode is not in the serviceable area i.e. if our delivery agents are not able to come for pick-up, the customer has to self-ship the product. The shipping charge will be refunded only if the customer provides the&nbsp;Docket Slip.</p>
-                </div>
+                   
+    <h1>Return Policy</h1>
+    
+    <p>We have a <strong>3 days return policy</strong>, which means you have 3 days after receiving your item to request a return.</p>
+    
+    <p>To be eligible for a return, your items must be in the same condition as when you received them: unused, with tags, and in the original packaging. You’ll also need the receipt or proof of purchase.</p>
+    
+    <p><strong>UNBOXING VIDEO IS A MUST TO REQUEST A REPLACEMENT</strong></p>
+    
+    <p>To start a return, you can contact us at <a href="mailto:support@<script>document.write(window.location.hostname);</script>">support@<script>document.write(window.location.hostname);</script></a>.</p>
+
+    <p>Please note that returns will need to be sent to the following address:</p>
+    
+    <pre>
+    RATHOD RAVIBHAI PRAVINBHAI
+    BHATHIJI FALIYU, BHIMTALAV, ANAND, GUJARAT -388620
+    </pre>
+
+    <p>If your return is accepted, we’ll send you a return shipping label, as well as instructions on how and where to send your package. Items sent back to us without first requesting a return will not be accepted.</p>
+
+    <p>You can always contact us for any return questions at <a href="mailto:support@<script>document.write(window.location.hostname);</script>">support@<script>document.write(window.location.hostname);</script></a>.</p>
+
+    <h2>Damages and Issues</h2>
+    
+    <p>Please inspect your order upon receipt and contact us immediately if the item is defective, damaged, or if you receive the wrong item, so that we can evaluate the issue and make it right.</p>
+
+    <h2>Exceptions / Non-returnable Items</h2>
+    
+    <p>Certain types of items cannot be returned, such as bulk orders or offer/discount products.</p>
+
+    <h2>Exchanges</h2>
+    
+    <p>The fastest way to ensure you get what you want is to return the item you have, and once the return is accepted, make a separate purchase for the new item.</p>
+
+    <h2>Refund Policy</h2>
+    
+    <p>We will notify you once we’ve received and inspected your return, and let you know if the refund was approved or not. If approved, you’ll be automatically refunded to your original payment method within 3 business days. Please note that it can take some time for your bank or credit card company to process and post the refund too.</p>
+
+    <p>If more than 5 to 7 business days have passed since we’ve approved your return, please contact us at <a href="mailto:support@<script>document.write(window.location.hostname);</script>">support@<script>document.write(window.location.hostname);</script></a>.</p>
             </div>
             <div className="text-center">
                 <h3 style={{ fontSize: '18px', fontWeight: 700, color:'#727272', textAlign: 'center'}}>Get Our Newsletter</h3>
