@@ -13,31 +13,51 @@ const ReturnPolicy=()=>{
 
             <div className="shopify-policy__body">
                 <div className="rte">
-                     <p><strong>Returns</strong><br /> Our return policy lasts <strong>7 days</strong>. If 7 days have gone by since your order delivery, unfortunately, we can’t offer you a refund or exchange.</p>
-    
-    <p>No returns and only exchanges will be applicable on all orders purchased during the sale time.</p>
-    
-    <p>To be eligible for a return, your item must be unused and in the same condition that you received it. It must also be in the original packaging.</p>
-    
-    <p><span>Wrong product handover in return: Action will be taken on the basis of package opening footage & will be returning the same product we have received. In such cases, the seller will not be liable for any loss & no action will be made if the customer fails to raise the query within 7 days of pickup.</span><br/>Several types of goods are exempt from being returned. Perishable goods such as boxers shorts, sunglasses, leather jackets, and socks cannot be returned.</p>
+                     <p>We have a <strong>3-day return policy</strong>, which means you have 3 days after receiving your item to request a return.</p>
+    <p>To be eligible for a return, your items must meet the following conditions:</p>
+    <ul>
+        <li>Item must be in the damaged condition that you received it.</li>
+        <li>Unused, with tags, and in its original packaging.</li>
+        <li>You must provide the receipt or proof of purchase.</li>
+    </ul>
+    <p><strong>UNBOXING VIDEO IS A MUST TO REQUEST A REPLACEMENT.</strong></p>
 
-    <p>If the product has been collected by the courier partner and is subsequently returned to you due to unexpected circumstances, the courier partner may request you to show a government-issued ID as evidence of the handover.<br/><br/> Additional non-returnable items: <br/> - Gift cards <br/> - Downloadable software products<br/>- For additional products that are not returnable, it is mentioned in the product description.</p>
+    <p>To start a return, you can contact us at <a href="mailto:paper1102@outlook.com">paper1102@outlook.com</a>.</p>
+    <p>Returns should be sent to the following address:</p>
+    <address>
+        RATHOD RAVIBHAI PRAVINBHAI<br>
+        BHATHIJI FALIYU, BHIMTALAV,<br>
+        ANAND, GUJARAT - 388620
+    </address>
 
-    <p>To complete your return, we require a receipt or proof of purchase.<br /> Please do not send your purchase back to the manufacturer.<br/><br /> There are certain situations where only partial refunds are granted (if applicable) <br/> - Any item not in its original condition, is damaged or missing parts for reasons not due to our error <br/> - Any item that is returned more than 10 days after delivery</p>
+    <p>If your return is accepted, we’ll send you a return shipping label, as well as instructions on how and where to send your package. <strong>Items sent back to us without first requesting a return will not be accepted.</strong></p>
 
-    <p><strong>Refunds (if applicable)</strong><br /> Once your return is received and inspected, we will send you an email to notify you that we have received your returned item. We will also notify you of the approval or rejection of your refund.<br /> If it is approved, then your refund will be processed and credited to your THE HOUSE OF RARE Wallet / Source of payment / bank account (for COD only) within 7-10 working days.<br/><br/><strong>Late or missing refunds (if applicable)</strong><br /> If you haven’t received a refund yet, first login to your account again and check.</p>
+    <div class="contact-info">
+        <p>If you have any return questions, you can always contact us at <a href="mailto:paper1102@outlook.com">paper1102@outlook.com</a>.</p>
+    </div>
 
-    <p>If you’ve done all of this and you still have not received your refund yet, please contact us at <a href="mailto:support@<script>document.write(window.location.hostname);</script>">support@<script>document.write(window.location.hostname);</script></a>.<br/><br/><strong>Sale items (if applicable)</strong><br /> Only regular priced items may be refunded, unfortunately, some items purchased during sale days cannot be refunded or returned.<br/><br/><strong>Exchanges (if applicable)</strong><br /> We only replace items if they are defective, damaged, or if the size doesn't fit well. If you need to exchange it for the same item, please log in to your account and place an exchange request directly. There is no additional charge for any exchange orders. For new orders of lower price, the balance amount will be refunded as a gift voucher.</p>
+    <h2>Damages and Issues</h2>
+    <p>Please inspect your order upon reception and contact us immediately if:</p>
+    <ul>
+        <li>The item is defective or damaged.</li>
+        <li>You receive the wrong item.</li>
+    </ul>
+    <p>This will help us evaluate the issue and make it right.</p>
 
-    <p>Exchange of product is subject to availability of size.</p>
+    <h2>Exceptions / Non-Returnable Items</h2>
+    <p>Certain types of items cannot be returned, such as:</p>
+    <ul>
+        <li>Bulk orders.</li>
+        <li>Offer or discount products.</li>
+    </ul>
 
-    <p><strong>Gifts</strong><br /> If the item was marked as a gift when purchased and shipped directly to you, you’ll receive a gift credit for the value of your return. Once the returned item is received, a gift certificate will be mailed to you.<br/><br /> If the item wasn’t marked as a gift when purchased, or the gift giver had the order shipped to themselves to give to you later, we will send a refund to the gift giver and they will find out about your return.<br/><br/><strong>Shipping</strong><br /> To return your product, you can directly do it through our return center.</p>
+    <h2>Exchanges</h2>
+    <p>The fastest way to ensure you get what you want is to return the item you have. Once the return is accepted, make a separate purchase for the new item.</p>
 
-    <p>Shipping costs are non-refundable. If you receive a refund, the cost of return shipping will be deducted from your refund.</p>
-
-    <p>Depending on where you live, the time it may take for your exchanged product to reach you, may vary.</p>
-
-    <p><strong>Self-Ship</strong><br /> If your Pincode is not in the serviceable area (i.e. if our delivery agents are not able to come for pick-up), the customer has to self-ship the product. The shipping charge will be refunded only if the customer provides the Docket Slip.</p>
+    <h2>Refund Policy</h2>
+    <p>We will notify you once we’ve received and inspected your return, and let you know if the refund was approved or not. If approved, you’ll be automatically refunded on your original payment method within <strong>3 business days</strong>.</p>
+    <p>Please remember it can take some time for your bank or credit card company to process and post the refund.</p>
+    <p>If more than 5 to 7 business days have passed since we’ve approved your return, please contact us at <a href="mailto:paper1102@outlook.com">paper1102@outlook.com</a>.</p>
 
                     </div>                  
  
