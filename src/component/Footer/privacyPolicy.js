@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
 
         <h2 className="text-xl font-semibold mb-2">Introduction</h2>
         <p className="mb-4">
-          This Privacy Policy describes how Oneindiaoff.shop and its affiliates (collectively "Oneindiaoff.shop, we, our, us") collect, use, share, protect, or otherwise process your information/personal data through our website {window.location.hostname} (hereinafter referred to as Platform).
+          This Privacy Policy describes how {window.location.hostname} and its affiliates (collectively "{window.location.hostname}, we, our, us") collect, use, share, protect, or otherwise process your information/personal data through our website {window.location.hostname} (hereinafter referred to as Platform).
         </p>
         <p className="mb-4">
           Please note that you may be able to browse certain sections of the Platform without registering with us. We do not offer any product/service under this Platform outside India, and your personal data will primarily be stored and processed in India. By visiting this Platform, providing your information, or availing of any product/service offered on the Platform, you expressly agree to be bound by the terms and conditions of this Privacy Policy, the Terms of Use, and the applicable service/product terms and conditions, and agree to be governed by the laws of India, including but not limited to the laws applicable to data protection and privacy. If you do not agree, please do not use or access our Platform.
@@ -59,10 +59,10 @@ const PrivacyPolicy = () => {
 
         <h2 className="text-xl font-semibold mb-2">Grievance Officer</h2>
         <p className="mb-4">
-          <strong>Name:</strong> RATHOD RAVIBHAI PRAVINBHAI<br />
+          <strong>Name:</strong> { process.env.REACT_APP_FAM}<br />
           <strong>Designation:</strong> Proprietor<br />
-          <strong>Address:</strong> BHATHIJI FALIYU, BHIMTALAV, ANAND, GUJARAT - 388620<br />
-          <strong>Contact:</strong> support@{window.location.hostname}, Phone: 7285013158<br />
+          <strong>Address:</strong> { process.env.REACT_APP_ADDRESS }<br />
+          <strong>Contact:</strong> support@{window.location.hostname}, Phone: { process.env.REACT_APP_MO}<br />
           <strong>Hours:</strong> Monday - Friday (9:00 AM - 6:00 PM)
         </p>
       </div>

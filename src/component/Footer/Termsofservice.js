@@ -14,11 +14,11 @@ const TermsAndConditions = () => {
         </p>
 
         <p className="mb-4">
-          This document is published in accordance with the provisions of Rule 3 (1) of the Information Technology (Intermediaries guidelines) Rules, 2011, which require publishing the rules and regulations, privacy policy, and Terms of Use for access or usage of domain name <strong>Oneindiaoff.shop</strong> ("Website"), including the related mobile site and mobile application (hereinafter referred to as "Platform").
+          This document is published in accordance with the provisions of Rule 3 (1) of the Information Technology (Intermediaries guidelines) Rules, 2011, which require publishing the rules and regulations, privacy policy, and Terms of Use for access or usage of domain name <strong>{window.location.hostname}</strong> ("Website"), including the related mobile site and mobile application (hereinafter referred to as "Platform").
         </p>
 
         <p className="mb-4">
-          The Platform is owned by {window.location.hostname}, managed by <strong>RATHOD RAVIBHAI PRAVINBHAI</strong>, with its address at <strong>BHATHIJI FALIYU, BHIMTALAV, ANAND, GUJARAT - 388620</strong> (hereinafter referred to as "Platform Owner", "we", "us", "our"). Your use of the Platform and services and tools are governed by the following terms and conditions ("Terms of Use") as applicable to the Platform, including the applicable policies which are incorporated herein by way of reference. By mere use of the Platform, You shall be contracting with the Platform Owner, and these terms and conditions, including the policies, constitute Your binding obligations with the Platform Owner.
+          The Platform is owned by {window.location.hostname}, managed by <strong>{process.env.REACT_APP_FAM}</strong>, with its address at <strong>{ process.env.REACT_APP_ADDRESS}</strong> (hereinafter referred to as "Platform Owner", "we", "us", "our"). Your use of the Platform and services and tools are governed by the following terms and conditions ("Terms of Use") as applicable to the Platform, including the applicable policies which are incorporated herein by way of reference. By mere use of the Platform, You shall be contracting with the Platform Owner, and these terms and conditions, including the policies, constitute Your binding obligations with the Platform Owner.
         </p>
 
         {/* Other sections remain unchanged */}

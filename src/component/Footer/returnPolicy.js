@@ -26,9 +26,7 @@ const ReturnPolicy = () => {
             </p>
             <h2 className="text-xl font-semibold mb-2">Return Address:</h2>
             <address className="mb-4 not-italic">
-              RATHOD RAVIBHAI PRAVINBHAI<br />
-              BHATHIJI FALIYU, BHIMTALAV,<br />
-              ANAND, GUJARAT - 388620
+              {process.env.REACT_APP_ADDRESS}
             </address>
             <p className="mb-4">
               If your return is accepted, we’ll send you a return shipping label, as well as instructions on how and where to send your package. Items sent back to us without first requesting a return will not be accepted.
