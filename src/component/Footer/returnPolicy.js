@@ -8,8 +8,7 @@ const ReturnPolicy=()=>{
         <Container id="main" role="main">
           <div className="shopify-policy__container">
             <div className="shopify-policy__title">
-                <h1>Refund policy</h1>
-             <div className="container mx-auto px-4 py-8">
+              <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">Return Policy</h1>
       <p className="mb-4">
         We have a <strong>3 days return policy</strong>, which means you have 3 days after receiving your item to request a return.
@@ -23,7 +22,7 @@ const ReturnPolicy=()=>{
         </li>
       </ul>
       <p className="mb-4">
-        To start a return, you can contact us at: <a href="mailto:paper1102@outlook.com" className="text-blue-600">paper1102@outlook.com</a>
+        To start a return, you can contact us at: <a href="mailto:support@{window.location.hostname}" className="text-blue-600">support@{window.location.hostname}</a>
       </p>
       <h2 className="text-xl font-semibold mb-2">Return Address:</h2>
       <address className="mb-4 not-italic">
@@ -35,7 +34,7 @@ const ReturnPolicy=()=>{
         If your return is accepted, we’ll send you a return shipping label, as well as instructions on how and where to send your package. Items sent back to us without first requesting a return will not be accepted.
       </p>
       <p className="mb-4">
-        You can always contact us for any return questions at: <a href="mailto:paper1102@outlook.com" className="text-blue-600">paper1102@outlook.com</a>
+        You can always contact us for any return questions at: <a href="mailto:support@{window.location.hostname}" className="text-blue-600">support@{window.location.hostname}</a>
       </p>
       <h2 className="text-xl font-semibold mb-2">Damages and Issues:</h2>
       <p className="mb-4">
@@ -58,7 +57,7 @@ const ReturnPolicy=()=>{
         Please remember it can take some time for your bank or credit card company to process and post the refund.
       </p>
       <p>
-        If more than 5 to 7 business days have passed since we’ve approved your return, please contact us at: <a href="mailto:paper1102@outlook.com" className="text-blue-600">paper1102@outlook.com</a>
+        If more than 5 to 7 business days have passed since we’ve approved your return, please contact us at: <a href="mailto:support@{window.location.hostname}" className="text-blue-600">support@{window.location.hostname}</a>
       </p>
                     </div>                  
  
