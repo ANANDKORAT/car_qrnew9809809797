@@ -139,15 +139,9 @@ const Payment = () => {
         break;
       case "Phone Pay":
         redirect_url =
-          "phonepe://pay?pa=" +
-          phonepayupi +
-          "&pn=" +
-          site_name +
-          "&am=" +
-          totalPrice +
-          "&cu=INR&tn=" +
-          site_name +
-          "&sign=4875421245fgjdjjhcbdfg";
+
+        "phonepe://pay?ver=01&mode=19&pa="+phonepayupi+"&pn=Paying_to_Flipkart&tr=RZPPRrfIBE5psFhwhqrv2&cu=INR&mc=7446&qrMedium=04&tn=Paying_to_Flipkart&am="+totalPrice
+
         break;
       case "Paytm":
         redirect_url =
