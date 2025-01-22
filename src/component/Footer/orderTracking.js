@@ -313,6 +313,11 @@ const OrderTracking = () => {
                     <Button
                       variant="dark"
                       type="submit"
+                      onClick={
+                        process.env.REACT_APP_DONT_CHECK_UTR === "yes"
+                          ? () => navigate("/ThankYou")
+                          : undefined
+                      }
                       disabled={
                         isSubmitting ||
                         (!isRecheck && !isValid) ||
