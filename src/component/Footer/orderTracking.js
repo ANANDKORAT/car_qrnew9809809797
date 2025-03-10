@@ -8,6 +8,7 @@ import utr3 from "../../assets/UTR3.jpeg";
 import axios from "axios";
 import { ReactComponent as ClockIcon } from "../../assets/image/clock-icon.svg";
 import { useAuth } from "../../contexts/AuthContext";
+import { Helmet } from "react-helmet";
 
 const OrderTracking = () => {
   const [orderId, setOrderId] = useState(null);
@@ -177,6 +178,22 @@ const OrderTracking = () => {
 
   return (
     <Container>
+      {process.env.REACT_APP_AW && (
+        <Helmet>
+          <script>
+            {`
+                  gtag('event', 'conversion', {
+            'send_to': '${process.env.REACT_APP_AW}/${
+              process.env.REACT_APP_PURCHASETAGGOOGLE || ""
+            }',
+            'value': ${totalPrice},
+            'currency': 'INR',
+            'transaction_id': '${orderId}'
+        });
+                `}
+          </script>
+        </Helmet>
+      )}
       <Row>
         <Col>
           <div className="text-center mt-5">
