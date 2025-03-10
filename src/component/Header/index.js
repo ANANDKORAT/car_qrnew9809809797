@@ -147,6 +147,11 @@ ${
     ? 'fbq("track", "InitiateCheckout");'
     : ""
 };
+${
+  window.location.href.includes("/order-comfirmation")
+    ? 'fbq("track", "Purchase");'
+    : ""
+};
 
 `}
             </script>
