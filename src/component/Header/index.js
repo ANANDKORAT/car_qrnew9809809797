@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import Navbar from "react-bootstrap/Navbar";
@@ -429,14 +430,22 @@ ${
               : ""
           }`}
         >
-          <div className="form-group" style={{ marginTop: "8px" }}>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search for Products, Brands and More"
-              style={{ borderRadius: "3px" }}
-            />
-          </div>
+          <div className="search-container">
+           <div className="search-bar">
+          <div className="search-icon-container">
+          <svg className="search-icon" viewBox="0 0 256 256">
+          <path fill="none" d="M0 0h256v256H0z"/>
+          <circle cx="116" cy="116" r="84" fill="none" stroke="#1254E7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+        <path fill="none" stroke="#1254E7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16" d="M175.4 175.4 224 224"/>
+      </svg>
+    </div>
+    <input 
+      type="text" 
+      className="search-input" 
+      placeholder="Search for Products" 
+    />
+  </div>
+</div>
         </Container>
 
         {isProductDetails &&
