@@ -210,7 +210,7 @@ ${
                     width={24}
                   >
                     <path
-                      fill="#fff"
+                      fill="#000"
                       fillRule="evenodd"
                       d="M20.25 11.25H5.555l6.977-6.976a.748.748 0 000-1.056.749.749 0 00-1.056 0L3.262 11.43A.745.745 0 003 12a.745.745 0 00.262.57l8.214 8.212a.75.75 0 001.056 0 .748.748 0 000-1.056L5.555 12.75H20.25a.75.75 0 000-1.5"
                     ></path>
@@ -263,7 +263,7 @@ ${
                     width={24}
                   >
                     <path
-                      fill="#fff"
+                      fill="#000000"
                       fillRule="evenodd"
                       d="M20.25 11.25H5.555l6.977-6.976a.748.748 0 000-1.056.749.749 0 00-1.056 0L3.262 11.43A.745.745 0 003 12a.745.745 0 00.262.57l8.214 8.212a.75.75 0 001.056 0 .748.748 0 000-1.056L5.555 12.75H20.25a.75.75 0 000-1.5"
                     ></path>
@@ -311,7 +311,7 @@ ${
                     >
                       <i
                         className="fa-solid fa-square-plus"
-                        style={{ color: "#fff" }}
+                        style={{ color: "#000" }}
                       ></i>
                     </Nav.Link>
                   )}
@@ -336,14 +336,14 @@ ${
                           alignItems: "center",
                           background: "red",
                           marginLeft: "10px",
-                          color: "#ffffff",
+                          color: "#000000",
                         }}
                       >
                         {cartProducts.length}
                       </div>
                       <i
                         className="fa-solid fa-cart-shopping"
-                        style={{ color: "#fff", marginRight: "30px" }}
+                        style={{ color: "#000000", marginRight: "30px" }}
                       ></i>
                     </Nav.Link>
                   )}
@@ -357,7 +357,7 @@ ${
                     >
                       <i
                         className="fa-solid fa-magnifying-glass"
-                        style={{ color: "#fff", marginRight: "20px" }}
+                        style={{ color: "#000000", marginRight: "20px" }}
                       ></i>
                     </Nav.Link>
                   ) : (
@@ -371,7 +371,7 @@ ${
                     >
                       <i
                         className="fa-solid fa-square-plus"
-                        style={{ color: "#fff" }}
+                        style={{ color: "#00000" }}
                       ></i>
                     </Nav.Link>
                   )}
@@ -396,14 +396,14 @@ ${
                           alignItems: "center",
                           background: "red",
                           marginLeft: "10px",
-                          color: "#ffffff",
+                          color: "#000000",
                         }}
                       >
                         {cartProducts.length}
                       </div>
                       <i
                         className="fa-solid fa-cart-shopping"
-                        style={{ color: "#fff", marginRight: "30px" }}
+                        style={{ color: "#000000", marginRight: "30px" }}
                       ></i>
                     </Nav.Link>
                   )}
@@ -447,7 +447,7 @@ ${
                 background: "var(--them-color)",
                 borderColor: "var(--them-color)",
                 fontSize: 20,
-                color: "#fff",
+                color: "#000000",
                 padding: "8px 16px",
                 textAlign: "center",
                 fontWeight: "600",

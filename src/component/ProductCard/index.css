@@ -1,40 +1,193 @@
-.rating_box_des {
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    border: 1px solid #ddd;
-    width: max-content;
-    padding: 0px 5px 0px 5px;
-    border-radius: 5px;
-    background: #388e3c;
-    position: absolute;
-    color: white;
-    margin-top: 2px;
+/* Product Card - Flipkart Style */
+.product-card {
+  cursor: pointer;
+  border:0.5px solid #d0d0d0;
+  box-shadow: none;
+  transition: all 0.3s ease;
+  background: transparent;
 }
 
-.rating_box_des i {
-    font-size: 11px;
-    margin-left: 3px;
-    color: white;
+.product-card:hover {
+  transform: translateY(-4px);
+}
+/* Product Title - shows full title in one line with ellipsis */
+.product-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #262626;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+  display: block;
+  width: 100%;
+}
+/* Image Container */
+.product-image-container {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9f9f9;
+  position: relative;
+  border-radius: 2px;
 }
 
-.rating_num{
-    font-size: 12px;
-    margin-left: 27%;
-    padding-left: 3px;
-    color: #cdcdcd;
+.product-image {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
-.delivery-txt{
-    text-align: center;
-    font-size: 12px;
-    color: rgb(3, 151, 3);
-    font-weight: 500;
+.product-card:hover .product-image {
+  transform: scale(1.05);
 }
 
-.free-delivery-txt{
-    text-align: center;
-    font-size: 12px;
-    color: rgb(3, 151, 3);
-    font-weight: 500;
+/* Wishlist Button */
+.wishlist-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0);
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.wishlist-button:hover {
+  transform: scale(1.15);
+  box-shadow: 0 3px 8px rgb(255, 255, 255);
+}
+
+/* Product Brand/Title */
+.product-brand {
+  font-size: 14px;
+  color: #212121;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+/* Price Section */
+.price-section {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+  flex-wrap: wrap;
+}
+
+.discount-percentage {
+  display: flex;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #4BB550;
+  margin-right: 8px;
+}
+
+.original-price {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #6B7280;
+  text-decoration: line-through;
+  margin-right: 8px;
+}
+
+.discounted-price {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #111827;
+}
+
+/* Deal Tag */
+.deal-tag {
+  padding: 4px;
+  border-radius: 2px;
+  background-color: #e7f8ec;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #26a541;
+  font-family: 'Roboto Medium', sans-serif;
+  width: fit-content;
+}
+
+/* Rating Section */
+.rating-section {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+}
+
+.star-ratings {
+  display: flex;
+  align-items: center;
+}
+
+.star {
+  font-size: 14px;
+  margin-right: 2px;
+}
+
+.full-star {
+  color: #379165;
+}
+
+.half-star {
+  color: #379165;
+  position: relative;
+}
+
+.half-star:after {
+  content: '★';
+  position: absolute;
+  left: 0;
+  width: 50%;
+  overflow: hidden;
+  color: #D5D5D5;
+}
+
+.empty-star {
+  color: #D5D5D5;
+}
+
+.rating-count {
+  font-size: 12px;
+  color: #878787;
+  margin-left: 8px;
+}
+
+/* Flipkart Assured Badge */
+.fk-assured {
+  width: 60px;
+  height: 16px;
+  margin: 4px 0;
+}
+
+.fk-assured img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Delivery Info */
+.delivery-info {
+  font-size: 12px;
+  color: #000000;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  margin-top: 4px;
 }

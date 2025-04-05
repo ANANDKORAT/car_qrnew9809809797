@@ -1,32 +1,40 @@
 import { UseCountdown } from "./UseCountdown";
+import "./OfferCountdown.css";
 
 const OfferCountdown = () => {
   const { hours, minutes, seconds } = UseCountdown();
-
-  const isCompleted = hours <= 0 && minutes <= 0 && seconds <= 0;
+  const remainingSeconds = hours * 3600 + minutes * 60 + seconds;
+  const progress = (remainingSeconds / (24*3600)) * 100;
+  const isCompleted = remainingSeconds <= 0;
 
   if (isCompleted) {
-    return <span>Hurry Up!</span>;
-  } else {
     return (
-      <div className="countdown-container">
-        <div className="countdown-box">
-          <div className="hour-count-text">{hours}</div>
-          <div>Hours</div>
-        </div>
-        <span className="dot-timer">{":"}</span>
-        <div className="countdown-box">
-          <div className="hour-count-text">{minutes}</div>
-          <div>Minutes</div>
-        </div>
-        <span className="dot-timer">{":"}</span>
-        <div className="countdown-box">
-          <div className="hour-count-text">{seconds}</div>
-          <div>Seconds</div>
-        </div>
+      <div className="offer-card expired">
+        <span className="icon">⏰</span>
+        <h4>Offer Expired</h4>
+        <button>Check New Offers</button>
       </div>
     );
   }
+
+  return (
+    <div className="offer-card">
+      <h5>🔥 Limited Time Deal 🔥 </h5>
+      <div className="timer">
+        {[hours, minutes, seconds].map((value, i) => (
+          <div key={i} className="time-unit">
+            <span>{String(value).padStart(2, "0")}</span>
+            <small>{["Hours","Minutes","Seconds"][i]}</small>
+            {i < 2 && <span className="colon">:</span>}
+          </div>
+        ))}
+      </div>
+
+      <div className="progress-bar">
+        <div style={{ width: `${progress}%` }} />
+      </div>
+    </div>
+  );
 };
 
 export default OfferCountdown;

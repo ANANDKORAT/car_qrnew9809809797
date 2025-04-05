@@ -19,6 +19,7 @@
     "html-react-parser": "^5.1.1",
     "html2canvas": "^1.4.1",
     "keen-slider": "^6.8.6",
+    "lucide-react": "^0.487.0",
     "qrcode.react": "^4.0.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.4.0",
@@ -35,6 +36,7 @@
     "react-shimmer-effects": "^1.0.3",
     "react-virtuoso": "^4.6.2",
     "sass": "^1.54.8",
+    "styled-components": "^6.1.17",
     "web-vitals": "^2.1.4",
     "yup": "^1.3.2"
   },

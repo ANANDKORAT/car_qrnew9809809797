@@ -595,15 +595,15 @@ const SingleProduct = () => {
                       <p style={{ textAlign: "center" }} className="mb-0">
                         <span
                           style={{
-                            color: "#000",
-                            fontSize: "11px",
+                            color: "white",
+                            fontSize: "15px",
                           }}
                         >
                           {" "}
                           ₹
                           <span
                             style={{
-                              color: "#000",
+                              color: "white",
                               textDecoration: "line-through",
                               fontSize: "16px",
                               fontWeight: "bold",
@@ -633,7 +633,7 @@ const SingleProduct = () => {
                         </span>
                         <span
                           style={{
-                            color: "darkgreen",
+                            color: "green",
                             marginLeft: "5px",
                             fontWeight: "bold",
                           }}

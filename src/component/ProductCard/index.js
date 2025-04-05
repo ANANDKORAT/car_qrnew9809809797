@@ -1,222 +1,147 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Col, Card, Button, CardSubtitle } from "react-bootstrap";
+import { Col, Card } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import "./index.css";
 import assured from "../../assets/assuredflipcart.jpg";
 
 const ProductCard = ({ item }) => {
   const navigate = useNavigate();
-  const containerRef = useRef(null);
-  const { whiteListProducts, handleSetWhiteListProducts, setSingleProduct } =
-    useAuth();
-  const [imageWidth, setImageWidth] = useState(null);
-  const [imageHeight, setImageHeight] = useState(null);
-  const [randomRatingCount, setRandomRatingCount] = useState(0);
+  const { 
+    whiteListProducts, 
+    handleSetWhiteListProducts, 
+    setSingleProduct
+  } = useAuth();
 
-  useEffect(() => {
-    const img = new Image();
-    img.onload = () => {
-      setImageWidth(img.width);
-      setImageHeight(img.height);
-    };
-    img.src = item?.images[0] ?? ""; // Update with your image URL
-  }, [item?.images[0]]);
+  // Memoized calculations for performance
+  const isWishlisted = useMemo(() => whiteListProducts?.some(p => p._id === item._id), [whiteListProducts, item._id]);
+  const discountPercentage = useMemo(() => Math.round(((item.price - item.discount) / item.price) * 100), [item]);
 
-  const handleRedirect = (id) => {
-    navigate(`/single-product/${id}`);
+  const handleRedirect = () => {
+    setSingleProduct(item);
+    navigate(`/single-product/${item._id}`);
   };
 
-  const imageStyle = {
-    width: "100%",
+  const handleWishlistClick = (e) => {
+    e.stopPropagation();
+    handleSetWhiteListProducts(item);
   };
 
-  useEffect(() => {
-    const generateRandomRating = () => {
-      const min = 100;
-      const max = 5000;
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    };
-
-    setRandomRatingCount(generateRandomRating());
-  }, []);
-
-  if (imageWidth && imageHeight) {
-    const aspectRatio = imageWidth / imageHeight;
-    let splitValue = aspectRatio.toString().split(".");
-    if (splitValue && splitValue.length > 0) {
-      if (splitValue.length > 1) {
-        splitValue = `${splitValue[0]}.${splitValue[1].charAt(0)}`;
-      } else {
-        splitValue = splitValue[0];
-      }
+  // Function to render star ratings
+  const renderStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    
+    // Full stars
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<span key={`full-${i}`} className="star full-star">★</span>);
     }
-    splitValue = +splitValue;
-
-    if (splitValue > 1) {
-      // Landscape image
-      imageStyle.height = "auto"; // Maintain aspect ratio
-    } else {
-      // Portrait or square image
-      if (splitValue <= 1 && splitValue >= 0.8 && window.innerWidth < 455) {
-        imageStyle.height = "auto";
-        imageStyle.width = "100%";
-      } else {
-        imageStyle.height = "100%";
-        imageStyle.width = "auto";
-      }
+    
+    // Half star
+    if (hasHalfStar) {
+      stars.push(<span key="half" className="star half-star">★</span>);
     }
-  }
+    
+    // Empty stars
+    const emptyStars = 5 - stars.length;
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(<span key={`empty-${i}`} className="star empty-star">★</span>);
+    }
+    
+    return stars;
+  };
 
   return (
-    <>
-      <Col key={item._id} style={{ maxHeight: "400px", padding: "0px" }}>
-        <Card
-          style={{ height: "100%", borderRadius: 2 }}
-          onClick={() => {
-            setSingleProduct(item);
-            handleRedirect(item._id);
-          }}
-        >
-          <div
-            className="position-relative"
-            style={{
-              height: "calc(100% - 170px)",
-              textAlign: "center",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            ref={containerRef}
+    <Col xs={6} md={4} lg={3} xl={2} className="mb-0 px-0.25">
+      <Card className="h-100 product-card" onClick={handleRedirect}>
+        {/* Image Container */}
+        <div className="product-image-container">
+          <Card.Img
+            variant="top"
+            src={item?.images?.[0] ?? ""}
+            alt={item?.title}
+            loading="lazy"
+            className="product-image"
+          />
+          
+          {/* Wishlist Button */}
+          <button 
+            className="wishlist-button"
+            onClick={handleWishlistClick}
+            aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
           >
-            <Card.Img
-              variant="top"
-              src={item?.images[0] ?? ""}
-              style={imageStyle}
-            />
+            {isWishlisted ? (
+              <HeartIcon filled />
+            ) : (
+              <HeartIcon />
+            )}
+          </button>
+        </div>
+
+         {/* Product Details */}
+         <Card.Body className="p-2 d-flex flex-column">
+          {/* Updated Product Title - shows full title in one line with ellipsis */}
+          <div className="product-title">
+            {item.title}
           </div>
-          <Card.Body className="p-2 pb-0">
-            <div className="d-flex justify-content-between align-items-center">
-              <Card.Subtitle
-                style={{
-                  textAlign: "left",
-                  color: "#262626",
-                  fontWeight: "500",
-                  fontSize: "14px",
-                }}
-                className="mb-0 text-ellips"
-              >
-                {item.title}
-              </Card.Subtitle>
-              <div
-                className="ms-2"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleSetWhiteListProducts(item);
-                }}
-              >
-                {whiteListProducts?.find((o) => o._id === item._id) ? (
-                  <svg width="20" height="20" viewBox="0 0 24 24">
-                    <g
-                      stroke="none"
-                      strokeWidth="1"
-                      fill="none"
-                      fillRule="evenodd"
-                    >
-                      <g
-                        fill="#ed143d"
-                        transform="translate(1.000000, 2.000000)"
-                      >
-                        <path d="M11.02835,19.276575 L10.972,19.276575 C10.6304,19.276575 10.2965,19.137625 10.05605,18.895075 L2.71865,11.513925 C1.53495,10.323225 0.88325,8.735275 0.88325,7.042675 C0.88325,5.350075 1.53495,3.762475 2.71865,2.571775 C3.9034,1.379675 5.48435,0.723425 7.1703,0.723425 C8.5759,0.723425 9.90905,1.179825 11,2.022625 C12.0913,1.179825 13.4241,0.723425 14.8297,0.723425 C16.516,0.723425 18.09695,1.379675 19.2817,2.572125 C20.46505,3.762475 21.11675,5.350075 21.11675,7.042675 C21.11675,8.735625 20.46505,10.323225 19.2817,11.513925 L11.94325,18.895775 C11.6993,19.141475 11.3745,19.276575 11.02835,19.276575 L11.02835,19.276575 Z"></path>
-                      </g>
-                    </g>
-                  </svg>
-                ) : (
-                  <svg width="20" height="20" viewBox="0 0 24 24">
-                    <g
-                      stroke="none"
-                      strokeWidth="1"
-                      fill="none"
-                      fillRule="evenodd"
-                    >
-                      <g fill="#3E4152">
-                        <path d="M8.1703,4.473425 C6.9537,4.473425 5.8134,4.946625 4.95975,5.805525 C4.10435,6.666175 3.63325,7.815575 3.63325,9.042675 C3.63325,10.269775 4.10435,11.419525 4.95975,12.280175 L12,19.362425 L19.0406,12.279825 C19.89565,11.419525 20.36675,10.270125 20.36675,9.042675 C20.36675,7.815575 19.89565,6.665825 19.0406,5.805875 C19.0406,5.805875 19.0406,5.805525 19.04025,5.805525 C18.1866,4.946625 17.0463,4.473425 15.8297,4.473425 C14.6138,4.473425 13.4742,4.946275 12.62055,5.804475 C12.29225,6.134525 11.70845,6.134875 11.3798,5.804475 C10.5258,4.946275 9.3862,4.473425 8.1703,4.473425 L8.1703,4.473425 Z M12.02835,21.276575 L11.972,21.276575 C11.6304,21.276575 11.2965,21.137625 11.05605,20.895075 L3.71865,13.513925 C2.53495,12.323225 1.88325,10.735275 1.88325,9.042675 C1.88325,7.350075 2.53495,5.762475 3.71865,4.571775 C4.9034,3.379675 6.48435,2.723425 8.1703,2.723425 C9.5759,2.723425 10.90905,3.179825 12,4.022625 C13.0913,3.179825 14.4241,2.723425 15.8297,2.723425 C17.516,2.723425 19.09695,3.379675 20.2817,4.572125 C21.46505,5.762475 22.11675,7.350075 22.11675,9.042675 C22.11675,10.735625 21.46505,12.323225 20.2817,13.513925 L12.94325,20.895775 C12.6993,21.141475 12.3745,21.276575 12.02835,21.276575 L12.02835,21.276575 Z"></path>
-                      </g>
-                    </g>
-                  </svg>
-                )}
-              </div>
+
+          {/* Price Section - Flipkart Style */}
+          <div className="price-section">
+            <div className="discount-percentage">
+              <svg width="14" height="14" viewBox="0 0 12 12" fill="#4BB550">
+                <path d="M6.73461 1V8.46236L9.5535 5.63352L10.5876 6.65767L5.99384 11.2415L1.41003 6.65767L2.42424 5.63352L5.25307 8.46236V1H6.73461Z" />
+              </svg>
+              <span>{discountPercentage}% off</span>
             </div>
-            <Card.Text className="mb-0" style={{ lineHeight: "18px" }}>
-              <span
-                style={{
-                  color: "#388e3c",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  marginTop: "2px",
-                }}
-              >{`${(
-                ((item?.price - item.discount) / item?.price) *
-                100
-              ).toFixed(0)}% OFF`}</span>
-              <span
-                style={{
-                  fontSize: "12px",
-                  color: "#9A9A9A",
-                  marginLeft: "5px",
-                  textDecoration: "line-through",
-                }}
-              >
-                ₹{item.price}
+            <div className="d-flex align-items-center flex-wrap">
+              <span className="original-price">₹{item.price}</span>
+              <span className="discounted-price">₹{item.discount}</span>
+            </div>
+          </div>
+
+          {/* Deal Tag */}
+          {discountPercentage > 50 && (
+            <div className="deal-tag">
+              Hot Deal
+            </div>
+          )}
+
+          {/* Rating Section and Flipkart Assured in one line */}
+          <div className="d-flex align-items-center justify-content-between mt-1">
+            <div className="rating-section">
+              <div className="star-ratings">
+                {renderStars(item.rating || 0)}
+              </div>
+              <span className="rating-count">
+                ({Math.floor(Math.random() * 4901) + 100})
               </span>
-            </Card.Text>
-            <Card.Text
-              style={{
-                textAlign: "left",
-                fontWeight: "bold",
-                fontSize: "13px",
-                color: "#000",
-              }}
-              className="mb-0"
-            >
-              ₹ {""}
-              <span style={{ fontSize: "20px" }}>{item.discount}</span>
-              {process.env.REACT_APP_FLIPASSURED_IMAGE === "yes" ? (
-                <img src={assured} width="60" style={{ marginLeft: "10px" }} />
-              ) : (
-                ""
-              )}
-            </Card.Text>
-            <Card.Text className="mb-0">
-              <span className="rating_box_des">
-                {item.rating}
-                <i className="fa-solid fa-star" color="red"></i>
-              </span>
-              <span className="rating_num">{randomRatingCount} Ratings</span>
-            </Card.Text>
-            <Card.Text>
-              <div className="delivery-txt">Limited time deal</div>
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer className="px-2 py-0 bg-white border-0 pt-0">
-            <Button
-              className="w-100"
-              variant="dark"
-              style={{
-                backgroundColor: "#fb641b",
-                border: "none",
-              }}
-            >
-              Add To Cart
-            </Button>
-          </Card.Footer>
-          <Card.Text className="mt-0">
-            <div className="free-delivery-txt">Free Delivery in Two Days</div>
-          </Card.Text>
-        </Card>
-      </Col>
-    </>
+            </div>
+            
+            <div className="fk-assured">
+              <img src={assured} alt="Flipkart Assured" />
+            </div>
+          </div>
+
+          {/* Delivery Info */}
+          <div className="delivery-info">
+            Free delivery
+          </div>
+        </Card.Body>
+      </Card>
+    </Col>
   );
 };
+
+// HeartIcon component
+const HeartIcon = ({ filled = false }) => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill={filled ? "#ed143d" : "#3E4152"}>
+    <path d={
+      filled 
+        ? "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6.5 3.5 5 5.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5 18.5 5 20 6.5 20 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+        : "M16.5,3c-1.74,0-3.41,0.81-4.5,2.09C10.91,3.81,9.24,3,7.5,3C4.42,3,2,5.42,2,8.5c0,3.78,3.4,6.86,8.55,11.54L12,21.35l1.45-1.32C18.6,15.36,22,12.28,22,8.5C22,5.42,19.58,3,16.5,3z"
+    }/>
+  </svg>
+);
 
 export default ProductCard;
