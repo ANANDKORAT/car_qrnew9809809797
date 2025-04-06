@@ -1,7 +1,7 @@
 /* Product Card - Flipkart Style */
 .product-card {
   cursor: pointer;
-  border:0.5px solid #d0d0d0;
+  border:0.5px solid #d0d0d06d;
   box-shadow: none;
   transition: all 0.3s ease;
   background: transparent;
@@ -13,7 +13,7 @@
 /* Product Title - shows full title in one line with ellipsis */
 .product-title {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 900;
   color: #262626;
   white-space: nowrap;
   overflow: hidden;
@@ -32,7 +32,7 @@
   justify-content: center;
   background: #f9f9f9;
   position: relative;
-  border-radius: 2px;
+  border-radius: 0px;
 }
 
 .product-image {

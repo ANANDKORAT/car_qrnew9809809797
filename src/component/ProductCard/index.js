@@ -53,7 +53,7 @@ const ProductCard = ({ item }) => {
   };
 
   return (
-    <Col xs={6} md={4} lg={3} xl={2} className="mb-0 px-0.25">
+    <Col xs={6} sm={6} md={6} lg={6} xl={6} className="mb-0 px-0.25">
       <Card className="h-100 product-card" onClick={handleRedirect}>
         {/* Image Container */}
         <div className="product-image-container">
@@ -118,9 +118,14 @@ const ProductCard = ({ item }) => {
               </span>
             </div>
             
-            <div className="fk-assured">
-              <img src={assured} alt="Flipkart Assured" />
-            </div>
+            {process.env.REACT_APP_FLIPASSURED_IMAGE !== 'no' && (
+              <img 
+                src={assured}
+                alt="Flip Assured"
+                className="assured-image"
+                height="13"
+              />
+            )}
           </div>
 
           {/* Delivery Info */}

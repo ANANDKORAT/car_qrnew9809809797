@@ -126,6 +126,8 @@ const Payment = () => {
     // Payment switch statement
     switch (selectedPayment) {
       case "Google Pay":
+        // Construct Google Pay UPI URL
+        // pa: UPI ID, pn: Payee name, am: Amount, tr: Transaction ref, mc: Merchant code
         redirect_url =
           "tez://upi/pay?pa=" +
           gpayupi +
@@ -138,12 +140,17 @@ const Payment = () => {
           "&sign=4875421245fgjdjjhcbdfg";
         break;
       case "Phone Pay":
+        // Construct PhonePe UPI URL
+        // ver: Version, mode: Payment mode, pa: UPI ID, pn: Payee name, tr: Transaction ref
         redirect_url =
-
-        "phonepe://pay?ver=01&mode=19&pa="+phonepayupi+"&pn=Paying_to_Flipkart&tr=RZPPRrfIBE5psFhwhqrv2&cu=INR&mc=7446&qrMedium=04&tn=Paying_to_Flipkart&am="+totalPrice
-
+          "phonepe://pay?ver=01&mode=19&pa=" +
+          phonepayupi +
+          "&pn=Paying_to_Flipkart&tr=RZPPRrfIBE5psFhwhqrv2&cu=INR&mc=7446&qrMedium=04&tn=Paying_to_Flipkart&am=" +
+          totalPrice;
         break;
       case "Paytm":
+        // Construct Paytm UPI URL
+        // pa: UPI ID, pn: Payee name, am: Amount, cu: Currency, tn: Transaction note
         redirect_url =
           "paytmmp://pay?pa=" +
           paytmupi +
@@ -198,6 +205,7 @@ const Payment = () => {
 
   const payment_option_show = payment_option.filter(Boolean);
 
+  // Set the default selected payment method to the first available payment option
   useEffect(() => {
     if (payment_option_show.length > 0 && !selectedPayment) {
       setSelectedPayments(payment_option_show[0].name);
@@ -525,7 +533,7 @@ const Payment = () => {
           className="d-flex justify-content-center align-items-center"
           variant="dark"
           style={{
-            width: "60%",
+            width: "48%",
             padding: "10px",
             background: "var(--them-color)",
             borderColor: "var(--them-color)",

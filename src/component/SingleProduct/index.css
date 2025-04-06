@@ -11,7 +11,101 @@
   bottom: 15px;
   right: 10px;
 }
+/* Delivery Section Container */
+.delivery-section-container {
+  margin-top: 16px;
+  background-color: #fff;
+  padding: 16px;
+}
 
+/* Header Styles */
+.delivery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.delivery-title-container {
+  display: flex;
+  align-items: center;
+}
+
+.delivery-title-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #111112;
+}
+
+/* Pincode Entry Button */
+.pincode-entry-container {
+  display: flex;
+  align-items: center;
+}
+
+.pincode-entry-button {
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #2A55E5;
+  background-color: transparent;
+}
+
+/* Functional Delivery Check (hidden by default) */
+.delivery-check-functional {
+  display: none; /* Initially hidden */
+}
+
+/* When pincode entry is clicked */
+.delivery-section-container.active .delivery-check-functional {
+  display: block;
+}
+
+.delivery-section-container.active .pincode-entry-button {
+  display: none;
+}
+
+/* Original functional styles */
+.address-box {
+  position: relative;
+  width: 100%;
+  height: 44px;
+  border: 1px solid #bfc0c6;
+  border-radius: 4px;
+}
+
+.pincode-input input {
+  width: 100%;
+  height: 100%;
+  padding: 0 12px;
+  border: none;
+  outline: none;
+}
+
+.address-button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.delivery-info-list {
+  margin-top: 12px;
+  padding-left: 0;
+  list-style: none;
+  font-size: 14px;
+  color: #424553;
+}
+
+.delivery-info-list li {
+  margin-bottom: 8px;
+}
 .signle_rating_box i {
   font-size: 11px;
   margin-left: 5px;

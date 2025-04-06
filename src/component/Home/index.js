@@ -16,15 +16,25 @@ import animaionImageHOme from "../../assets/2f53o.gif";
 import Countdown from "react-countdown";
 import OfferCountdown from "../Header/OfferCountdown";
 
+/**
+ * Home Component
+ * Main landing page component that displays categories, products and promotional content
+ */
 const Home = () => {
+  // Auth context for slider images
   const { sliderImages } = useAuth();
   const navigate = useNavigate();
-  const [categoryArray, setCategoryArray] = useState([]);
-  const [productsArray, setProductsArray] = useState([]);
-  const [isLoader, setIsLoader] = useState(true);
+  
+  // State management
+  const [categoryArray, setCategoryArray] = useState([]); // Stores category data
+  const [productsArray, setProductsArray] = useState([]); // Stores product data
+  const [isLoader, setIsLoader] = useState(true); // Loading state
+  
+  // Refs for countdown timer
   const ref = useRef(null);
   let location = useLocation();
 
+  // Reset countdown timer when location changes
   useEffect(() => {
     if (ref?.current) {
       if (["STOPPED", "COMPLETED"].includes(ref?.current?.state?.status)) {
@@ -33,6 +43,7 @@ const Home = () => {
     }
   }, [location, ref]);
 
+  // Fetch categories on component mount
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/category/get`)
@@ -49,6 +60,10 @@ const Home = () => {
       });
   }, []);
 
+  /**
+   * Fetches product data from the API
+   * Updates productsArray state and loading state
+   */
   const handleProductData = () => {
     let url = `${process.env.REACT_APP_API_URL}/api/products/get`;
     axios
@@ -73,13 +88,16 @@ const Home = () => {
       });
   };
 
+  // Fetch products on component mount
   useEffect(() => {
     setIsLoader(true);
     handleProductData();
   }, []);
 
+  // Configure image slider
   const [sliderRef, instanceRef] = useKeenSlider(
     {
+      // Slider configuration
       loop: true,
       mode: "free",
       slides: {
@@ -88,50 +106,59 @@ const Home = () => {
       },
     },
     [
+      // Auto-advance slider functionality
       (slider) => {
         let timeout;
 
+        // Clear auto-advance timeout
         function clearNextTimeout() {
           clearTimeout(timeout);
         }
 
+        // Set timeout for auto-advancing slides
         function nextTimeout() {
           clearTimeout(timeout);
           timeout = setTimeout(() => {
             slider.next();
-          }, 2000);
+          }, 2000); // Advance every 2 seconds
         }
 
+        // Initialize slider behaviors
         slider.on("created", () => {
+          // Pause auto-advance on mouse hover
           slider.container.addEventListener("mouseover", () => {
             clearNextTimeout();
           });
+          // Resume auto-advance when mouse leaves
           slider.container.addEventListener("mouseout", () => {
             nextTimeout();
           });
           nextTimeout();
         });
-        slider.on("dragStarted", clearNextTimeout);
-        slider.on("animationEnded", nextTimeout);
-        slider.on("updated", nextTimeout);
+
+        // Event handlers for slider interactions
+        slider.on("dragStarted", clearNextTimeout);  // Stop auto-advance during drag
+        slider.on("animationEnded", nextTimeout);    // Resume after animation
+        slider.on("updated", nextTimeout);           // Reset timer after update
       },
     ]
   );
 
   return (
     <div className="category_block">
-      <Container>
+      <Container style={{ padding: '1px' }}>
         {categoryArray.length > 1 && (
-          <Row className="d-flex align-items-center justify-content-around m-0 mb-2">
+          <Row className="g-0 d-flex align-items-center justify-content-around" style={{ margin: '0', padding: '1px' }}>
             {categoryArray.length === 6 ? (
               <>
                 {/* First row with 3 images */}
-                <Row className="d-flex justify-content-center">
+                <Row className="g-0 d-flex justify-content-center" style={{ margin: '0', padding: '1px' }}>
                   {categoryArray.slice(0, 3).map((item) => (
                     <Col
                       key={item._id}
                       xs={4} // 3 columns in a row
                       className="d-flex align-items-center justify-content-center"
+                      style={{ paddingRight: 0, paddingLeft: 0 }}
                     >
                       <Image
                         onClick={() => navigate(`/category/${item._id}`)}
@@ -141,19 +168,19 @@ const Home = () => {
                         style={{
                           width: "100%",
                           height: "auto",
-                          border: "1px solid black",
                         }}
                       />
                     </Col>
                   ))}
                 </Row>
                 {/* Second row with 3 images */}
-                <Row className="d-flex justify-content-center mt-2">
+                <Row className="g-0 d-flex justify-content-center" style={{ margin: '0', padding: '1px' }}>
                   {categoryArray.slice(3, 6).map((item) => (
                     <Col
                       key={item._id}
                       xs={4} // 3 columns in a row
                       className="d-flex align-items-center justify-content-center"
+                      style={{ padding: '2px', margin: '0', paddingRight: 0, paddingLeft: 0 }}
                     >
                       <Image
                         onClick={() => navigate(`/category/${item._id}`)}
@@ -163,7 +190,6 @@ const Home = () => {
                         style={{
                           width: "100%",
                           height: "auto",
-                          border: "1px solid black",
                         }}
                       />
                     </Col>
@@ -172,13 +198,13 @@ const Home = () => {
               </>
             ) : (
               // For images less than 4, display them in one row without gaps
-              <Row className="d-flex justify-content-center p-0">
+              <Row className="g-0 d-flex justify-content-center p-0" style={{ margin: '0', padding: '1px' }}>
                 {categoryArray.map((item) => (
                   <Col
                     key={item._id}
                     xs={12 / categoryArray.length} // Dynamic width based on the number of images
                     className="d-flex align-items-center justify-content-center"
-                    style={{ padding: "2px" }}
+                    style={{ padding: '2px', margin: '0', paddingRight: 0, paddingLeft: 0 }}
                   >
                     <Image
                       onClick={() => navigate(`/category/${item._id}`)}
@@ -188,7 +214,6 @@ const Home = () => {
                       style={{
                         width: "100%",
                         height: "100%",
-                        border: "1px solid black",
                       }}
                     />
                   </Col>
@@ -198,70 +223,76 @@ const Home = () => {
           </Row>
         )}
 
-        <Row className="">
-          <div>
-            <img src={animaionImageHOme} className="w-100 mb-2" />
-          </div>
+        <Row className="g-0" style={{ margin: '0', padding: '1px' }}>
+          <Col className="p-0" style={{ paddingRight: 0, paddingLeft: 0 }}>
+            <img src={animaionImageHOme} className="w-100" style={{ borderRadius: '8px', margin: '0' }} />
+          </Col>
         </Row>
-        <Row>
+        <Row className="g-0" style={{ margin: '0', padding: '1px' }}>
           {sliderImages?.length > 0 && (
-            <Col md={12} xs={12} className="position-relative">
-              <div ref={sliderRef} className="keen-slider mt-1">
+            <Col md={12} xs={12} className="position-relative p-0" style={{ paddingRight: 0, paddingLeft: 0 }}>
+              <div ref={sliderRef} className="keen-slider" style={{ borderRadius: '8px', overflow: 'hidden', margin: '0' }}>
                 {sliderImages?.map((item) => (
                   <div className="keen-slider__slide number-slide1">
                     <Image src={item} rounded style={{ width: "100%" }} />
                   </div>
                 ))}
               </div>
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "10px",
-                  left: "12px",
-                  right: "12px",
-                }}
-              ></div>
             </Col>
           )}
         </Row>
 
         <div
-          className="menu mt-2 "
-          style={{ backgroundColor: process.env.REACT_APP_THEAM_COLOR }}
+          className="menu"
+          style={{ 
+            backgroundColor: process.env.REACT_APP_THEAM_COLOR,
+            borderRadius: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            height: '40px',
+            margin: '0',
+            padding: '5px'
+          }}
         >
           <marquee
             width="100%"
             direction="left"
-            height="30px"
-            fontWeight="700"
-            style={{ color: "white" }}
+            style={{ 
+              color: "white",
+              display: 'flex',
+              alignItems: 'center',
+              height: '100%',
+              fontSize: '14px',
+              fontWeight: 'bold',
+              gap: '1px'
+            }}
           >
             <span>Buy 2 Get 1 Free (Add 3 item to cart)</span>
-            <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+            <span style={{ margin: '0 1px' }}>•</span>
             <span>Buy 2 Get 1 Free (Add 3 item to cart)</span>
-            <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+            <span style={{ margin: '0 1px' }}>•</span>
             <span>Buy 2 Get 1 Free (Add 3 item to cart)</span>
-            <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+            <span style={{ margin: '0 1px' }}>•</span>
             <span>Buy 2 Get 1 Free (Add 3 item to cart)</span>
-            <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+            <span style={{ margin: '0 1px' }}>•</span>
             <span>Buy 2 Get 1 Free (Add 3 item to cart)</span>
           </marquee>
         </div>
-        {/* <Image src="https://images.meesho.com/images/widgets/OY6J5/xwgyl_800.webp" style={{ width: "100%" }} /> */}
 
-        <div className="main-time">
-          <div className="inner-time">
-            <div className="dod-div">
-              
+        <div className="main-time" syle={{ marginBottom: '1px' }}>
+          <div className="inner-time" style={{ margin: '1px 0' }}>
+            <div className="dod-div" style={{ marginBottom: '1px' }}>
               <div
-                className="container p-3"
-                style={{ textAlign: "center", border: "none" }}
+                className="container p-0"
+                style={{ 
+                  textAlign: "center", 
+                  border: "none",
+                  margin: '1px 0'
+                }}
               >
-                <span>
+                <span style={{ margin: '1px 0', display: 'block' }}>
                   <Countdown
-                    date={
-                      Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)
-                    }
+                    date={Date.now() + parseInt(process.env.REACT_APP_OFFER_TIME)}
                     ref={ref}
                     renderer={(e) => <OfferCountdown />}
                     intervalDelay={1000}
@@ -269,14 +300,11 @@ const Home = () => {
                 </span>
               </div>
             </div>
-            {/* <div className="sale_text">
-                            <button className="btn-sale-is-live">SALE IS LIVE</button>
-                        </div> */}
           </div>
         </div>
 
         {isLoader ? (
-          <Row xs={2} md={2} className="g-0 mt-2">
+          <Row xs={2} md={2} className="g-0" style={{ marginBottom: '1px' }}>
             <Col>
               <SkeletonLoader />
             </Col>
@@ -294,21 +322,21 @@ const Home = () => {
           productsArray?.map((item) => {
             return (
               item?.products?.length > 0 && (
-                <div>
-                  <h4 className="card-title text-center fw-bold my-3">{`${item.categoryName} Collection`}</h4>
-                  <Row xs={2} md={2} className="g-0 mt-2">
+                <div style={{ marginBottom: '1px' }}>
+                  <h4 className="card-title text-center fw-bold" style={{ margin: '5px 5px' }}>{`${item.categoryName} Collection`}</h4>
+                  <Row xs={2} md={2} className="g-0" style={{ marginTop: '1px' }}>
                     {item.products.map((product, index) => (
-                      <ProductCard item={product} index={index} />
+                      <ProductCard key={product._id || index} item={product} index={index} />
                     ))}
                   </Row>
                   <Button
-                    className="btn my-3 d-flex justify-content-center align-items-center ripple animated"
+                    className="btn d-flex justify-content-center align-items-center ripple animated"
                     style={{
                       fontWeight: 600,
                       fontSize: "18px",
-                      margin: "auto",
+                      margin: '5px auto',
                       borderWidth: "2px",
-                      padding: "10px 20px",
+                      padding: "5px 20px",
                       borderColor: "var(--them-color)",
                       color: "var(--them-color)",
                       background: "#ffff",
